@@ -1,0 +1,555 @@
+/* ============================================================
+   NEIBOR / Seis Casas  ·  Villa Allende Golf, Córdoba
+   Sistema visual derivado del Brandbook V.26
+   ============================================================ */
+
+/* ---------- 1. Tokens ---------- */
+:root{
+  /* Croma de marca (Brandbook 03 / Códigos) */
+  --tinta:   #131e10;   /* SW 6209 Ripe Olive      */
+  --verde:   #26332d;   /* SW 6433 Inverness       */
+  --salvia:  #c3c5bb;   /* SW 9119 Dirty Martini   */
+  --papel:   #eef4ed;   /* SW 9166 Drift of Mist   */
+  --tierra:  #af5d00;   /* SW 6635 Determined Orange */
+
+  /* Derivados de trabajo */
+  --verde-alto: #1b241f;
+  --papel-2:    #e3e9e1;
+  --linea-clara: rgba(19,30,16,.14);
+  --linea-oscura: rgba(238,244,237,.16);
+  --texto-sobre-claro: rgba(19,30,16,.66);
+  --texto-sobre-oscuro: rgba(238,244,237,.64);
+  --tierra-texto: #8f4c00;
+
+  /* Geometría de marca: el módulo del isotipo corta a 30° */
+  --angulo: 30deg;
+  --radio: 2px;
+
+  /* Ritmo */
+  --gutter: clamp(20px, 4.6vw, 72px);
+  --ancho: 1560px;
+  --bloque: clamp(72px, 11vh, 150px);
+
+  /* Tipografía */
+  --sans: "Host Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --t-display: clamp(2.9rem, 8.4vw, 8.2rem);
+  --t-titulo:  clamp(1.95rem, 5vw, 4.6rem);
+  --t-sub:     clamp(1.35rem, 2.5vw, 2.3rem);
+  --t-dato:    clamp(3.2rem, 10vw, 8rem);
+  --t-cuerpo:  clamp(1rem, .55vw + .88rem, 1.15rem);
+  --t-rotulo:  .6875rem;
+
+  --easing: cubic-bezier(.16,1,.3,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; overflow-x:clip; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  margin:0;
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:var(--sans);
+  font-size:var(--t-cuerpo);
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ display:block; max-width:100%; }
+a{ color:inherit; }
+button{ font:inherit; color:inherit; }
+
+::selection{ background:var(--tierra); color:var(--papel); }
+
+/* ---------- 2. Utilidades de estructura ---------- */
+.envoltura{ width:100%; max-width:var(--ancho); margin-inline:auto; padding-inline:var(--gutter); }
+.seccion{ position:relative; padding-block:var(--bloque); }
+.seccion--oscura{ background:var(--verde); color:var(--papel); }
+.seccion--tinta{ background:var(--tinta); color:var(--papel); }
+.seccion--clara{ background:var(--papel); color:var(--tinta); }
+.seccion--salvia{ background:var(--salvia); color:var(--tinta); }
+
+/* Rótulo vertical en el borde: recurso del feed de marca */
+.rotulo-vertical{
+  position:absolute; top:var(--bloque); right:calc(var(--gutter) * .35);
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-size:clamp(2.6rem, 5.4vw, 5.6rem); font-weight:300;
+  letter-spacing:-.02em; line-height:1;
+  color:currentColor; opacity:.11; pointer-events:none; user-select:none;
+}
+@media (max-width: 900px){ .rotulo-vertical{ display:none; } }
+
+/* Cabecera de sección: índice numerado + título */
+.indice{
+  display:flex; align-items:baseline; gap:.9rem;
+  font-size:var(--t-rotulo); font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+}
+.indice__n{ font-size:1.05rem; letter-spacing:0; font-weight:500; opacity:.45; }
+.indice::after{ content:""; flex:1; height:1px; background:currentColor; opacity:.2; }
+
+.corchete{
+  font-size:var(--t-rotulo); font-weight:600; letter-spacing:.22em; text-transform:uppercase;
+}
+.corchete::before{ content:"[ "; opacity:.45; }
+.corchete::after{ content:" ]"; opacity:.45; }
+
+.titulo{
+  font-size:var(--t-titulo); font-weight:500; line-height:.99;
+  letter-spacing:-.032em; margin:.55em 0 0; max-width:17ch; text-wrap:balance;
+}
+.titulo--ancho{ max-width:24ch; }
+.titulo em{ font-style:normal; color:var(--tierra); }
+.seccion--oscura .titulo em,.seccion--tinta .titulo em{ color:var(--salvia); }
+
+.parrafo{ max-width:56ch; color:var(--texto-sobre-claro); margin:1.5em 0 0; }
+.seccion--oscura .parrafo,.seccion--tinta .parrafo{ color:var(--texto-sobre-oscuro); }
+.parrafo b, .parrafo strong{ color:inherit; font-weight:600; opacity:1; }
+.seccion--oscura .parrafo b{ color:var(--papel); }
+
+.nota{
+  font-size:.78rem; line-height:1.5; letter-spacing:.01em;
+  color:var(--texto-sobre-claro); opacity:.75; max-width:60ch;
+}
+.seccion--oscura .nota,.seccion--tinta .nota{ color:var(--texto-sobre-oscuro); }
+
+/* Marca de dato pendiente: visible a propósito, fácil de encontrar y quitar */
+.pendiente{
+  display:inline-flex; align-items:center; gap:.4em;
+  font-size:.66rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--tierra-texto); border:1px solid currentColor;
+  padding:.32em .7em; border-radius:10px; vertical-align:middle; line-height:1.45;
+}
+.seccion--oscura .pendiente,.seccion--tinta .pendiente{ color:#d79a52; }
+
+/* ---------- 3. Figuras con el corte de marca (30°) ---------- */
+.fig{ position:relative; overflow:hidden; background:var(--salvia); border-radius:var(--radio); }
+.fig img{ width:100%; height:100%; object-fit:cover; }
+.fig--16x9{ aspect-ratio:16/9; }
+.fig--3x2 { aspect-ratio:3/2; }
+.fig--4x3 { aspect-ratio:4/3; }
+.fig--4x5 { aspect-ratio:4/5; }
+.fig--1x1 { aspect-ratio:1/1; }
+
+/* El corte usa siempre el mismo ángulo del isotipo (30° sobre la horizontal).
+   El porcentaje vertical se calcula por relación de aspecto para no deformarlo. */
+.corte-si.fig--16x9{ clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0); }
+.corte-td.fig--16x9{ clip-path:polygon(0 0, 100% 0, 100% 82.3%, 0 100%); }   /* 10% ancho -> 10*.5774*1.778 */
+.corte-ti.fig--16x9{ clip-path:polygon(0 17.7%, 100% 0, 100% 100%, 0 100%); }
+.corte-td.fig--3x2 { clip-path:polygon(0 0, 100% 0, 100% 82.7%, 0 100%); }
+.corte-ti.fig--3x2 { clip-path:polygon(0 17.3%, 100% 0, 100% 100%, 0 100%); }
+.corte-ti.fig--4x3 { clip-path:polygon(0 15.4%, 100% 0, 100% 100%, 0 100%); }
+.corte-td.fig--4x3 { clip-path:polygon(0 0, 100% 0, 100% 84.6%, 0 100%); }
+.corte-ti.fig--4x5 { clip-path:polygon(0 9.2%, 100% 0, 100% 100%, 0 100%); }
+.corte-ti.fig--1x1 { clip-path:polygon(0 11.5%, 100% 0, 100% 100%, 0 100%); }
+
+.fig figcaption{
+  position:absolute; left:clamp(.7rem,1.4vw,1.1rem); bottom:clamp(.7rem,1.4vw,1.1rem);
+  padding:.5em .85em; border-radius:999px;
+  background:rgba(19,30,16,.74); backdrop-filter:blur(6px);
+  font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; font-weight:600;
+  color:var(--papel);
+}
+
+/* Trama de módulos del brandbook, como textura de fondo */
+.trama{
+  position:absolute; inset:0; pointer-events:none; opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'><path d='M0 0 L44 25.4 L44 44 L0 44 Z' fill='%23c3c5bb'/></svg>");
+  background-size:56px 56px;
+}
+
+/* ---------- 4. Botones: exactamente dos niveles ---------- */
+.btn{
+  --fondo:var(--tinta); --tinte:var(--papel);
+  display:inline-flex; align-items:center; gap:.7em;
+  padding:1.02em 1.6em; border:1px solid transparent; border-radius:999px;
+  background:var(--fondo); color:var(--tinte);
+  font-size:.9rem; font-weight:600; letter-spacing:.01em; text-decoration:none;
+  cursor:pointer; transition:transform .45s var(--easing), background .3s, color .3s, border-color .3s;
+  will-change:transform;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
+.btn .flecha{ width:.85em; height:.85em; flex:none; transition:transform .45s var(--easing); }
+.btn:hover .flecha{ transform:translate(3px,-3px); }
+
+.btn--fantasma{ --fondo:transparent; --tinte:currentColor; border-color:currentColor; opacity:.85; }
+.btn--fantasma:hover{ opacity:1; }
+.seccion--oscura .btn,.seccion--tinta .btn,.hero .btn{ --fondo:var(--papel); --tinte:var(--tinta); }
+.seccion--oscura .btn--fantasma,.seccion--tinta .btn--fantasma,.hero .btn--fantasma{ --fondo:transparent; --tinte:var(--papel); }
+
+.acciones{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2.2rem; }
+
+/* ---------- 5. Cabecera ---------- */
+.cabecera{
+  position:fixed; inset:0 0 auto; z-index:60;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:1.1rem var(--gutter);
+  color:var(--papel);
+  transition:background .5s var(--easing), padding .5s var(--easing), color .4s, backdrop-filter .5s;
+}
+.cabecera::after{
+  content:""; position:absolute; inset:0; z-index:-1; opacity:0;
+  background:linear-gradient(to bottom, rgba(19,30,16,.94), rgba(19,30,16,.88));
+  backdrop-filter:saturate(1.2) blur(10px); transition:opacity .5s var(--easing);
+}
+.cabecera.pegada{ padding-block:.7rem; }
+.cabecera.pegada::after{ opacity:1; }
+.cabecera__logo img{ height:clamp(26px,2.4vw,34px); width:auto; transition:height .5s var(--easing); }
+.cabecera.pegada .cabecera__logo img{ height:26px; }
+
+.menu{ display:flex; gap:clamp(1rem,2.2vw,2.4rem); list-style:none; margin:0; padding:0; }
+.menu a{
+  text-decoration:none; font-size:.8rem; font-weight:500; letter-spacing:.04em;
+  opacity:.78; position:relative; padding-block:.3rem; transition:opacity .3s;
+}
+.menu a::after{
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+  background:var(--tierra); transition:right .5s var(--easing);
+}
+.menu a:hover{ opacity:1; }
+.menu a:hover::after{ right:0; }
+.menu li:nth-child(n+4){ display:none; }
+@media (min-width:1120px){ .menu li:nth-child(n+4){ display:block; } }
+@media (max-width:860px){ .menu{ display:none; } }
+
+.cabecera__cta{ display:flex; align-items:center; gap:.6rem; }
+.cabecera .btn{ padding:.72em 1.15em; font-size:.8rem; }
+@media (max-width:520px){ .cabecera__cta .btn--fantasma{ display:none; } }
+
+/* ---------- 6. Hero ---------- */
+.hero{ position:relative; background:var(--tinta); color:var(--papel); }
+.hero__media{ position:relative; height:100svh; min-height:560px; overflow:hidden; }
+.hero__media picture{ display:block; height:100%; }
+.hero__media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.07); }
+.hero__media::after{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(to bottom, rgba(19,30,16,.55) 0%, rgba(19,30,16,0) 34%, rgba(19,30,16,0) 55%, rgba(19,30,16,.72) 100%),
+    linear-gradient(to right, rgba(19,30,16,.42), rgba(19,30,16,0) 58%);
+}
+.hero__capa{
+  position:absolute; inset:0; z-index:2;
+  display:grid; grid-template-rows:auto 1fr auto;
+  padding:clamp(84px,11vh,132px) var(--gutter) clamp(30px,5vh,56px);
+}
+.hero__meta{
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap;
+  font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; font-weight:600;
+  opacity:.82;
+}
+.hero__meta span+span{ opacity:.7; }
+
+/* Titular partido en dos frases: recurso tipográfico del brandbook */
+.hero__frase{ font-size:var(--t-display); font-weight:500; line-height:.9; letter-spacing:-.042em; margin:0; }
+.hero__frase--a{ align-self:center; justify-self:start; max-width:14ch; }
+.hero__frase--b{ align-self:end; justify-self:end; text-align:right; max-width:14ch; }
+.hero__frase--b .liviana{ font-weight:300; }
+.hero__fila{ display:grid; align-items:center; }
+
+.hero__pie{
+  position:relative; z-index:3; background:var(--tinta);
+  display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(1.5rem,4vw,4rem);
+  align-items:end; padding:clamp(1.8rem,3.2vw,2.8rem) var(--gutter) clamp(1.8rem,3vw,2.6rem);
+}
+.hero__bajada{ font-size:clamp(1.25rem,2vw,1.95rem); font-weight:400; line-height:1.24; letter-spacing:-.022em; margin:0; max-width:28ch; }
+.hero__bajada b{ font-weight:600; }
+.hero__pie .acciones{ margin-top:0; justify-content:flex-end; }
+@media (max-width:860px){
+  .hero__pie{ grid-template-columns:1fr; align-items:start; }
+  .hero__pie .acciones{ justify-content:flex-start; }
+  .hero__frase--a{ max-width:11ch; }
+  .hero__frase--b{ justify-self:start; text-align:left; max-width:11ch; }
+}
+
+.desplazar{
+  position:absolute; left:var(--gutter); bottom:clamp(30px,5vh,56px); z-index:3;
+  display:inline-flex; align-items:center; gap:.6rem;
+  font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; opacity:.6;
+}
+.desplazar i{ display:block; width:1px; height:34px; background:currentColor; transform-origin:top; animation:caer 2.4s var(--easing) infinite; }
+@keyframes caer{ 0%{transform:scaleY(0);}45%{transform:scaleY(1);}100%{transform:scaleY(0); transform-origin:bottom;} }
+@media (max-width:860px){ .desplazar{ display:none; } }
+
+/* ---------- 7. La manzana ---------- */
+.manzana{ display:grid; grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr); gap:clamp(2rem,5vw,5.5rem); align-items:center; margin-top:clamp(2.4rem,5vw,4.5rem); }
+@media (max-width:960px){ .manzana{ grid-template-columns:1fr; } }
+
+.plano{ position:relative; overflow:hidden; border-radius:var(--radio); }
+.plano__velo{
+  position:absolute; top:-12%; bottom:-12%; left:-20%; right:-20%;
+  background:var(--papel); transform-origin:left center;
+  transform:skewX(-60deg) translateX(0%);
+  transition:transform 1.4s var(--easing);
+}
+.plano.revelado .plano__velo{ transform:skewX(-60deg) translateX(190%); }
+
+.calle{
+  position:absolute; font-size:var(--t-rotulo); font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--tinta); background:var(--papel); padding:.35em .7em; border-radius:999px;
+  opacity:0; transform:translateY(6px); transition:opacity .6s var(--easing), transform .6s var(--easing);
+  white-space:nowrap; box-shadow:0 2px 20px rgba(19,30,16,.18);
+}
+.plano.revelado .calle{ opacity:1; transform:none; }
+.plano.revelado .calle:nth-of-type(1){ transition-delay:.75s; }
+.plano.revelado .calle:nth-of-type(2){ transition-delay:.9s; }
+.plano.revelado .calle:nth-of-type(3){ transition-delay:1.05s; }
+.plano.revelado .calle:nth-of-type(4){ transition-delay:1.2s; }
+/* Posiciones tomadas sobre la axonométrica de proyecto */
+.calle{ transform:translate(-50%,-50%) translateY(6px); }
+.plano.revelado .calle{ transform:translate(-50%,-50%); }
+.calle--guido{ left:28.5%; top:51%; }
+.calle--ecuador{ left:30%; top:63.5%; }
+.calle--montevideo{ left:50%; top:72.5%; }
+.calle--paraguay{ left:69%; top:63.5%; }
+@media (max-width:560px){ .calle{ font-size:.58rem; padding:.3em .55em; } }
+
+.cifras{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:clamp(2.2rem,4vw,3.4rem); border-top:1px solid var(--linea-clara); padding-top:1.6rem; }
+.seccion--oscura .cifras{ border-color:var(--linea-oscura); }
+.cifra__n{ font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:300; line-height:.9; letter-spacing:-.045em; display:block; }
+.cifra__t{ display:block; margin-top:.7rem; font-size:var(--t-rotulo); letter-spacing:.18em; text-transform:uppercase; font-weight:600; opacity:.6; }
+@media (max-width:560px){ .cifras{ grid-template-columns:1fr; gap:1.1rem; } .cifra{ display:flex; align-items:baseline; gap:1rem; } .cifra__t{ margin-top:0; } }
+
+/* ---------- 8. Concepto ---------- */
+.concepto{ position:relative; }
+.concepto__frase{
+  font-size:clamp(2.3rem,6.6vw,6.2rem); font-weight:500; line-height:.95; letter-spacing:-.04em;
+  margin:clamp(2rem,4vw,3.4rem) 0 0; max-width:16ch;
+}
+.concepto__frase .liviana{ font-weight:300; opacity:.55; display:block; }
+.concepto__cierre{
+  margin-top:clamp(2.6rem,5vw,4.2rem); padding-top:1.8rem; border-top:1px solid var(--linea-oscura);
+  display:flex; justify-content:space-between; align-items:baseline; gap:2rem; flex-wrap:wrap;
+}
+.concepto__cierre p{ font-size:var(--t-sub); font-weight:500; letter-spacing:-.02em; margin:0; }
+
+/* ---------- 9. Arquitectura (scroll fijo) ---------- */
+.arq{ position:relative; }
+.arq__pista{ position:relative; }
+.arq__col{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.82fr); gap:clamp(2rem,5vw,5rem); align-items:start; }
+.arq__sticky{ position:sticky; top:clamp(88px,12vh,140px); }
+.arq__marco{ position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radio); background:var(--verde-alto); }
+.arq__marco img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.06); transition:opacity 1s var(--easing), transform 3s var(--easing); }
+.arq__marco img.viva{ opacity:1; transform:scale(1); }
+.arq__lista{ list-style:none; margin:0; padding:0; }
+.arq__item{
+  padding:clamp(1.6rem,3.4vw,2.6rem) 0; border-top:1px solid var(--linea-oscura);
+  opacity:.34; transition:opacity .6s var(--easing);
+}
+.arq__item.activo{ opacity:1; }
+.arq__item h3{ font-size:clamp(1.35rem,2.4vw,2.05rem); font-weight:500; letter-spacing:-.028em; margin:0; line-height:1.06; }
+.arq__item h3 span{ font-size:var(--t-rotulo); letter-spacing:.2em; font-weight:600; opacity:.5; display:block; margin-bottom:.7rem; }
+.arq__item p{ margin:.7rem 0 0; color:var(--texto-sobre-oscuro); max-width:44ch; font-size:.97rem; }
+.arq__item .barra{ display:block; height:1px; background:var(--tierra); width:0; margin-top:1.1rem; transition:width .9s var(--easing); }
+.arq__item.activo .barra{ width:56px; }
+@media (max-width:960px){
+  .arq__col{ display:block; }
+  /* En móvil la imagen sigue fija arriba: el listado pasa por debajo
+     y la foto va cambiando con cada material. */
+  .arq__sticky{ top:64px; z-index:2; }
+  .arq__marco{ aspect-ratio:16/10; margin-bottom:1.4rem; }
+  .arq__sticky::after{ content:""; position:absolute; left:0; right:0; top:100%; height:52px;
+    background:linear-gradient(var(--tinta), rgba(19,30,16,0)); pointer-events:none; }
+  .arq__item{ opacity:.42; }
+  .arq__item:first-child{ border-top:0; }
+}
+
+/* ---------- 10. Recorrido por la casa ---------- */
+.paso{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,2rem); align-items:center; margin-top:clamp(3.5rem,8vw,8rem); }
+.paso:first-of-type{ margin-top:clamp(2.4rem,5vw,4.5rem); }
+.paso__fig{ grid-column:1 / 8; }
+.paso__txt{ grid-column:9 / 13; }
+.paso--inv .paso__fig{ grid-column:6 / 13; order:2; }
+.paso--inv .paso__txt{ grid-column:1 / 5; order:1; }
+.paso__n{ font-size:var(--t-rotulo); letter-spacing:.2em; font-weight:600; opacity:.45; }
+.paso__txt h3{ font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:500; line-height:1.02; letter-spacing:-.03em; margin:.8rem 0 0; }
+.paso__txt p{ margin:1rem 0 0; color:var(--texto-sobre-claro); font-size:.99rem; }
+@media (max-width:900px){
+  .paso,.paso--inv{ grid-template-columns:1fr; }
+  .paso__fig,.paso--inv .paso__fig{ grid-column:1/-1; order:1; }
+  .paso__txt,.paso--inv .paso__txt{ grid-column:1/-1; order:2; }
+}
+
+/* Tira de detalle horizontal */
+.tira{ display:flex; gap:clamp(.8rem,1.6vw,1.4rem); overflow-x:auto; scroll-snap-type:x mandatory; padding-block:clamp(2.6rem,5vw,4rem) .8rem; margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter); scrollbar-width:none; }
+.tira::-webkit-scrollbar{ display:none; }
+.tira > figure{ flex:0 0 clamp(240px,36vw,460px); scroll-snap-align:start; margin:0; }
+
+/* ---------- 11. El fondo (bloque inmersivo) ---------- */
+.fondo{ position:relative; min-height:88svh; display:grid; align-items:end; overflow:hidden; }
+.fondo__img{ position:absolute; inset:0; }
+.fondo__img img{ width:100%; height:100%; object-fit:cover; }
+.fondo__img::after{ content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(19,30,16,.92) 0%, rgba(19,30,16,.82) 26%, rgba(19,30,16,.14) 62%, rgba(19,30,16,.45) 100%); }
+.fondo__txt{ position:relative; z-index:2; padding-block:var(--bloque) clamp(2.6rem,5vw,4rem); }
+.fondo__lista{ display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:2rem 0 0; padding:0; }
+.fondo__lista li{ border:1px solid var(--linea-oscura); border-radius:999px; padding:.55em 1.05em; font-size:.82rem; letter-spacing:.02em; }
+
+/* ---------- 12. Las seis casas ---------- */
+.bisagra{ background:var(--salvia); color:var(--tinta); padding-block:clamp(2.4rem,5vw,4rem); }
+.bisagra__txt{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:baseline; }
+.bisagra p{ margin:0; font-size:var(--t-sub); font-weight:500; letter-spacing:-.02em; max-width:26ch; }
+
+.seis{ display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(1.6rem,3.5vw,3.5rem); margin-top:clamp(2.4rem,5vw,4rem); align-items:start; }
+@media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
+
+.implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }
+.implantacion img{ width:100%; height:auto; }
+.chincheta{
+  position:absolute; transform:translate(-50%,-50%);
+  width:38px; height:38px; border-radius:999px; display:grid; place-items:center;
+  background:rgba(238,244,237,.9); color:var(--tinta); border:1px solid rgba(19,30,16,.18);
+  font-size:.74rem; font-weight:700; letter-spacing:.02em; cursor:pointer;
+  transition:transform .4s var(--easing), background .3s, color .3s, box-shadow .3s;
+  box-shadow:0 3px 16px rgba(19,30,16,.22);
+}
+.chincheta:hover{ transform:translate(-50%,-50%) scale(1.1); }
+.chincheta[aria-pressed="true"]{ background:var(--tierra); color:var(--papel); border-color:var(--tierra); box-shadow:0 0 0 8px rgba(175,93,0,.18); }
+.chincheta:focus-visible{ outline:2px solid var(--tierra); outline-offset:4px; }
+@media (max-width:620px){ .chincheta{ width:30px; height:30px; font-size:.66rem; } }
+
+.ficha{ border-top:2px solid var(--tinta); padding-top:1.4rem; }
+.ficha__enc{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
+.ficha__enc h3{ font-size:clamp(2rem,4vw,3.1rem); font-weight:500; letter-spacing:-.035em; margin:0; line-height:1; }
+.ficha__estado{ font-size:var(--t-rotulo); letter-spacing:.18em; text-transform:uppercase; font-weight:600; color:var(--tierra-texto); }
+.ficha dl{ margin:1.6rem 0 0; display:grid; grid-template-columns:auto 1fr; gap:.05rem 1.2rem; }
+.ficha dt{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; font-weight:600; opacity:.5; padding-block:.85rem; border-top:1px solid var(--linea-clara); }
+.ficha dd{ margin:0; padding-block:.85rem; border-top:1px solid var(--linea-clara); text-align:right; font-weight:500; }
+.ficha dt:first-of-type,.ficha dd:first-of-type{ border-top:0; }
+.selector{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.6rem; }
+.selector button{
+  border:1px solid var(--linea-clara); background:transparent; border-radius:999px;
+  padding:.6em 1.05em; font-size:.82rem; font-weight:600; cursor:pointer; transition:all .3s var(--easing);
+}
+.selector button[aria-pressed="true"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
+.selector button:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
+
+/* ---------- 13. Ubicación ---------- */
+.ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); margin-top:clamp(2.4rem,5vw,4rem); }
+.ubic__a{ grid-column:1/8; }
+.ubic__b{ grid-column:8/13; display:grid; gap:clamp(1rem,2vw,1.8rem); align-content:start; }
+@media (max-width:900px){ .ubic__a,.ubic__b{ grid-column:1/-1; } }
+.refs{ list-style:none; margin:1.6rem 0 0; padding:0; }
+.refs li{ display:flex; justify-content:space-between; gap:1.2rem; padding:.95rem 0; border-top:1px solid var(--linea-clara); align-items:baseline; }
+.refs li span:last-child{ font-size:.84rem; opacity:.6; text-align:right; white-space:nowrap; }
+
+/* ---------- 14. Confianza ---------- */
+.pasos-compra{ counter-reset:p; list-style:none; margin:clamp(2rem,4vw,3.2rem) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.2rem,2.6vw,2.6rem); }
+@media (max-width:820px){ .pasos-compra{ grid-template-columns:1fr; } }
+.pasos-compra li{ counter-increment:p; border-top:1px solid var(--linea-oscura); padding-top:1.4rem; }
+.pasos-compra li::before{ content:"0" counter(p); display:block; font-size:1rem; opacity:.45; margin-bottom:.9rem; }
+.pasos-compra h3{ font-size:1.15rem; font-weight:600; margin:0 0 .6rem; letter-spacing:-.01em; }
+.pasos-compra p{ margin:0; font-size:.94rem; color:var(--texto-sobre-oscuro); }
+
+/* ---------- 15. Contacto ---------- */
+.contacto{ display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:clamp(2rem,5vw,5rem); align-items:start; margin-top:clamp(2.4rem,5vw,4rem); }
+@media (max-width:900px){ .contacto{ grid-template-columns:1fr; } }
+.campo{ display:block; margin-bottom:1.1rem; }
+.campo span{ display:block; font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; font-weight:600; opacity:.55; margin-bottom:.55rem; }
+.campo input,.campo textarea,.campo select{
+  width:100%; font:inherit; font-size:1rem; color:inherit; background:transparent;
+  border:0; border-bottom:1px solid var(--linea-oscura); padding:.75rem 0; border-radius:0;
+  transition:border-color .3s;
+}
+.campo input:focus,.campo textarea:focus,.campo select:focus{ outline:0; border-color:var(--tierra); }
+.campo textarea{ resize:vertical; min-height:82px; }
+.campo select option{ color:var(--tinta); }
+.intencion{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1.8rem; }
+.intencion input{ position:absolute; opacity:0; pointer-events:none; }
+.intencion label{ border:1px solid var(--linea-oscura); border-radius:999px; padding:.6em 1.05em; font-size:.84rem; cursor:pointer; transition:all .3s var(--easing); }
+.intencion input:checked + label{ background:var(--papel); color:var(--tinta); border-color:var(--papel); }
+.intencion input:focus-visible + label{ outline:2px solid var(--tierra); outline-offset:3px; }
+.datos-directos{ list-style:none; margin:2rem 0 0; padding:0; }
+.datos-directos li{ padding:1.1rem 0; border-top:1px solid var(--linea-oscura); }
+.datos-directos a{ text-decoration:none; font-size:clamp(1.1rem,2vw,1.5rem); font-weight:500; letter-spacing:-.02em; }
+.datos-directos small{ display:block; font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; opacity:.5; margin-bottom:.5rem; font-weight:600; }
+
+/* ---------- 16. Pie ---------- */
+.pie{ background:var(--tinta); color:var(--papel); padding:clamp(3rem,6vw,5rem) 0 clamp(6.5rem,9vw,7.5rem); }
+.pie__top{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:flex-end; padding-bottom:2.4rem; border-bottom:1px solid var(--linea-oscura); }
+.pie__logo img{ height:clamp(34px,4vw,54px); }
+.pie__bajo{ display:flex; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; padding-top:1.6rem; font-size:.76rem; opacity:.55; letter-spacing:.02em; }
+
+/* ---------- 17. Barra fija de conversión ---------- */
+.barra{
+  position:fixed; left:0; right:0; bottom:0; z-index:55;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:.8rem var(--gutter);
+  background:rgba(19,30,16,.93); backdrop-filter:saturate(1.2) blur(12px);
+  color:var(--papel); border-top:1px solid var(--linea-oscura);
+  transform:translateY(105%); transition:transform .6s var(--easing);
+}
+.barra.visible{ transform:none; }
+.barra__txt{ font-size:.86rem; line-height:1.3; }
+.barra__txt b{ display:block; font-weight:600; }
+.barra__txt small{ opacity:.6; font-size:.76rem; }
+.barra .acciones{ margin:0; flex-wrap:nowrap; }
+.barra .btn{ padding:.78em 1.2em; font-size:.82rem; white-space:nowrap; }
+@media (max-width:680px){
+  .barra{ padding:.65rem 1rem; }
+  .barra__txt small{ display:none; }
+  .barra__txt b{ font-size:.82rem; }
+  .barra .btn--fantasma{ display:none; }
+}
+
+/* ---------- 18. Animaciones de entrada ---------- */
+.rev{ opacity:0; transform:translateY(26px); transition:opacity .9s var(--easing), transform .9s var(--easing); }
+.rev.en{ opacity:1; transform:none; }
+.rev-d1{ transition-delay:.09s; } .rev-d2{ transition-delay:.18s; } .rev-d3{ transition-delay:.27s; } .rev-d4{ transition-delay:.36s; }
+.rev-izq{ opacity:0; transform:translateX(-34px); }
+.rev-der{ opacity:0; transform:translateX(34px); }
+.rev-izq.en,.rev-der.en{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion: reduce){
+  .rev,.rev-izq,.rev-der{ opacity:1 !important; transform:none !important; transition:none !important; }
+  .plano__velo{ display:none; }
+  .calle{ opacity:1 !important; transform:none !important; transition:none !important; }
+  .hero__media img{ transform:none; }
+  .desplazar i{ animation:none; }
+  .arq__marco img{ transition:none; }
+  .btn:hover{ transform:none; }
+}
+
+/* ---------- 19. Banda a sangre con placa de marca ----------
+   La placa repite el módulo del isotipo: borde izquierdo lleno
+   y arista superior descendiendo a 30 grados. */
+.banda{ position:relative; height:clamp(440px,86svh,900px); overflow:hidden; background:var(--tinta); }
+.banda > img{ width:100%; height:100%; object-fit:cover; }
+.placa{
+  --pw: clamp(290px, 44vw, 620px);
+  --drop: calc(var(--pw) * .5774);
+  position:absolute; left:0; bottom:0; width:var(--pw);
+  background:var(--papel); color:var(--tinta);
+  clip-path:polygon(0 0, 100% var(--drop), 100% 100%, 0 100%);
+  padding:calc(var(--drop) + 1rem) clamp(1.4rem,2.6vw,2.4rem) clamp(1.4rem,2.4vw,2rem) var(--gutter);
+}
+.placa h2{ font-size:clamp(1.5rem,2.9vw,2.5rem); font-weight:500; line-height:1.02; letter-spacing:-.03em; margin:0; max-width:16ch; }
+.placa__pie{ display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-top:1.6rem; }
+.placa__pie small{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; font-weight:600; opacity:.55; line-height:1.5; }
+.placa__pie img{ height:22px; width:auto; }
+@media (max-width:640px){ .placa{ --pw:82vw; } .placa__pie img{ height:18px; } }
+
+/* Par de imágenes */
+.duo{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(.8rem,1.6vw,1.4rem); }
+@media (max-width:680px){ .duo{ grid-template-columns:1fr; } }
+
+
+/* ---------- 20. Ajustes finos por tamaño ---------- */
+@media (max-width:430px){
+  :root{ --t-display:2.45rem; --t-titulo:1.75rem; }
+  .hero__frase--a,.hero__frase--b{ max-width:none; }
+  .placa h2{ font-size:1.28rem; }
+  .fondo__lista li{ font-size:.76rem; padding:.5em .85em; }
+  .ficha dl{ grid-template-columns:1fr; gap:0; }
+  .ficha dt{ border-top:1px solid var(--linea-clara); padding-bottom:.15rem; }
+  .ficha dd{ border-top:0; text-align:left; padding-top:.1rem; padding-bottom:.9rem; }
+  .indice{ gap:.6rem; }
+}
+@media (max-width:900px){
+  .rotulo-vertical{ display:none; }
+  .tira > figure{ flex-basis:78vw; }
+  /* En pantallas chicas el desplazamiento lateral de entrada se cambia por vertical
+     para que ningún bloque asome fuera del ancho de la pantalla. */
+  .rev-izq,.rev-der{ transform:translateY(22px); }
+}
