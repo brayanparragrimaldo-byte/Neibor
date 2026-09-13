@@ -49,4 +49,4 @@ python3 -m http.server 8080
 4. Ajustar las coordenadas de las seis chinchetas con la implantación comercial.
 5. Agregar el texto legal de tratamiento de datos en el formulario.
 6. Definir si se publica la variante de terminaciones de cocina.
-7. Poner la URL absoluta del sitio en `og:image` para que el preview funcione al compartir el link.
+La URL del sitio publicado es https://brayanparragrimaldo-byte.github.io/neibor-web/ y ya está puesta en las etiquetas Open Graph. Si el repositorio cambia de nombre o de dueño, hay que actualizarlas en el `<head>` de `index.html`.
