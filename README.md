@@ -43,10 +43,15 @@ python3 -m http.server 8080
 
 ## Pendiente antes de considerarla terminada
 
-1. Confirmar GRAB o GRAP.
-2. Confirmar que el WhatsApp del manual es el canal comercial oficial.
-3. Completar las etiquetas de pendiente o quitar los bloques que las contienen.
-4. Ajustar las coordenadas de las seis chinchetas con la implantación comercial.
-5. Agregar el texto legal de tratamiento de datos en el formulario.
-6. Definir si se publica la variante de terminaciones de cocina.
+El detalle completo, con lo que entró desde el mock up y lo que sigue faltando, está en `CAMBIOS-MOCKUP-V1.md`. En corto:
+
+1. Valores, forma de pago y disponibilidad por casa.
+2. Confirmar qué letra corresponde a cada lote sobre el plano de implantación.
+3. Logotipos de GRAB, Autónomo y Calsina en vectorial.
+4. Plano de planta de la unidad.
+5. Coordenadas exactas del predio para el enlace a Google Maps.
+6. Imagen aérea del proyecto en alta resolución para el hero.
+7. Identificador de Google Tag Manager o GA4 para activar la medición.
+8. Texto legal de tratamiento de datos en el formulario.
+
 La URL del sitio publicado es https://brayanparragrimaldo-byte.github.io/Neibor/ y ya está puesta en las etiquetas Open Graph. Si el repositorio cambia de nombre o de dueño, hay que actualizarlas en el `<head>` de `index.html`.

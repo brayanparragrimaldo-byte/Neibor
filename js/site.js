@@ -7,19 +7,24 @@
 
   var WA = '5493517570326';                 // Lucas Bonzano, según Brandbook V.26
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.dataLayer = window.dataLayer || [];
 
   /* ---------- Las seis casas ----------------------------------------
      Coordenadas en % sobre la imagen de implantación (implantacion-ingresos.jpg).
      Lectura orientativa del plano de proyecto: ajustar con la
      implantación comercial definitiva antes de publicar.
   ------------------------------------------------------------------- */
+  /* Planilla del desarrollo (mock up v1, slide 8).
+     Las seis casas se identifican por letra y en orden deletrean NEIBOR.
+     x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
+     de cada letra se dedujo de la orientación de fondo declarada. */
   var CASAS = [
-    { n:'Casa 01', x:59.6, y:27.1, frente:'Ecuador',    ubic:'Vértice norte de la manzana',     estado:'Consultar' },
-    { n:'Casa 02', x:56.8, y:37.6, frente:'Guido',      ubic:'Frente este, sobre el arbolado',  estado:'Consultar' },
-    { n:'Casa 03', x:57.5, y:48.2, frente:'Guido',      ubic:'Frente este, centro de manzana',  estado:'Consultar' },
-    { n:'Casa 04', x:57.5, y:63.5, frente:'Guido',      ubic:'Frente este, hacia Paraguay',     estado:'Consultar' },
-    { n:'Casa 05', x:30.9, y:55.3, frente:'Montevideo', ubic:'Frente oeste, sobre la diagonal', estado:'Consultar' },
-    { n:'Casa 06', x:25.2, y:67.1, frente:'Montevideo', ubic:'Vértice sur, junto al ingreso',   estado:'Consultar' }
+    { letra:'N', n:'Casa N', x:59.6, y:27.1, orient:'Noreste',  terreno:'660 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'E', n:'Casa E', x:56.8, y:37.6, orient:'Este',     terreno:'515 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'I', n:'Casa I', x:57.5, y:48.2, orient:'Este',     terreno:'500 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'B', n:'Casa B', x:57.5, y:63.5, orient:'Sudeste',  terreno:'544 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'O', n:'Casa O', x:30.9, y:55.3, orient:'Noroeste', terreno:'525 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'R', n:'Casa R', x:25.2, y:67.1, orient:'Noroeste', terreno:'756 m²', cub:'225 m²', estado:'Consultar' }
   ];
 
   function $(s, c) { return (c || document).querySelector(s); }
@@ -114,24 +119,25 @@
       b.className = 'chincheta';
       b.style.left = c.x + '%';
       b.style.top = c.y + '%';
-      b.textContent = String(i + 1).padStart(2, '0');
+      b.textContent = c.letra;
       b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-      b.setAttribute('aria-label', c.n + ', frente a ' + c.frente);
+      b.setAttribute('aria-label', c.n + ', terreno de ' + c.terreno);
       b.setAttribute('data-casa', i);
       impl.appendChild(b);
     });
 
 
     var nombre = $('#ficha-nombre'), estado = $('#ficha-estado'),
-        frente = $('#ficha-frente'), ubic = $('#ficha-ubic');
+        orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub');
 
     function elegir(i) {
       var c = CASAS[i];
       if (!c) return;
       nombre.textContent = c.n;
       estado.textContent = c.estado;
-      frente.textContent = c.frente;
-      ubic.textContent = c.ubic;
+      orient.textContent = c.orient;
+      terreno.textContent = c.terreno;
+      cub.textContent = c.cub;
       $$('[data-casa]').forEach(function (b) {
         b.setAttribute('aria-pressed', parseInt(b.getAttribute('data-casa'), 10) === i ? 'true' : 'false');
       });
@@ -206,6 +212,115 @@
         '&body=' + encodeURIComponent(armar());
     });
   }
+
+  /* ---------- 9. Plano o axonométrica ---------- */
+  if (impl) {
+    var capas = $$('.capa', impl);
+    $$('[data-vista]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-vista');
+        $$('[data-vista]').forEach(function (o) {
+          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+        });
+        capas.forEach(function (c) {
+          c.classList.toggle('viva', c.getAttribute('data-capa') === v);
+        });
+        /* Las chinchetas sólo tienen sentido sobre el plano */
+        impl.classList.toggle('axo', v !== 'plano');
+      });
+    });
+  }
+
+  /* ---------- 10. Galería a pantalla completa ---------- */
+  var pista = $('#galeria-pista');
+  if (pista) {
+    var slides = $$('.galeria__slide', pista);
+    var barra = $('#galeria-barra');
+    var actual = 0, reloj = null;
+    var DURACION = 5000;
+
+    slides.forEach(function () {
+      var t = document.createElement('span');
+      t.className = 'galeria__tramo';
+      t.appendChild(document.createElement('i'));
+      barra.appendChild(t);
+    });
+    var tramos = $$('.galeria__tramo', barra);
+
+    function marcar(i) {
+      tramos.forEach(function (t, k) {
+        t.classList.toggle('vista', k < i);
+        t.classList.remove('activo');
+      });
+      if (!reduce) {
+        /* reiniciar la animación del tramo activo */
+        var t = tramos[i];
+        t.querySelector('i').style.width = '0';
+        void t.offsetWidth;
+        t.classList.add('activo');
+      } else {
+        tramos[i].classList.add('vista');
+      }
+    }
+    function ir(i, suave) {
+      actual = (i + slides.length) % slides.length;
+      pista.scrollTo({ left: slides[actual].offsetLeft, behavior: suave === false || reduce ? 'auto' : 'smooth' });
+      marcar(actual);
+    }
+    function arrancar() {
+      if (reduce) return;
+      detener();
+      reloj = setInterval(function () { ir(actual + 1); }, DURACION);
+    }
+    function detener() { if (reloj) { clearInterval(reloj); reloj = null; } }
+
+    $('#gal-ant').addEventListener('click', function () { ir(actual - 1); arrancar(); });
+    $('#gal-sig').addEventListener('click', function () { ir(actual + 1); arrancar(); });
+    pista.addEventListener('pointerdown', detener);
+    pista.addEventListener('mouseenter', detener);
+    pista.addEventListener('mouseleave', arrancar);
+    pista.addEventListener('scroll', function () {
+      var i = Math.round(pista.scrollLeft / pista.clientWidth);
+      if (i !== actual && slides[i]) { actual = i; marcar(actual); }
+    }, { passive: true });
+
+    /* sólo corre mientras la galería está en pantalla */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (e) { e.isIntersecting ? arrancar() : detener(); });
+      }, { threshold: 0.4 }).observe(pista);
+    } else { arrancar(); }
+    marcar(0);
+  }
+
+  /* ---------- 11. Medición de clicks ----------
+     Los eventos se empujan a dataLayer, que es lo que leen Google Tag
+     Manager, GA4 o Meta. Cuando haya cuenta se conecta sin tocar esto. */
+  function evento(nombre, datos) {
+    window.dataLayer = window.dataLayer || [];
+    var d = { event: nombre };
+    for (var k in datos) { if (Object.prototype.hasOwnProperty.call(datos, k)) d[k] = datos[k]; }
+    window.dataLayer.push(d);
+  }
+  function seccionDe(el) {
+    var s = el.closest ? el.closest('section') : null;
+    return (s && s.id) || 'sin-seccion';
+  }
+  document.addEventListener('click', function (e) {
+    var wa = e.target.closest ? e.target.closest('[data-wa]') : null;
+    if (wa) {
+      evento('click_whatsapp', { marca: wa.getAttribute('data-marca') || 'grab', seccion: seccionDe(wa) });
+      return;
+    }
+    var ev = e.target.closest ? e.target.closest('[data-evento]') : null;
+    if (ev) evento(ev.getAttribute('data-evento'), { seccion: seccionDe(ev) });
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.id === 'form') {
+      var r = document.querySelector('input[name="intencion"]:checked');
+      evento('envio_formulario', { intencion: r ? r.value : 'sin-dato' });
+    }
+  });
 
   /* ---------- 9. Navegación interna suave con cabecera fija ---------- */
   document.addEventListener('click', function (e) {

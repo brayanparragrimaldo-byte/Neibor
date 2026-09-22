@@ -265,7 +265,7 @@ button{ font:inherit; color:inherit; }
 }
 
 .desplazar{
-  position:absolute; left:var(--gutter); bottom:clamp(30px,5vh,56px); z-index:3;
+  position:absolute; left:50%; transform:translateX(-50%); bottom:clamp(22px,3.4vh,40px); z-index:3;
   display:inline-flex; align-items:center; gap:.6rem;
   font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; opacity:.6;
 }
@@ -553,3 +553,147 @@ button{ font:inherit; color:inherit; }
      para que ningún bloque asome fuera del ancho de la pantalla. */
   .rev-izq,.rev-der{ transform:translateY(22px); }
 }
+
+/* ============================================================
+   21. Incorporaciones del mock up v1
+   ============================================================ */
+
+/* Hero: la imagen manda, el titular acompaña */
+.hero__titular{
+  align-self:end; justify-self:start;
+  font-size:clamp(1.55rem,3.4vw,3.1rem); font-weight:400; line-height:1.06;
+  letter-spacing:-.028em; margin:0; max-width:18ch;
+}
+.hero__titular b{ font-weight:600; }
+.hero__apunte{
+  align-self:end; justify-self:end; text-align:right; margin:0;
+  font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; font-weight:600; opacity:.7;
+}
+@media (max-width:860px){
+  .hero__apunte{ display:none; }
+  .hero__titular{ max-width:14ch; }
+}
+
+/* Íconos de línea */
+.ico{ width:1.9rem; height:1.9rem; flex:none; stroke:currentColor; fill:none;
+  stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
+.ico--sm{ width:1.45rem; height:1.45rem; }
+
+/* 22. Cifras del proyecto */
+.datos{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.4rem,3vw,3rem);
+  margin-top:clamp(2.4rem,5vw,4rem); }
+.dato{ border-top:1px solid var(--linea-clara); padding-top:1.3rem; }
+.seccion--oscura .dato,.seccion--tinta .dato{ border-color:var(--linea-oscura); }
+.dato__n{ display:block; font-size:clamp(2.6rem,6vw,5.4rem); font-weight:300;
+  line-height:.88; letter-spacing:-.045em; }
+.dato__n sup{ font-size:.42em; font-weight:400; top:-1.1em; letter-spacing:0; }
+.dato--rango .dato__n{ font-size:clamp(2.1rem,4.2vw,3.8rem); }
+.dato--rango .dato__n sup{ font-size:.46em; top:-1em; }
+.dato__t{ display:block; margin-top:1rem; font-size:var(--t-rotulo); letter-spacing:.18em;
+  text-transform:uppercase; font-weight:600; opacity:.55; }
+.dato__d{ margin:.7rem 0 0; font-size:.94rem; color:var(--texto-sobre-claro); max-width:30ch; }
+.seccion--oscura .dato__d{ color:var(--texto-sobre-oscuro); }
+@media (max-width:760px){ .datos{ grid-template-columns:1fr; gap:0; }
+  .dato{ padding-block:1.3rem; } }
+
+.mapa-enlace{ display:inline-flex; align-items:center; gap:.7rem; margin-top:clamp(2rem,4vw,3rem);
+  text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:.3rem;
+  font-size:.95rem; font-weight:500; transition:gap .4s var(--easing); }
+.mapa-enlace:hover{ gap:1.1rem; }
+
+/* 23. Amenidades */
+.amen{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:clamp(1.6rem,3vw,2.8rem) clamp(1.6rem,3vw,3rem); margin-top:clamp(2.4rem,5vw,4rem); }
+.amen li{ list-style:none; }
+.amen__ico{ color:var(--tierra); margin-bottom:1rem; display:block; }
+.seccion--oscura .amen__ico,.seccion--tinta .amen__ico{ color:var(--salvia); }
+.amen h3{ font-size:1.02rem; font-weight:600; letter-spacing:-.008em; margin:0; line-height:1.25; }
+.amen p{ margin:.45rem 0 0; font-size:.9rem; color:var(--texto-sobre-claro); }
+.seccion--oscura .amen p,.seccion--tinta .amen p{ color:var(--texto-sobre-oscuro); }
+
+/* 24. Programa de la casa */
+.programa{ list-style:none; margin:clamp(2rem,4vw,3rem) 0 0; padding:0;
+  columns:2; column-gap:clamp(2rem,5vw,4.5rem); }
+@media (max-width:760px){ .programa{ columns:1; } }
+.programa li{ display:flex; align-items:center; gap:1rem; padding:1rem 0;
+  border-top:1px solid var(--linea-clara); break-inside:avoid; font-size:1rem; }
+.seccion--oscura .programa li,.seccion--tinta .programa li{ border-color:var(--linea-oscura); }
+.programa svg{ opacity:.6; }
+
+/* Desplegable de ficha técnica */
+.ficha-tecnica{ margin-top:clamp(2.4rem,4vw,3.4rem); border-top:1px solid var(--linea-clara); }
+.seccion--oscura .ficha-tecnica{ border-color:var(--linea-oscura); }
+.ficha-tecnica summary{
+  list-style:none; cursor:pointer; padding:1.5rem 0; display:flex;
+  align-items:center; justify-content:space-between; gap:1rem;
+  font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; font-weight:600;
+}
+.ficha-tecnica summary::-webkit-details-marker{ display:none; }
+.ficha-tecnica summary:focus-visible{ outline:2px solid var(--tierra); outline-offset:4px; }
+.ficha-tecnica .cruz{ width:14px; height:14px; position:relative; flex:none; }
+.ficha-tecnica .cruz::before,.ficha-tecnica .cruz::after{
+  content:""; position:absolute; background:currentColor; inset:50% 0 auto 0; height:1.5px;
+  transition:transform .45s var(--easing); }
+.ficha-tecnica .cruz::after{ transform:rotate(90deg); }
+.ficha-tecnica[open] .cruz::after{ transform:rotate(0deg); }
+.ficha-tecnica__cuerpo{ padding-bottom:2.4rem;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(1.6rem,3vw,2.6rem); }
+.ficha-tecnica h4{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase;
+  font-weight:600; margin:0 0 .7rem; opacity:.55; }
+.ficha-tecnica p{ margin:0; font-size:.9rem; line-height:1.55; color:var(--texto-sobre-claro); }
+.seccion--oscura .ficha-tecnica p{ color:var(--texto-sobre-oscuro); }
+
+/* 25. Galería a pantalla completa */
+.galeria{ position:relative; background:var(--tinta); overflow:hidden; }
+.galeria__pista{ display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+.galeria__pista::-webkit-scrollbar{ display:none; }
+.galeria__slide{ flex:0 0 100%; scroll-snap-align:start; position:relative;
+  height:clamp(460px,84svh,900px); }
+.galeria__slide img{ width:100%; height:100%; object-fit:cover; }
+.galeria__slide figcaption{
+  position:absolute; left:var(--gutter); bottom:clamp(3.4rem,6vw,4.6rem); z-index:2;
+  color:var(--papel); font-size:clamp(1.1rem,2.1vw,1.7rem); font-weight:500;
+  letter-spacing:-.02em; max-width:18ch; text-shadow:0 2px 30px rgba(19,30,16,.6); }
+.galeria__slide::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(19,30,16,.62), rgba(19,30,16,0) 46%); }
+.galeria__barra{ position:absolute; left:var(--gutter); right:var(--gutter);
+  bottom:clamp(1.5rem,2.6vw,2.2rem); z-index:3; display:flex; gap:.4rem; align-items:center; }
+.galeria__tramo{ flex:1; height:2px; background:rgba(238,244,237,.28); overflow:hidden; }
+.galeria__tramo i{ display:block; height:100%; width:0; background:var(--papel); }
+.galeria__tramo.activo i{ width:100%; transition:width 5s linear; }
+.galeria__tramo.vista i{ width:100%; }
+.galeria__nav{ position:absolute; right:var(--gutter); bottom:clamp(3.2rem,6vw,4.4rem);
+  z-index:3; display:flex; gap:.5rem; }
+.galeria__nav button{ width:44px; height:44px; border-radius:999px; cursor:pointer;
+  background:rgba(238,244,237,.14); border:1px solid rgba(238,244,237,.3); color:var(--papel);
+  display:grid; place-items:center; transition:background .3s; backdrop-filter:blur(6px); }
+.galeria__nav button:hover{ background:rgba(238,244,237,.28); }
+.galeria__nav button:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
+@media (max-width:640px){ .galeria__nav{ display:none; } }
+
+/* 26. Conmutador axonométrica / plano */
+.vistas{ display:flex; gap:.4rem; margin-bottom:1rem; }
+.vistas button{ border:1px solid var(--linea-clara); background:transparent; border-radius:999px;
+  padding:.55em 1.1em; font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase;
+  font-weight:600; cursor:pointer; transition:all .3s var(--easing); }
+.vistas button[aria-pressed="true"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
+.vistas button:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
+.implantacion .capa{ position:absolute; inset:0; opacity:0; transition:opacity .7s var(--easing); }
+.implantacion .capa.viva{ opacity:1; }
+.implantacion .capa img{ width:100%; height:100%; object-fit:cover; }
+.implantacion{ position:relative; }
+.implantacion{ aspect-ratio:730/800; }
+.implantacion .capa picture{ display:block; width:100%; height:100%; }
+.implantacion.axo .chincheta{ opacity:0; pointer-events:none; }
+.chincheta{ transition:transform .4s var(--easing), background .3s, color .3s, box-shadow .3s, opacity .4s; }
+
+/* 27. Banner de marcas */
+.marcas{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.2rem,3vw,2.6rem);
+  margin-top:clamp(2.4rem,5vw,4rem); border-top:1px solid var(--linea-oscura); }
+@media (max-width:760px){ .marcas{ grid-template-columns:1fr; } }
+.marca{ padding-top:1.6rem; border-top:1px solid transparent; margin-top:-1px; }
+.marca__nombre{ font-size:clamp(1.5rem,2.8vw,2.2rem); font-weight:600; letter-spacing:-.03em;
+  margin:0; line-height:1; }
+.marca__rol{ display:block; margin-top:.8rem; font-size:var(--t-rotulo); letter-spacing:.18em;
+  text-transform:uppercase; font-weight:600; opacity:.5; }
