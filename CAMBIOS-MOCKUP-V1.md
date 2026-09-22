@@ -27,7 +27,7 @@ Suman 3.500 m² de lotes privados y 1.350 m² cubiertos.
 
 ## Cambios de estructura
 
-1. **Hero.** Pasó a imagen aérea a sangre con el titular "Menos casas. Más comunidad." en peso liviano, según la indicación de que el titular no debe competir con la imagen.
+1. **Hero.** Pasó a la axonométrica del sector a sangre, con la manzana en color sobre las vecinas en volumen blanco, y el titular "Menos casas. Más comunidad." en peso liviano. Como la imagen es clara, todo el hero se invirtió: tipografía y logotipo en tinta, veladuras claras, y una cabecera que arranca oscura y se vuelve papel al pegarse. En móvil se sirve un recorte vertical centrado en la manzana.
 2. **Nueva sección .01, el proyecto en números.** Tres cifras grandes con el criterio de la captura de referencia, más enlace a Google Maps.
 3. **Nueva sección .07, lo que trae el barrio.** Grilla de íconos de línea dibujados a medida, sin imagen.
 4. **Nueva galería a pantalla completa.** Seis ambientes, avance manual con flechas o deslizando, avance automático cada cinco segundos con barra de progreso, y pausa cuando el usuario interviene o la galería sale de pantalla.
@@ -52,6 +52,6 @@ Suman 3.500 m² de lotes privados y 1.350 m² cubiertos.
 5. Números de WhatsApp diferenciados de GRAB y de Calsina, si más adelante se quieren botones separados.
 6. Plano de planta de la unidad, para el botón que hoy alterna entre plano de implantación y axonométrica.
 7. Coordenadas exactas del predio. El enlace a Google Maps hoy abre una búsqueda sobre la esquina de Ecuador y Guido.
-8. Imagen aérea del proyecto en alta resolución para el hero. La actual es una foto aérea de Villa Allende.
+8. Definir qué imagen lleva la sección .02, la manzana: hoy repite la misma axonométrica que el hero. Alternativas: un encuadre más cerrado sobre el terreno, o la vista satelital real.
 9. Fecha de entrega, plazo de obra, fiduciaria o escribanía interviniente.
 10. Identificador de Google Tag Manager o GA4 para que los eventos empiecen a registrarse.

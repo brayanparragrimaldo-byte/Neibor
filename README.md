@@ -50,7 +50,7 @@ El detalle completo, con lo que entró desde el mock up y lo que sigue faltando,
 3. Logotipos de GRAB, Autónomo y Calsina en vectorial.
 4. Plano de planta de la unidad.
 5. Coordenadas exactas del predio para el enlace a Google Maps.
-6. Imagen aérea del proyecto en alta resolución para el hero.
+6. Definir la imagen de la sección .02, que hoy repite la axonométrica del hero.
 7. Identificador de Google Tag Manager o GA4 para activar la medición.
 8. Texto legal de tratamiento de datos en el formulario.
 
