@@ -81,15 +81,6 @@ button{ font:inherit; color:inherit; }
 }
 @media (max-width: 900px){ .rotulo-vertical{ display:none; } }
 
-/* Cabecera de sección: índice numerado + título */
-.indice{
-  display:flex; align-items:baseline; gap:.9rem;
-  font-size:var(--t-rotulo); font-weight:600;
-  letter-spacing:.2em; text-transform:uppercase;
-}
-.indice__n{ font-size:1.05rem; letter-spacing:0; font-weight:500; opacity:.45; }
-.indice::after{ content:""; flex:1; height:1px; background:currentColor; opacity:.2; }
-
 .corchete{
   font-size:var(--t-rotulo); font-weight:600; letter-spacing:.22em; text-transform:uppercase;
 }
@@ -98,7 +89,7 @@ button{ font:inherit; color:inherit; }
 
 .titulo{
   font-size:var(--t-titulo); font-weight:500; line-height:.99;
-  letter-spacing:-.032em; margin:.55em 0 0; max-width:17ch; text-wrap:balance;
+  letter-spacing:-.032em; margin:0; max-width:17ch; text-wrap:balance;
 }
 .titulo--ancho{ max-width:24ch; }
 .titulo em{ font-style:normal; color:var(--tierra); }
@@ -544,7 +535,6 @@ button{ font:inherit; color:inherit; }
   .ficha dl{ grid-template-columns:1fr; gap:0; }
   .ficha dt{ border-top:1px solid var(--linea-clara); padding-bottom:.15rem; }
   .ficha dd{ border-top:0; text-align:left; padding-top:.1rem; padding-bottom:.9rem; }
-  .indice{ gap:.6rem; }
 }
 @media (max-width:900px){
   .rotulo-vertical{ display:none; }
