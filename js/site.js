@@ -54,6 +54,13 @@
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
     aRevelar.forEach(function (el) { obs.observe(el); });
+
+    /* El hero entra siempre, sin esperar al observador: con el titular
+       apoyado abajo, en pantallas altas nunca llegaba a cruzar el umbral. */
+    var enHero = $$('.hero .rev, .hero .rev-izq, .hero .rev-der');
+    setTimeout(function () {
+      enHero.forEach(function (el) { el.classList.add('en'); obs.unobserve(el); });
+    }, 120);
   }
 
   /* ---------- 3. La manzana: velo que descubre el plano ---------- */
