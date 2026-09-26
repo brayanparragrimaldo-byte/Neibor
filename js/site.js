@@ -18,13 +18,17 @@
      Las seis casas se identifican por letra y en orden deletrean NEIBOR.
      x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
      de cada letra se dedujo de la orientación de fondo declarada. */
+  /* Superficies tomadas de los planos por casa (septiembre 2026).
+     Las seis se identifican por letra y en orden deletrean NEIBOR.
+     x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
+     de cada letra se dedujo de la orientación de fondo declarada. */
   var CASAS = [
-    { letra:'N', n:'Casa N', x:59.6, y:27.1, orient:'Noreste',  terreno:'660 m²', cub:'225 m²', estado:'Consultar' },
-    { letra:'E', n:'Casa E', x:56.8, y:37.6, orient:'Este',     terreno:'515 m²', cub:'225 m²', estado:'Consultar' },
-    { letra:'I', n:'Casa I', x:57.5, y:48.2, orient:'Este',     terreno:'500 m²', cub:'225 m²', estado:'Consultar' },
-    { letra:'B', n:'Casa B', x:57.5, y:63.5, orient:'Sudeste',  terreno:'544 m²', cub:'225 m²', estado:'Consultar' },
-    { letra:'O', n:'Casa O', x:30.9, y:55.3, orient:'Noroeste', terreno:'525 m²', cub:'225 m²', estado:'Consultar' },
-    { letra:'R', n:'Casa R', x:25.2, y:67.1, orient:'Noroeste', terreno:'756 m²', cub:'225 m²', estado:'Consultar' }
+    { letra:'N', n:'Casa N', x:59.6, y:27.1, orient:'Noreste',  terreno:'711 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'E', n:'Casa E', x:56.8, y:37.6, orient:'Este',     terreno:'557 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'I', n:'Casa I', x:57.5, y:48.2, orient:'Este',     terreno:'550 m²', cub:'172 m²', semi:'69 m²', total:'241 m²', estado:'Consultar' },
+    { letra:'B', n:'Casa B', x:57.5, y:63.5, orient:'Sudeste',  terreno:'502 m²', cub:'158 m²', semi:'66 m²', total:'224 m²', estado:'Consultar' },
+    { letra:'O', n:'Casa O', x:30.9, y:55.3, orient:'Noroeste', terreno:'595 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'R', n:'Casa R', x:25.2, y:67.1, orient:'Noroeste', terreno:'790 m²', cub:'170 m²', semi:'66 m²', total:'236 m²', estado:'Consultar' }
   ];
 
   function $(s, c) { return (c || document).querySelector(s); }
@@ -63,22 +67,7 @@
     }, 120);
   }
 
-  /* ---------- 3. La manzana: velo que descubre el plano ---------- */
-  var plano = $('#plano-manzana');
-  if (plano) {
-    if (reduce || !('IntersectionObserver' in window)) {
-      plano.classList.add('revelado');
-    } else {
-      var obsPlano = new IntersectionObserver(function (ents) {
-        ents.forEach(function (e) {
-          if (e.isIntersecting) { plano.classList.add('revelado'); obsPlano.disconnect(); }
-        });
-      }, { threshold: 0.35 });
-      obsPlano.observe(plano);
-    }
-  }
-
-  /* ---------- 4. Cifras que suben ---------- */
+  /* ---------- 3. Cifras que suben ---------- */
   var cifras = $$('[data-contar]');
   if (cifras.length && !reduce && 'IntersectionObserver' in window) {
     var obsC = new IntersectionObserver(function (ents) {
@@ -98,26 +87,69 @@
     cifras.forEach(function (el) { obsC.observe(el); });
   }
 
-  /* ---------- 5. Arquitectura: el scroll controla la imagen ---------- */
+  /* ---------- 4. El proyecto: el scroll controla la imagen ----------
+     Gana el punto cuyo centro queda más cerca de la línea de lectura.
+     Se mide cuadro a cuadro, y sólo mientras la secuencia está en
+     pantalla, para que nunca salte puntos ni quede colgada. */
   var arq = $('#arq');
   if (arq) {
     var items = $$('.arq__item', arq);
     var imgs = $$('.arq__marco img', arq);
-    var activo = 0;
-    var obsA = new IntersectionObserver(function (ents) {
-      ents.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        var i = parseInt(e.target.getAttribute('data-arq-item'), 10);
-        if (i === activo) return;
-        activo = i;
-        items.forEach(function (it, k) { it.classList.toggle('activo', k === i); });
-        imgs.forEach(function (im, k) { im.classList.toggle('viva', k === i); });
-      });
-    }, { rootMargin: '-20% 0px -64% 0px', threshold: 0 });
-    items.forEach(function (it) { obsA.observe(it); });
+    var marco = $('.arq__marco', arq);
+    var pegote = $('.arq__sticky', arq);
+    var activo = -1, ultimo = null, corriendo = false;
+
+    function pintar(i) {
+      if (i === activo) return;
+      activo = i;
+      items.forEach(function (it, k) { it.classList.toggle('activo', k === i); });
+      imgs.forEach(function (im, k) { im.classList.toggle('viva', k === i); });
+    }
+
+    /* Apilado (móvil) la foto queda arriba y se lee debajo.
+       En dos columnas se lee a la altura del centro de la foto. */
+    function linea() {
+      var alto = parseFloat(getComputedStyle(pegote).top) || 0;
+      var fin = alto + marco.offsetHeight;
+      return window.innerWidth <= 960
+        ? fin + (window.innerHeight - fin) * 0.3
+        : alto + marco.offsetHeight * 0.5;
+    }
+
+    function medir() {
+      var pos = window.pageYOffset + 'x' + window.innerHeight;
+      if (pos === ultimo) return;
+      ultimo = pos;
+      var y = linea(), mejor = 0, dist = Infinity;
+      for (var k = 0; k < items.length; k++) {
+        var r = items[k].getBoundingClientRect();
+        var d = Math.abs(r.top + r.height / 2 - y);
+        if (d < dist) { dist = d; mejor = k; }
+      }
+      pintar(mejor);
+    }
+
+    function bucle() {
+      if (!corriendo) return;
+      medir();
+      requestAnimationFrame(bucle);
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        var dentro = ents[0].isIntersecting;
+        if (dentro && !corriendo) { corriendo = true; requestAnimationFrame(bucle); }
+        else if (!dentro) { corriendo = false; }
+      }, { rootMargin: '300px 0px 300px 0px' }).observe(arq);
+    } else {
+      corriendo = true;
+      requestAnimationFrame(bucle);
+    }
+    window.addEventListener('resize', function () { ultimo = null; medir(); });
+    medir();
   }
 
-  /* ---------- 6. Las seis casas: chinchetas sobre el plano ---------- */
+  /* ---------- 5. Las seis casas: chinchetas sobre el plano ---------- */
   var impl = $('#implantacion');
   if (impl) {
     CASAS.forEach(function (c, i) {
@@ -135,7 +167,8 @@
 
 
     var nombre = $('#ficha-nombre'), estado = $('#ficha-estado'),
-        orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub');
+        orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub'),
+        semi = $('#ficha-semi'), total = $('#ficha-total'), plano = $('#ficha-plano');
 
     function elegir(i) {
       var c = CASAS[i];
@@ -145,6 +178,10 @@
       orient.textContent = c.orient;
       terreno.textContent = c.terreno;
       cub.textContent = c.cub;
+      semi.textContent = c.semi;
+      total.textContent = c.total;
+      plano.setAttribute('href', 'img/plano-casa-' + c.letra.toLowerCase() + '.jpg');
+      plano.textContent = 'Ver el plano de la ' + c.n;
       $$('[data-casa]').forEach(function (b) {
         b.setAttribute('aria-pressed', parseInt(b.getAttribute('data-casa'), 10) === i ? 'true' : 'false');
       });
@@ -157,7 +194,7 @@
     });
   }
 
-  /* ---------- 7. WhatsApp con mensaje según el lugar del clic ---------- */
+  /* ---------- 6. WhatsApp con mensaje según el lugar del clic ---------- */
   function enlaceWA(texto) {
     return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(texto);
   }
@@ -175,7 +212,7 @@
     });
   });
 
-  /* ---------- 8. Formulario: arma el mensaje y abre el canal ----------
+  /* ---------- 7. Formulario: arma el mensaje y abre el canal ----------
      No hay backend en esta versión. Para conectar un CRM, reemplazar
      armar() por un fetch al endpoint y mantener el fallback.
   ------------------------------------------------------------------- */
@@ -220,7 +257,7 @@
     });
   }
 
-  /* ---------- 9. Plano o axonométrica ---------- */
+  /* ---------- 8. Plano o axonométrica ---------- */
   if (impl) {
     var capas = $$('.capa', impl);
     $$('[data-vista]').forEach(function (b) {
@@ -238,7 +275,7 @@
     });
   }
 
-  /* ---------- 10. Galería a pantalla completa ---------- */
+  /* ---------- 9. Galería a pantalla completa ---------- */
   var pista = $('#galeria-pista');
   if (pista) {
     var slides = $$('.galeria__slide', pista);
@@ -300,7 +337,7 @@
     marcar(0);
   }
 
-  /* ---------- 11. Medición de clicks ----------
+  /* ---------- 10. Medición de clicks ----------
      Los eventos se empujan a dataLayer, que es lo que leen Google Tag
      Manager, GA4 o Meta. Cuando haya cuenta se conecta sin tocar esto. */
   function evento(nombre, datos) {
@@ -329,7 +366,7 @@
     }
   });
 
-  /* ---------- 9. Navegación interna suave con cabecera fija ---------- */
+  /* ---------- 11. Navegación interna suave con cabecera fija ---------- */
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if (!a) return;

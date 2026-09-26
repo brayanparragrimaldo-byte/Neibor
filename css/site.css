@@ -126,7 +126,6 @@ button{ font:inherit; color:inherit; }
 
 /* El corte usa siempre el mismo ángulo del isotipo (30° sobre la horizontal).
    El porcentaje vertical se calcula por relación de aspecto para no deformarlo. */
-.corte-si.fig--16x9{ clip-path:polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0); }
 .corte-td.fig--16x9{ clip-path:polygon(0 0, 100% 0, 100% 82.3%, 0 100%); }   /* 10% ancho -> 10*.5774*1.778 */
 .corte-ti.fig--16x9{ clip-path:polygon(0 17.7%, 100% 0, 100% 100%, 0 100%); }
 .corte-td.fig--3x2 { clip-path:polygon(0 0, 100% 0, 100% 82.7%, 0 100%); }
@@ -234,10 +233,6 @@ button{ font:inherit; color:inherit; }
 .hero__meta span+span{ opacity:.7; }
 
 /* Titular partido en dos frases: recurso tipográfico del brandbook */
-.hero__frase{ font-size:var(--t-display); font-weight:500; line-height:.9; letter-spacing:-.042em; margin:0; }
-.hero__frase--a{ align-self:center; justify-self:start; max-width:14ch; }
-.hero__frase--b{ align-self:end; justify-self:end; text-align:right; max-width:14ch; }
-.hero__frase--b .liviana{ font-weight:300; }
 .hero__fila{ display:grid; align-items:center; }
 
 .hero__pie{
@@ -251,8 +246,6 @@ button{ font:inherit; color:inherit; }
 @media (max-width:860px){
   .hero__pie{ grid-template-columns:1fr; align-items:start; }
   .hero__pie .acciones{ justify-content:flex-start; }
-  .hero__frase--a{ max-width:11ch; }
-  .hero__frase--b{ justify-self:start; text-align:left; max-width:11ch; }
 }
 
 .desplazar{
@@ -264,67 +257,26 @@ button{ font:inherit; color:inherit; }
 @keyframes caer{ 0%{transform:scaleY(0);}45%{transform:scaleY(1);}100%{transform:scaleY(0); transform-origin:bottom;} }
 @media (max-width:860px){ .desplazar{ display:none; } }
 
-/* ---------- 7. La manzana ---------- */
-.manzana{ display:grid; grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr); gap:clamp(2rem,5vw,5.5rem); align-items:center; margin-top:clamp(2.4rem,5vw,4.5rem); }
-@media (max-width:960px){ .manzana{ grid-template-columns:1fr; } }
-
-.plano{ position:relative; overflow:hidden; border-radius:var(--radio); }
-.plano__velo{
-  position:absolute; top:-12%; bottom:-12%; left:-20%; right:-20%;
-  background:var(--papel); transform-origin:left center;
-  transform:skewX(-60deg) translateX(0%);
-  transition:transform 1.4s var(--easing);
-}
-.plano.revelado .plano__velo{ transform:skewX(-60deg) translateX(190%); }
-
-.calle{
-  position:absolute; font-size:var(--t-rotulo); font-weight:600; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--tinta); background:var(--papel); padding:.35em .7em; border-radius:999px;
-  opacity:0; transform:translateY(6px); transition:opacity .6s var(--easing), transform .6s var(--easing);
-  white-space:nowrap; box-shadow:0 2px 20px rgba(19,30,16,.18);
-}
-.plano.revelado .calle{ opacity:1; transform:none; }
-.plano.revelado .calle:nth-of-type(1){ transition-delay:.75s; }
-.plano.revelado .calle:nth-of-type(2){ transition-delay:.9s; }
-.plano.revelado .calle:nth-of-type(3){ transition-delay:1.05s; }
-.plano.revelado .calle:nth-of-type(4){ transition-delay:1.2s; }
-/* Posiciones tomadas sobre la axonométrica de proyecto */
-.calle{ transform:translate(-50%,-50%) translateY(6px); }
-.plano.revelado .calle{ transform:translate(-50%,-50%); }
-.calle--guido{ left:28.5%; top:51%; }
-.calle--ecuador{ left:30%; top:63.5%; }
-.calle--montevideo{ left:50%; top:72.5%; }
-.calle--paraguay{ left:69%; top:63.5%; }
-@media (max-width:560px){ .calle{ font-size:.58rem; padding:.3em .55em; } }
-
+/* ---------- 7. Cifras compactas ---------- */
 .cifras{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:clamp(2.2rem,4vw,3.4rem); border-top:1px solid var(--linea-clara); padding-top:1.6rem; }
-.seccion--oscura .cifras{ border-color:var(--linea-oscura); }
+.seccion--oscura .cifras,.seccion--tinta .cifras{ border-color:var(--linea-oscura); }
 .cifra__n{ font-size:clamp(2.6rem,5.5vw,4.6rem); font-weight:300; line-height:.9; letter-spacing:-.045em; display:block; }
 .cifra__t{ display:block; margin-top:.7rem; font-size:var(--t-rotulo); letter-spacing:.18em; text-transform:uppercase; font-weight:600; opacity:.6; }
 @media (max-width:560px){ .cifras{ grid-template-columns:1fr; gap:1.1rem; } .cifra{ display:flex; align-items:baseline; gap:1rem; } .cifra__t{ margin-top:0; } }
 
-/* ---------- 8. Concepto ---------- */
-.concepto{ position:relative; }
-.concepto__frase{
-  font-size:clamp(2.3rem,6.6vw,6.2rem); font-weight:500; line-height:.95; letter-spacing:-.04em;
-  margin:clamp(2rem,4vw,3.4rem) 0 0; max-width:16ch;
-}
-.concepto__frase .liviana{ font-weight:300; opacity:.55; display:block; }
-.concepto__cierre{
-  margin-top:clamp(2.6rem,5vw,4.2rem); padding-top:1.8rem; border-top:1px solid var(--linea-oscura);
-  display:flex; justify-content:space-between; align-items:baseline; gap:2rem; flex-wrap:wrap;
-}
-.concepto__cierre p{ font-size:var(--t-sub); font-weight:500; letter-spacing:-.02em; margin:0; }
-
-/* ---------- 9. Arquitectura (scroll fijo) ---------- */
+/* ---------- 9. El proyecto: secuencia anclada al scroll ----------
+   Una sola sección cuenta la manzana, la calle, el lote, la materia
+   y el interior. La foto queda fija y cambia con el punto que se lee. */
 .arq{ position:relative; }
 .arq__pista{ position:relative; }
 .arq__col{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.82fr); gap:clamp(2rem,5vw,5rem); align-items:start; }
 .arq__sticky{ position:sticky; top:clamp(88px,12vh,140px); }
+.arq__marco picture{ position:absolute; inset:0; display:block; }
 .arq__marco{ position:relative; aspect-ratio:4/3; overflow:hidden; border-radius:var(--radio); background:var(--verde-alto); }
 .arq__marco img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.06); transition:opacity 1s var(--easing), transform 3s var(--easing); }
 .arq__marco img.viva{ opacity:1; transform:scale(1); }
-.arq__lista{ list-style:none; margin:0; padding:0; }
+/* El aire final deja que la foto siga pegada mientras se lee el último punto */
+.arq__lista{ list-style:none; margin:0; padding:0 0 clamp(2.5rem,16vh,9rem); }
 .arq__item{
   padding:clamp(1.6rem,3.4vw,2.6rem) 0; border-top:1px solid var(--linea-oscura);
   opacity:.34; transition:opacity .6s var(--easing);
@@ -347,42 +299,33 @@ button{ font:inherit; color:inherit; }
   .arq__item:first-child{ border-top:0; }
 }
 
-/* ---------- 10. Recorrido por la casa ---------- */
-.paso{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,2rem); align-items:center; margin-top:clamp(3.5rem,8vw,8rem); }
-.paso:first-of-type{ margin-top:clamp(2.4rem,5vw,4.5rem); }
-.paso__fig{ grid-column:1 / 8; }
-.paso__txt{ grid-column:9 / 13; }
-.paso--inv .paso__fig{ grid-column:6 / 13; order:2; }
-.paso--inv .paso__txt{ grid-column:1 / 5; order:1; }
-.paso__n{ font-size:var(--t-rotulo); letter-spacing:.2em; font-weight:600; opacity:.45; }
-.paso__txt h3{ font-size:clamp(1.5rem,2.8vw,2.4rem); font-weight:500; line-height:1.02; letter-spacing:-.03em; margin:.8rem 0 0; }
-.paso__txt p{ margin:1rem 0 0; color:var(--texto-sobre-claro); font-size:.99rem; }
+/* La sección entra a sangre con la placa y sigue sobre fondo tinta */
+.proy{ position:relative; background:var(--tinta); color:var(--papel); }
+.proy__cuerpo{ position:relative; }
+.banda--entrada{ height:clamp(380px,72svh,760px); }
+.placa .corchete{ display:block; margin-bottom:1.1rem; opacity:.8; }
+
+.proy__intro{ display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+  gap:clamp(2rem,5vw,5rem); align-items:end; }
+.proy__intro .parrafo{ margin-top:0; }
+.proy__frase{ margin:0; font-size:var(--t-sub); font-weight:500; letter-spacing:-.025em;
+  line-height:1.12; color:var(--salvia); }
 @media (max-width:900px){
-  .paso,.paso--inv{ grid-template-columns:1fr; }
-  .paso__fig,.paso--inv .paso__fig{ grid-column:1/-1; order:1; }
-  .paso__txt,.paso--inv .paso__txt{ grid-column:1/-1; order:2; }
+  .proy__intro{ grid-template-columns:1fr; align-items:start; }
+  .proy__frase{ padding-top:1.6rem; border-top:1px solid var(--linea-oscura); }
 }
+.proy .arq__col{ margin-top:clamp(3.4rem,7vw,6rem); }
 
-/* Tira de detalle horizontal */
-.tira{ display:flex; gap:clamp(.8rem,1.6vw,1.4rem); overflow-x:auto; scroll-snap-type:x mandatory; padding-block:clamp(2.6rem,5vw,4rem) .8rem; margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter); scrollbar-width:none; }
-.tira::-webkit-scrollbar{ display:none; }
-.tira > figure{ flex:0 0 clamp(240px,36vw,460px); scroll-snap-align:start; margin:0; }
-
-/* ---------- 11. El fondo (bloque inmersivo) ---------- */
-.fondo{ position:relative; min-height:88svh; display:grid; align-items:end; overflow:hidden; }
-.fondo__img{ position:absolute; inset:0; }
-.fondo__img img{ width:100%; height:100%; object-fit:cover; }
-.fondo__img::after{ content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(19,30,16,.92) 0%, rgba(19,30,16,.82) 26%, rgba(19,30,16,.14) 62%, rgba(19,30,16,.45) 100%); }
-.fondo__txt{ position:relative; z-index:2; padding-block:var(--bloque) clamp(2.6rem,5vw,4rem); }
-.fondo__lista{ display:flex; flex-wrap:wrap; gap:.5rem; list-style:none; margin:2rem 0 0; padding:0; }
-.fondo__lista li{ border:1px solid var(--linea-oscura); border-radius:999px; padding:.55em 1.05em; font-size:.82rem; letter-spacing:.02em; }
+/* Un punto de la secuencia puede llevar su propia cifra */
+.arq__cifra{ display:flex; flex-wrap:wrap; gap:.9rem 2.6rem; margin-top:1.4rem; }
+.arq__cifra b{ display:block; font-size:clamp(1.25rem,2.2vw,1.7rem); font-weight:400;
+  letter-spacing:-.03em; line-height:1; }
+.arq__cifra span{ display:block; margin-top:.55rem; font-size:var(--t-rotulo);
+  letter-spacing:.18em; text-transform:uppercase; font-weight:600; opacity:.5; }
 
 /* ---------- 12. Las seis casas ---------- */
-.bisagra{ background:var(--salvia); color:var(--tinta); padding-block:clamp(2.4rem,5vw,4rem); }
-.bisagra__txt{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:baseline; }
-.bisagra p{ margin:0; font-size:var(--t-sub); font-weight:500; letter-spacing:-.02em; max-width:26ch; }
 
-.seis{ display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(1.6rem,3.5vw,3.5rem); margin-top:clamp(2.4rem,5vw,4rem); align-items:start; }
+.seis{ display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(1.6rem,3.5vw,3.5rem); align-items:start; }
 @media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
 
 .implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }
@@ -494,8 +437,6 @@ button{ font:inherit; color:inherit; }
 
 @media (prefers-reduced-motion: reduce){
   .rev,.rev-izq,.rev-der{ opacity:1 !important; transform:none !important; transition:none !important; }
-  .plano__velo{ display:none; }
-  .calle{ opacity:1 !important; transform:none !important; transition:none !important; }
   .hero__media img{ transform:none; }
   .desplazar i{ animation:none; }
   .arq__marco img{ transition:none; }
@@ -506,7 +447,8 @@ button{ font:inherit; color:inherit; }
    La placa repite el módulo del isotipo: borde izquierdo lleno
    y arista superior descendiendo a 30 grados. */
 .banda{ position:relative; height:clamp(440px,86svh,900px); overflow:hidden; background:var(--tinta); }
-.banda > img{ width:100%; height:100%; object-fit:cover; }
+.banda > picture{ display:block; width:100%; height:100%; }
+.banda picture > img,.banda > img{ width:100%; height:100%; object-fit:cover; }
 .placa{
   --pw: clamp(290px, 44vw, 620px);
   --drop: calc(var(--pw) * .5774);
@@ -521,24 +463,16 @@ button{ font:inherit; color:inherit; }
 .placa__pie img{ height:22px; width:auto; }
 @media (max-width:640px){ .placa{ --pw:82vw; } .placa__pie img{ height:18px; } }
 
-/* Par de imágenes */
-.duo{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(.8rem,1.6vw,1.4rem); }
-@media (max-width:680px){ .duo{ grid-template-columns:1fr; } }
-
-
 /* ---------- 20. Ajustes finos por tamaño ---------- */
 @media (max-width:430px){
   :root{ --t-display:2.45rem; --t-titulo:1.75rem; }
-  .hero__frase--a,.hero__frase--b{ max-width:none; }
   .placa h2{ font-size:1.28rem; }
-  .fondo__lista li{ font-size:.76rem; padding:.5em .85em; }
   .ficha dl{ grid-template-columns:1fr; gap:0; }
   .ficha dt{ border-top:1px solid var(--linea-clara); padding-bottom:.15rem; }
   .ficha dd{ border-top:0; text-align:left; padding-top:.1rem; padding-bottom:.9rem; }
 }
 @media (max-width:900px){
   .rotulo-vertical{ display:none; }
-  .tira > figure{ flex-basis:78vw; }
   /* En pantallas chicas el desplazamiento lateral de entrada se cambia por vertical
      para que ningún bloque asome fuera del ancho de la pantalla. */
   .rev-izq,.rev-der{ transform:translateY(22px); }
@@ -569,37 +503,41 @@ button{ font:inherit; color:inherit; }
   stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round; }
 .ico--sm{ width:1.45rem; height:1.45rem; }
 
-/* 22. Cifras del proyecto */
-.datos{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.4rem,3vw,3rem);
-  margin-top:clamp(2.4rem,5vw,4rem); }
-.dato{ border-top:1px solid var(--linea-clara); padding-top:1.3rem; }
-.seccion--oscura .dato,.seccion--tinta .dato{ border-color:var(--linea-oscura); }
-.dato__n{ display:block; font-size:clamp(2.6rem,6vw,5.4rem); font-weight:300;
-  line-height:.88; letter-spacing:-.045em; }
-.dato__n sup{ font-size:.42em; font-weight:400; top:-1.1em; letter-spacing:0; }
-.dato--rango .dato__n{ font-size:clamp(2.1rem,4.2vw,3.8rem); }
-.dato--rango .dato__n sup{ font-size:.46em; top:-1em; }
-.dato__t{ display:block; margin-top:1rem; font-size:var(--t-rotulo); letter-spacing:.18em;
-  text-transform:uppercase; font-weight:600; opacity:.55; }
-.dato__d{ margin:.7rem 0 0; font-size:.94rem; color:var(--texto-sobre-claro); max-width:30ch; }
-.seccion--oscura .dato__d{ color:var(--texto-sobre-oscuro); }
-@media (max-width:760px){ .datos{ grid-template-columns:1fr; gap:0; }
-  .dato{ padding-block:1.3rem; } }
-
+/* 22. Enlace al mapa */
 .mapa-enlace{ display:inline-flex; align-items:center; gap:.7rem; margin-top:clamp(2rem,4vw,3rem);
   text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:.3rem;
   font-size:.95rem; font-weight:500; transition:gap .4s var(--easing); }
 .mapa-enlace:hover{ gap:1.1rem; }
 
-/* 23. Amenidades */
-.amen{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:clamp(1.6rem,3vw,2.8rem) clamp(1.6rem,3vw,3rem); margin-top:clamp(2.4rem,5vw,4rem); }
-.amen li{ list-style:none; }
-.amen__ico{ color:var(--tierra); margin-bottom:1rem; display:block; }
+/* 23. Amenidades: grilla centrada de ícono y texto sobre fondo claro */
+.amenidades{ text-align:center; }
+.amen__ante{ display:block; opacity:.5; }
+.titulo--centro{ max-width:20ch; margin-inline:auto; margin-top:.9rem; }
+
+.amen{
+  display:flex; flex-wrap:wrap; justify-content:center; list-style:none;
+  margin:clamp(3rem,6vw,5rem) 0 0; padding:0;
+  gap:clamp(2.6rem,4.4vw,4rem) clamp(1.6rem,3vw,3rem);
+}
+.amen li{ flex:0 1 min(100%, max(235px, 27%)); }
+.amen__ico{
+  width:clamp(2.3rem,3vw,2.8rem); height:clamp(2.3rem,3vw,2.8rem);
+  stroke-width:1.15; color:var(--tinta); margin:0 auto 1.25rem; display:block;
+}
+.amen h3{
+  font-size:.86rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
+  margin:0; line-height:1.35;
+}
+.amen p{ margin:.75rem auto 0; font-size:.92rem; line-height:1.5; max-width:27ch;
+  color:var(--texto-sobre-claro); }
+
 .seccion--oscura .amen__ico,.seccion--tinta .amen__ico{ color:var(--salvia); }
-.amen h3{ font-size:1.02rem; font-weight:600; letter-spacing:-.008em; margin:0; line-height:1.25; }
-.amen p{ margin:.45rem 0 0; font-size:.9rem; color:var(--texto-sobre-claro); }
 .seccion--oscura .amen p,.seccion--tinta .amen p{ color:var(--texto-sobre-oscuro); }
+
+@media (max-width:560px){
+  .amen{ gap:2.2rem; }
+  .amen p{ max-width:30ch; }
+}
 
 /* 24. Programa de la casa */
 .programa{ list-style:none; margin:clamp(2rem,4vw,3rem) 0 0; padding:0;
@@ -612,7 +550,7 @@ button{ font:inherit; color:inherit; }
 
 /* Desplegable de ficha técnica */
 .ficha-tecnica{ margin-top:clamp(2.4rem,4vw,3.4rem); border-top:1px solid var(--linea-clara); }
-.seccion--oscura .ficha-tecnica{ border-color:var(--linea-oscura); }
+.seccion--oscura .ficha-tecnica,.seccion--tinta .ficha-tecnica{ border-color:var(--linea-oscura); }
 .ficha-tecnica summary{
   list-style:none; cursor:pointer; padding:1.5rem 0; display:flex;
   align-items:center; justify-content:space-between; gap:1rem;
@@ -631,7 +569,7 @@ button{ font:inherit; color:inherit; }
 .ficha-tecnica h4{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase;
   font-weight:600; margin:0 0 .7rem; opacity:.55; }
 .ficha-tecnica p{ margin:0; font-size:.9rem; line-height:1.55; color:var(--texto-sobre-claro); }
-.seccion--oscura .ficha-tecnica p{ color:var(--texto-sobre-oscuro); }
+.seccion--oscura .ficha-tecnica p,.seccion--tinta .ficha-tecnica p{ color:var(--texto-sobre-oscuro); }
 
 /* 25. Galería a pantalla completa */
 .galeria{ position:relative; background:var(--tinta); overflow:hidden; }
@@ -691,31 +629,12 @@ button{ font:inherit; color:inherit; }
 /* ============================================================
    28. Hero claro: la axonométrica manda y el texto se invierte
    ============================================================ */
-.hero--claro{ background:var(--papel); color:var(--tinta); }
-.hero--claro .hero__media img{ transform:none; object-position:48% 52%; }
-
-/* Veladuras claras, sólo lo justo para que el texto se lea */
-.hero--claro .hero__media::after{
+/* La aérea entra a sangre. El encuadre baja el centro de interés para que
+   el conjunto quede sobre el titular y no detrás de la cabecera. */
+.hero--mixto .hero__media img{ transform:none; object-position:center 62%; }
+.hero--mixto .hero__media::after{
   background:
-    linear-gradient(to bottom, rgba(238,244,237,.92) 0%, rgba(238,244,237,.45) 11%, rgba(238,244,237,0) 22%),
-    linear-gradient(to top, rgba(238,244,237,.88) 0%, rgba(238,244,237,.35) 14%, rgba(238,244,237,0) 30%);
+    linear-gradient(to bottom, rgba(19,30,16,.62) 0%, rgba(19,30,16,.18) 14%, rgba(19,30,16,0) 26%),
+    linear-gradient(to top, rgba(19,30,16,.78) 0%, rgba(19,30,16,.34) 18%, rgba(19,30,16,0) 44%);
 }
-.hero--claro .hero__meta,
-.hero--claro .hero__titular,
-.hero--claro .hero__apunte,
-.hero--claro .desplazar{ color:var(--tinta); }
-.hero--claro .hero__meta{ opacity:.6; }
 
-/* La cabecera arranca en tinta sobre el hero claro y se invierte al pegarse */
-.cabecera{ color:var(--tinta); }
-.cabecera.pegada{ color:var(--papel); }
-.cabecera__logo{ display:block; position:relative; }
-.cabecera__logo .logo--papel{ position:absolute; inset:0; opacity:0; }
-.cabecera.pegada .logo--tinta{ opacity:0; }
-.cabecera.pegada .logo--papel{ opacity:1; }
-.cabecera__logo img{ transition:opacity .4s var(--easing); }
-.cabecera.pegada .btn{ --fondo:var(--papel); --tinte:var(--tinta); }
-.cabecera.pegada .btn--fantasma{ --fondo:transparent; --tinte:var(--papel); }
-
-/* El pie del hero sigue en tinta: el corte entre claro y oscuro es deliberado */
-.hero--claro .hero__pie{ background:var(--tinta); color:var(--papel); }
