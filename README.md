@@ -9,7 +9,7 @@ index.html        página completa
 _cuerpo.html      el cuerpo sin <head>, fuente desde la que se genera index.html
 css/site.css      sistema visual completo
 js/site.js        interacciones
-img/              imágenes optimizadas y logotipo con transparencia
+img/              imágenes en AVIF con respaldo JPEG, en tres tamaños
 favicon.svg       isotipo vectorial
 .nojekyll         evita que Pages procese el sitio con Jekyll
 DIAGNOSTICO.md    análisis del material, faltantes y criterios de diseño
@@ -35,7 +35,11 @@ python3 -m http.server 8080
 
 ## Dónde se cambia cada cosa
 
-**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-ingresos.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones son una lectura del plano de proyecto: hay que ajustarlas contra la implantación comercial definitiva. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg` y el enlace se arma solo con la letra.
+**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-ingresos.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones son una lectura del plano de proyecto: hay que ajustarlas contra la implantación comercial definitiva. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
+
+**El visor de planos.** La ventana `#planos`, en la sección de las casas. A la izquierda queda el plano de la casa elegida, pegado mientras se recorre la tira de la derecha; al tocar una miniatura, esa imagen pasa al marco grande. Para sumar o sacar una imagen alcanza con agregar o borrar un `<button class="mini">` en `_cuerpo.html`: lleva `data-full` con la imagen grande y `data-pie` con el epígrafe. La primera miniatura es la del plano y la actualiza el JavaScript con cada casa, así que no se toca.
+
+**La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
 
 **La secuencia anclada de "El proyecto".** Cada punto son dos piezas que tienen que quedar en el mismo orden dentro de `_cuerpo.html`: el `<img data-arq="N">` dentro de `.arq__marco` y el `<li data-arq-item="N">` dentro de `.arq__lista`. El JavaScript no necesita saber cuántos son.
 
@@ -46,6 +50,34 @@ python3 -m http.server 8080
 **Datos pendientes.** Buscar `class="pendiente"` en `_cuerpo.html`. Cada uno marca un dato que no estaba en el material entregado. Al completarlo, se borra la etiqueta.
 
 **Regenerar `index.html`** después de editar `_cuerpo.html`: el archivo es el `<head>` de `index.html` más el cuerpo más el `<script>` final.
+
+## Las imágenes
+
+Cada foto vive en hasta tres anchos y en dos formatos:
+
+```
+nombre.jpg / .avif      1800 px   a sangre y galería
+nombre-m.jpg / .avif    1000 px   móvil, secuencia anclada y visor
+nombre-t.jpg / .avif     560 px   miniaturas de la ventana de planos
+```
+
+El marcado sirve AVIF primero y deja el JPEG de respaldo, así que cada navegador
+baja un solo archivo. El AVIF pesa un 60 por ciento menos a igual calidad.
+
+Para sumar una imagen nueva, con `sips` alcanza:
+
+```bash
+sips -Z 1000 --setProperty formatOptions 72 foto.jpg --out foto-m.jpg
+sips -s format avif --setProperty formatOptions 60 foto.jpg --out foto.avif
+sips -s format avif --setProperty formatOptions 58 foto-m.jpg --out foto-m.avif
+```
+
+Calidad 60 para fotos y renders, 70 para planos y dibujos de línea, que es donde
+más se nota la compresión.
+
+La del hero es la única que no espera: va con `fetchpriority="high"`, sin carga
+diferida, y con dos `preload` en el `<head>`, uno por tamaño. Todas las demás
+llevan `loading="lazy"` y `decoding="async"`.
 
 ## Decisiones que conviene conocer antes de tocar
 

@@ -23,7 +23,7 @@ Suman 3.705 m² de lotes privados, 983 m² cubiertos y 1.385 m² totales.
 
 **Programa de la casa.** Cochera doble, dormitorio principal con vestidor y baño en suite, dos dormitorios secundarios, dos baños y un toilette, cocina comedor y living integrados, lavadero con tender, galería con asador, espacio de guardado, calefacción central y aberturas de vidrio doble.
 
-**Memoria técnica completa.** Fundación, estructura, terminaciones exteriores e interiores, equipamiento sanitario, instalaciones sanitaria y eléctrica, carpintería de aluminio, equipamiento fijo y climatización. Va dentro de un desplegable para no cargar la página.
+**Memoria técnica completa.** Fundación, estructura, terminaciones exteriores e interiores, equipamiento sanitario, instalaciones sanitaria y eléctrica, carpintería de aluminio, equipamiento fijo y climatización. Se abre en una ventana sobre la página, desde la ficha de cada casa.
 
 **Prestaciones del barrio.** Las diez de la captura: estacionamiento de cortesía, parquización, seguridad y cámaras, control de acceso inteligente, servicios subterráneos, expensas eficientes, ubicación, casas de una planta, patios propios y dos ingresos.
 
@@ -98,7 +98,7 @@ Hero → Amenidades → Galería → Las seis casas → El proyecto → Dónde �
    se fundieron en una sola. Entra a sangre con la placa de marca, sigue con la
    bajada y las cifras, y desarrolla diez puntos en una secuencia anclada al
    scroll: la foto queda fija y cambia con el punto que se está leyendo. Cierra
-   con la planta, el programa de la casa y la memoria técnica plegada.
+   con la planta y el programa de la casa.
 
 Se eliminó la bisagra que separaba el proyecto de la parte comercial y se
 quitaron los índices numerados de sección.
@@ -114,3 +114,77 @@ colgada al entrar o salir de un salto.
 Para agregar o sacar un punto hay que tocar dos lugares de `_cuerpo.html` y
 mantenerlos en el mismo orden: el `<img data-arq="N">` dentro de `.arq__marco`
 y el `<li data-arq-item="N">` dentro de `.arq__lista`. El resto se acomoda solo.
+
+## Ficha técnica dentro del detalle de la casa
+
+La memoria descriptiva pasó de "El proyecto" a la sección de las seis casas,
+que es donde se toma la decisión de compra, y se abre en una ventana sobre la
+página en lugar de quedar desplegada dentro de ella.
+
+Se dispara desde la fila "Ficha técnica" de la tabla de la unidad. La ventana
+usa el elemento `dialog` del navegador, así que trae gratis el velo, la
+retención del foco y el cierre con escape. También cierra con el botón de la
+esquina y con un clic sobre el velo, y al cerrarse devuelve el foco a la fila
+desde donde se abrió.
+
+La esquina superior izquierda baja a 30 grados, la misma arista del isotipo que
+usa la placa de marca. En teléfono ocupa la pantalla entera.
+
+No se bloquea el scroll de fondo con `overflow:hidden` porque eso corría la
+página quince píxeles cada vez que se abría. En su lugar, la rueda y el
+deslizamiento sobre el velo se frenan en el propio evento.
+
+Es una sola memoria para las seis casas, porque el material entregado no
+distingue especificaciones por unidad. Lo aclara una nota al pie de la ventana.
+Si más adelante alguna casa cambia de terminación, hay que separar el contenido
+por unidad y alimentarlo desde el array `CASAS`.
+
+## Visor de planos
+
+El botón "Ver el plano de la casa" abría el JPG en otra pestaña. Ahora abre una
+ventana con el mismo tratamiento que la ficha técnica.
+
+Adentro, el plano de la casa elegida queda pegado a la izquierda, con su
+epígrafe, el enlace para abrirlo en tamaño completo y las cuatro superficies de
+esa unidad. A la derecha pasa una tira de trece miniaturas: el propio plano, la
+planta ambientada, la implantación de la manzana, la axonométrica y nueve
+renders de la casa terminada. Al tocar una, la imagen pasa al marco grande.
+
+El visor sigue a la casa elegida: cambian el rótulo, el plano, la miniatura del
+plano y las superficies. Cada vez que la ventana se abre vuelve al plano de la
+casa, para que nunca arranque mostrando un render suelto.
+
+Una nota dentro de la ventana aclara que el plano es el de esa casa y que las
+demás imágenes son del proyecto, que es el mismo para las seis unidades. El
+material entregado no distingue renders por unidad y no se inventó ninguno.
+
+Las dos ventanas comparten la misma función `ventana()` en `js/site.js`: velo,
+retención del foco, cierre con escape, con el botón, con un clic afuera, vuelta
+del foco al disparador y freno de la rueda sobre el velo.
+
+## Optimización de carga
+
+**AVIF con respaldo JPEG.** Las cincuenta y cuatro imágenes del sitio se
+reconvirtieron a AVIF. El mismo juego de fotos pasó de 11,6 MB a 4,65 MB, un
+60 por ciento menos, sin diferencia visible. Cada `<img>` quedó dentro de un
+`<picture>` que ofrece primero el AVIF y deja el JPEG para los navegadores
+viejos, así que cada visitante baja un solo archivo.
+
+**Cada hueco recibe el tamaño que le corresponde.** La secuencia anclada usa la
+versión de 1000 px, porque su marco nunca pasa de 670. Las miniaturas de la
+ventana de planos usan una nueva de 560 px. El visor grande usa la de 1000 en
+lugar del original, y el enlace "abrir en tamaño completo" sigue dando el
+archivo entero.
+
+**Primera pantalla.** El hero arranca con `fetchpriority="high"`, sin carga
+diferida y con dos `preload` en el `<head>`, uno para móvil y otro para
+escritorio. Todo lo demás es diferido. La primera carga quedó en 435 KB en
+escritorio y 189 KB en teléfono, hoja de estilos y JavaScript incluidos.
+
+**Las miniaturas de la ventana** viven dentro de un `dialog` cerrado, donde la
+carga diferida del navegador no llega a dispararse. Se sueltan la primera vez
+que la ventana se abre.
+
+**Limpieza.** Se borraron las veintiséis imágenes del set anterior que ya no
+usaba nadie, unos 9,6 MB, y la imagen de Open Graph, que todavía apuntaba al
+hero viejo, pasó a la aérea actual.

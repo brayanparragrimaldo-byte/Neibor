@@ -34,6 +34,37 @@
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
 
+  /* Una ventana sobre la página. El elemento dialog ya trae el velo, la
+     retención del foco y el cierre con escape; acá se suman el cierre por
+     clic afuera, la vuelta del foco al disparador y el freno de la rueda.
+     Bloquear el scroll con overflow correría el ancho quince píxeles. */
+  function ventana(dlg, disparador, alAbrir) {
+    if (!dlg || !disparador) return null;
+    function abrir() {
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+    }
+    function cerrar() {
+      if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
+    }
+    function frenar(e) {
+      if (!(e.target.closest && e.target.closest('.modal__cuerpo'))) e.preventDefault();
+    }
+    disparador.addEventListener('click', function () {
+      if (alAbrir) alAbrir();
+      abrir();
+    });
+    $$('[data-cerrar]', dlg).forEach(function (b) { b.addEventListener('click', cerrar); });
+    dlg.addEventListener('click', function (e) {
+      var r = dlg.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right ||
+          e.clientY < r.top || e.clientY > r.bottom) cerrar();
+    });
+    dlg.addEventListener('close', function () { disparador.focus(); });
+    dlg.addEventListener('wheel', frenar, { passive: false });
+    dlg.addEventListener('touchmove', frenar, { passive: false });
+    return { abrir: abrir, cerrar: cerrar };
+  }
+
   /* ---------- 1. Cabecera que se contrae ---------- */
   var cab = $('#cabecera');
   var barra = $('#barra');
@@ -149,7 +180,7 @@
     medir();
   }
 
-  /* ---------- 5. Las seis casas: chinchetas sobre el plano ---------- */
+  /* ---------- 5. Las seis casas: chinchetas, ficha y visor ---------- */
   var impl = $('#implantacion');
   if (impl) {
     CASAS.forEach(function (c, i) {
@@ -165,14 +196,60 @@
       impl.appendChild(b);
     });
 
-
     var nombre = $('#ficha-nombre'), estado = $('#ficha-estado'),
         orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub'),
-        semi = $('#ficha-semi'), total = $('#ficha-total'), plano = $('#ficha-plano');
+        semi = $('#ficha-semi'), total = $('#ficha-total');
+
+    /* ---- Visor: la miniatura elegida pasa al marco grande ---- */
+    var visor = $('#visor-img'), visorAvif = $('#visor-avif'),
+        visorPie = $('#visor-pie'), visorFull = $('#visor-full'),
+        miniPlano = $('#mini-plano'), rotuloPlanos = $('#planos-rotulo'),
+        vTerreno = $('#visor-terreno'), vCub = $('#visor-cub'),
+        vSemi = $('#visor-semi'), vTotal = $('#visor-total'),
+        minis = $$('.mini');
+
+    function mostrar(b) {
+      if (!b || !visor) return;
+      var foto = $('img', b);
+      var full = b.getAttribute('data-full');                 // el original, para el enlace
+      var medio = full.replace(/\.jpg$/, '-m.jpg');            // el marco nunca pasa de 660 px
+      /* El <source> va primero: si se cambia sólo el src, el picture
+         sigue mostrando lo que ya había resuelto. */
+      if (visorAvif) visorAvif.setAttribute('srcset', medio.replace(/\.jpg$/, '.avif'));
+      visor.src = medio;
+      visor.alt = foto ? foto.alt : '';
+      visorPie.textContent = b.getAttribute('data-pie');
+      visorFull.setAttribute('href', full);
+      minis.forEach(function (m) {
+        if (m === b) m.setAttribute('aria-current', 'true');
+        else m.removeAttribute('aria-current');
+      });
+    }
+    minis.forEach(function (b) {
+      b.addEventListener('click', function () { mostrar(b); });
+    });
+
+    /* Las miniaturas viven dentro de una ventana cerrada, donde la carga
+       diferida del navegador no llega a dispararse. Se sueltan la primera
+       vez que se abre, así no pesan mientras nadie las mira. */
+    var minisSueltas = false;
+    function soltarMinis() {
+      if (minisSueltas) return;
+      minisSueltas = true;
+      $$('.mini img').forEach(function (i) { i.loading = 'eager'; });
+    }
+
+    /* Las dos ventanas. La de planos siempre abre en el plano de la casa. */
+    ventana($('#ficha-tecnica'), $('#abrir-ficha-tecnica'));
+    ventana($('#planos'), $('#ficha-plano'), function () {
+      soltarMinis();
+      mostrar(miniPlano);
+    });
 
     function elegir(i) {
       var c = CASAS[i];
       if (!c) return;
+      var letra = c.letra.toLowerCase();
       nombre.textContent = c.n;
       estado.textContent = c.estado;
       orient.textContent = c.orient;
@@ -180,8 +257,26 @@
       cub.textContent = c.cub;
       semi.textContent = c.semi;
       total.textContent = c.total;
-      plano.setAttribute('href', 'img/plano-casa-' + c.letra.toLowerCase() + '.jpg');
-      plano.textContent = 'Ver el plano de la ' + c.n;
+
+      /* El visor sigue a la casa elegida y vuelve siempre a su plano. */
+      if (miniPlano) {
+        var foto = $('img', miniPlano);
+        miniPlano.setAttribute('data-full', 'img/plano-casa-' + letra + '.jpg');
+        miniPlano.setAttribute('data-pie', 'El plano de la ' + c.n);
+        if (foto) {
+          foto.src = 'img/plano-casa-' + letra + '-m.jpg';
+          foto.alt = 'Plano de la ' + c.n + ' sobre su lote, con las superficies al pie.';
+        }
+        if (rotuloPlanos) rotuloPlanos.textContent = c.n;
+        if (vTerreno) {
+          vTerreno.textContent = c.terreno;
+          vCub.textContent = c.cub;
+          vSemi.textContent = c.semi;
+          vTotal.textContent = c.total;
+        }
+        mostrar(miniPlano);
+      }
+
       $$('[data-casa]').forEach(function (b) {
         b.setAttribute('aria-pressed', parseInt(b.getAttribute('data-casa'), 10) === i ? 'true' : 'false');
       });
