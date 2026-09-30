@@ -63,6 +63,9 @@ nombre-m.jpg / .avif    1000 px   móvil, secuencia anclada y visor
 nombre-t.jpg / .avif     560 px   miniaturas de la ventana de planos
 ```
 
+Los logotipos van sólo a 800 px (`-m`), que alcanza para los tres lugares donde
+aparecen: la cabecera a 120, la placa a 192 y el pie a 300.
+
 Los planos por casa son la excepción: salen de los PDF del desarrollo y van a
 3000 px el original, 1600 el del visor y 560 la miniatura, para que se lean los
 nombres y las medidas de cada ambiente al ampliarlos.
