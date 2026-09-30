@@ -107,14 +107,16 @@ El detalle completo, con lo que entró desde el mock up y lo que sigue faltando,
 1. Valores, forma de pago y disponibilidad por casa. Es el único que bloquea la venta.
 2. Confirmar qué letra corresponde a cada lote sobre el plano de implantación.
 3. Logotipos de GRAB, Autónomo y Calsina en vectorial.
-4. Coordenadas exactas del predio para el enlace a Google Maps.
-5. Distancias y tiempos verificados a los puntos de interés del entorno.
-6. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
-7. Identificador de Google Tag Manager o GA4 para activar la medición.
-8. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
-9. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
+4. Distancias y tiempos verificados a los puntos de interés del entorno.
+5. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
+6. Identificador de Google Tag Manager o GA4 para activar la medición.
+7. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
+8. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
 
-Los nueve están marcados en `_cuerpo.html` con `class="pendiente"`. Al completar
+El predio está en **-31.285555, -64.288894** y el enlace a Google Maps apunta
+ahí en forma directa, sin pasar por un acortador.
+
+Los ocho están marcados en `_cuerpo.html` con `class="pendiente"`. Al completar
 uno, se borra la etiqueta.
 
 La URL del sitio publicado es https://brayanparragrimaldo-byte.github.io/Neibor/ y ya está puesta en las etiquetas Open Graph. Si el repositorio cambia de nombre o de dueño, hay que actualizarlas en el `<head>` de `index.html`.
