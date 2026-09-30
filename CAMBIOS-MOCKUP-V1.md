@@ -188,3 +188,19 @@ que la ventana se abre.
 **Limpieza.** Se borraron las veintiséis imágenes del set anterior que ya no
 usaba nadie, unos 9,6 MB, y la imagen de Open Graph, que todavía apuntaba al
 hero viejo, pasó a la aérea actual.
+
+## Botones en la ficha y red para las imágenes
+
+**Las filas Plano y Ficha técnica** tenían texto subrayado. Pasaron a botones de
+contorno, del mismo nivel secundario que el resto del sistema, con la flecha y
+el radio de siempre, en una medida ajustada a la altura de una fila de tabla.
+Siguen siendo dos niveles de botón: sólido para la conversión, contorno para
+todo lo demás.
+
+**Red de seguridad de las imágenes.** Dentro de un `<picture>`, si la fuente
+elegida no llega el navegador no prueba con la siguiente: deja el hueco vacío
+para siempre. Eso explica los dos huecos que aparecieron durante el despliegue,
+cuando el HTML nuevo ya estaba publicado y algunos AVIF todavía no habían
+llegado a todos los servidores. Ahora el JavaScript escucha el error en captura,
+tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`, así que basta
+con que quede un formato en pie para que la imagen aparezca.

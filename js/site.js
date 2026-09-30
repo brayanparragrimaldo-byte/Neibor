@@ -65,6 +65,24 @@
     return { abrir: abrir, cerrar: cerrar };
   }
 
+  /* ---------- Red de seguridad de las imágenes ----------
+     Dentro de un <picture>, si la fuente elegida no llega el navegador
+     no prueba con la siguiente: deja el hueco vacío para siempre. Acá se
+     tiran las <source> y se vuelve a pedir el JPEG del propio <img>.
+     Los errores de <img> no burbujean, así que se escucha en captura. */
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || img.getAttribute('data-rescatada')) return;
+    var pic = img.parentElement;
+    if (!pic || pic.tagName !== 'PICTURE') return;
+    img.setAttribute('data-rescatada', '1');
+    var fuentes = pic.querySelectorAll('source');
+    for (var i = 0; i < fuentes.length; i++) pic.removeChild(fuentes[i]);
+    var src = img.getAttribute('src');
+    img.removeAttribute('srcset');
+    img.setAttribute('src', src + (src.indexOf('?') < 0 ? '?r' : '&r'));
+  }, true);
+
   /* ---------- 1. Cabecera que se contrae ---------- */
   var cab = $('#cabecera');
   var barra = $('#barra');

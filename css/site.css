@@ -170,6 +170,9 @@ button{ font:inherit; color:inherit; }
 .seccion--oscura .btn,.seccion--tinta .btn,.hero .btn{ --fondo:var(--papel); --tinte:var(--tinta); }
 .seccion--oscura .btn--fantasma,.seccion--tinta .btn--fantasma,.hero .btn--fantasma{ --fondo:transparent; --tinte:var(--papel); }
 
+/* Mismo botón, medida de fila de tabla. Sigue habiendo dos niveles. */
+.btn--chico{ padding:.6em 1.15em; font-size:.82rem; gap:.55em; letter-spacing:.02em; }
+
 .acciones{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2.2rem; }
 
 /* ---------- 5. Cabecera ---------- */
@@ -351,15 +354,8 @@ button{ font:inherit; color:inherit; }
 .ficha dt{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; font-weight:600; opacity:.5; padding-block:.85rem; border-top:1px solid var(--linea-clara); }
 .ficha dd{ margin:0; padding-block:.85rem; border-top:1px solid var(--linea-clara); text-align:right; font-weight:500; }
 .ficha dt:first-of-type,.ficha dd:first-of-type{ border-top:0; }
-/* El botón que abre la ficha técnica se lee como el enlace al plano */
-.ficha__enlace{
-  appearance:none; -webkit-appearance:none; background:none; border:0;
-  padding:0; margin:0; font-weight:inherit; text-align:inherit; cursor:pointer;
-  text-decoration:underline; text-underline-offset:.18em;
-}
-.ficha__enlace:hover{ text-decoration-thickness:2px; }
-.ficha__enlace:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
-
+.ficha dd:has(.btn){ padding-block:.5rem; }
+.ficha dt:has(+ dd .btn){ padding-block:.5rem; }
 .selector{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.6rem; }
 .selector button{
   border:1px solid var(--linea-clara); background:transparent; border-radius:999px;

@@ -82,7 +82,8 @@ llevan `loading="lazy"` y `decoding="async"`.
 ## Decisiones que conviene conocer antes de tocar
 
 - **El ángulo de 30 grados** de los recortes de imagen sale de la arista del isotipo, que sale de la forma del lote. Si se cambia, se pierde la relación con la marca. Las clases `corte-ti` y `corte-td` traen el polígono ya calculado para cada relación de aspecto.
-- **Dos niveles de botón, nunca tres.** Sólido para la acción de conversión, contorno para todo lo demás.
+- **Dos niveles de botón, nunca tres.** Sólido para la acción de conversión, contorno para todo lo demás. `btn--chico` es una medida, no un nivel: el mismo botón de contorno ajustado para entrar en una fila de tabla, como en las filas Plano y Ficha técnica.
+- **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
 - **El naranja de marca no se usa en botones.** Sobre papel da 4.28:1 de contraste, por debajo del mínimo para texto chico. Queda reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente, que es además el uso que le da el manual.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
 - **Tipografía:** Host Grotesk desde Google Fonts, la misma del manual de marca.
