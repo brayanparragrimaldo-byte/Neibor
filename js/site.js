@@ -44,7 +44,10 @@
      Bloquear el scroll con overflow correría el ancho quince píxeles. */
   function ventana(dlg, disparador, alAbrir) {
     if (!dlg || !disparador) return null;
-    function abrir() {
+    var ultimo = disparador;
+    function abrir(desde) {
+      ultimo = (desde && desde.focus) ? desde : disparador;
+      if (alAbrir) alAbrir();
       if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     }
     function cerrar() {
@@ -53,17 +56,14 @@
     function frenar(e) {
       if (!(e.target.closest && e.target.closest('.modal__cuerpo'))) e.preventDefault();
     }
-    disparador.addEventListener('click', function () {
-      if (alAbrir) alAbrir();
-      abrir();
-    });
+    disparador.addEventListener('click', function () { abrir(disparador); });
     $$('[data-cerrar]', dlg).forEach(function (b) { b.addEventListener('click', cerrar); });
     dlg.addEventListener('click', function (e) {
       var r = dlg.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right ||
           e.clientY < r.top || e.clientY > r.bottom) cerrar();
     });
-    dlg.addEventListener('close', function () { disparador.focus(); });
+    dlg.addEventListener('close', function () { (ultimo || disparador).focus(); });
     dlg.addEventListener('wheel', frenar, { passive: false });
     dlg.addEventListener('touchmove', frenar, { passive: false });
     return { abrir: abrir, cerrar: cerrar };
@@ -225,7 +225,8 @@
       b.style.top = c.y + '%';
       b.textContent = c.letra;
       b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-      b.setAttribute('aria-label', c.n + ', terreno de ' + c.terreno);
+      b.setAttribute('aria-label', c.n + ', terreno de ' + c.terreno + '. Ver el plano y las imágenes');
+      b.setAttribute('aria-haspopup', 'dialog');
       b.setAttribute('data-casa', i);
       impl.appendChild(b);
     });
@@ -275,7 +276,7 @@
 
     /* Las dos ventanas. La de planos siempre abre en el plano de la casa. */
     ventana($('#ficha-tecnica'), $('#abrir-ficha-tecnica'));
-    ventana($('#planos'), $('#ficha-plano'), function () {
+    var vPlanos = ventana($('#planos'), $('#ficha-plano'), function () {
       soltarMinis();
       mostrar(miniPlano);
     });
@@ -320,6 +321,10 @@
       var b = ev.target.closest ? ev.target.closest('[data-casa]') : null;
       if (!b) return;
       elegir(parseInt(b.getAttribute('data-casa'), 10));
+      /* Desde el plano, la chincheta abre la ventana con todo el material de
+         esa casa. Las letras de abajo sólo cambian la ficha, para poder
+         comparar superficies sin abrir y cerrar. */
+      if (vPlanos && b.classList.contains('chincheta')) vPlanos.abrir(b);
     });
   }
 

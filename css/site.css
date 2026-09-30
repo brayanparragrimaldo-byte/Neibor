@@ -170,8 +170,18 @@ button{ font:inherit; color:inherit; }
 .seccion--oscura .btn,.seccion--tinta .btn,.hero .btn{ --fondo:var(--papel); --tinte:var(--tinta); }
 .seccion--oscura .btn--fantasma,.seccion--tinta .btn--fantasma,.hero .btn--fantasma{ --fondo:transparent; --tinte:var(--papel); }
 
-/* Mismo botón, medida de fila de tabla. Sigue habiendo dos niveles. */
+/* Mismo botón, medida de fila de tabla. */
 .btn--chico{ padding:.6em 1.15em; font-size:.82rem; gap:.55em; letter-spacing:.02em; }
+
+/* Acento de marca para abrir material. El naranja del brandbook con texto
+   blanco da 4.79:1, por encima del mínimo AA; con el papel de marca daría
+   4.28 y no llegaría, que es por lo que el relleno lleva blanco puro. */
+.btn--acento,
+.seccion--oscura .btn--acento,
+.seccion--tinta .btn--acento,
+.hero .btn--acento{ --fondo:var(--tierra); --tinte:#fff; border-color:var(--tierra); }
+.btn--acento:hover{ --fondo:#9c5300; border-color:#9c5300; }
+.btn--acento:focus-visible{ outline-color:var(--tinta); }
 
 .acciones{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:2.2rem; }
 
@@ -364,10 +374,17 @@ button{ font:inherit; color:inherit; }
   transition:transform .4s var(--easing), background .3s, color .3s, box-shadow .3s;
   box-shadow:0 3px 16px rgba(19,30,16,.22);
 }
-.chincheta:hover{ transform:translate(-50%,-50%) scale(1.1); }
+.chincheta:hover{ transform:translate(-50%,-50%) scale(1.1);
+  background:var(--tierra); color:#fff; border-color:var(--tierra); }
 .chincheta[aria-pressed="true"]{ background:var(--tierra); color:var(--papel); border-color:var(--tierra); box-shadow:0 0 0 8px rgba(175,93,0,.18); }
 .chincheta:focus-visible{ outline:2px solid var(--tierra); outline-offset:4px; }
-@media (max-width:620px){ .chincheta{ width:30px; height:30px; font-size:.66rem; } }
+@media (max-width:620px){
+  .chincheta{ width:30px; height:30px; font-size:.66rem; }
+  /* Abren una ventana: el área táctil crece sin que cambie el dibujo.
+     No pasa de 4 px porque las casas quedan a 40 px una de otra sobre el
+     plano y dos áreas superpuestas mandarían al vecino equivocado. */
+  .chincheta::after{ content:""; position:absolute; inset:-4px; border-radius:999px; }
+}
 
 .ficha{ border-top:2px solid var(--tinta); padding-top:1.4rem; }
 .ficha__enc{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }

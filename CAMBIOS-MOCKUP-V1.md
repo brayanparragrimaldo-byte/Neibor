@@ -233,3 +233,24 @@ las tres cifras, y el resto se abre con un botón. Cerrada mide 1382 px en
 escritorio contra los 5406 de antes, así que quien no quiere el detalle llega
 a la ubicación cuatro pantallas antes. Al abrirla, la secuencia anclada sigue
 recorriendo sus diez puntos en orden.
+
+## Las chinchetas abren la ventana, y el naranja para abrir material
+
+**Tocar una chincheta sobre el plano** ahora hace dos cosas: cambia la ficha de
+la casa y abre la ventana con su plano, sus superficies y los renders. Al
+cerrarla el foco vuelve a la chincheta que se tocó. En teléfono el área táctil
+crece a 46 px sin que cambie el dibujo.
+
+Las seis letras de abajo siguen cambiando sólo la ficha. Así queda una forma de
+comparar superficies entre casas sin abrir y cerrar la ventana cada vez.
+
+**Los botones Ver el plano y Ver la ficha técnica pasan al naranja de marca.**
+En contorno no se leían como pulsables. El relleno usa el `#af5d00` del
+brandbook con texto blanco puro, que da 4.79:1 de contraste y pasa AA; con el
+papel de marca habría dado 4.28 y no llegaba, y por eso el texto es blanco y no
+color papel.
+
+Esto agrega un tercer papel al sistema de botones, que antes tenía dos. Quedan
+así, uno por intención: sólido tinta para convertir, naranja para abrir
+material, contorno para navegar. Las chinchetas se tiñen del mismo naranja al
+pasar por encima, para que se lea que abren lo mismo que el botón.
