@@ -37,6 +37,8 @@ python3 -m http.server 8080
 
 **Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-ingresos.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones son una lectura del plano de proyecto: hay que ajustarlas contra la implantación comercial definitiva. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
 
+**El detalle del proyecto se pliega.** La sección `#proyecto` muestra la aérea, la bajada y las tres cifras; lo demás vive dentro de `<details id="proyecto-detalle">` y se abre con el botón. Quien no lo abre pasa directo a la ubicación. Al abrirse, el JavaScript revela lo de adentro y avisa del cambio de alto para que la secuencia anclada se recalcule.
+
 **El visor de planos.** La ventana `#planos`, en la sección de las casas. A la izquierda queda el plano de la casa elegida, pegado mientras se recorre la tira de la derecha; al tocar una miniatura, esa imagen pasa al marco grande. Para sumar o sacar una imagen alcanza con agregar o borrar un `<button class="mini">` en `_cuerpo.html`: lleva `data-full` con la imagen grande y `data-pie` con el epígrafe. La primera miniatura es la del plano y la actualiza el JavaScript con cada casa, así que no se toca.
 
 **La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
@@ -60,6 +62,10 @@ nombre.jpg / .avif      1800 px   a sangre y galería
 nombre-m.jpg / .avif    1000 px   móvil, secuencia anclada y visor
 nombre-t.jpg / .avif     560 px   miniaturas de la ventana de planos
 ```
+
+Los planos por casa son la excepción: salen de los PDF del desarrollo y van a
+3000 px el original, 1600 el del visor y 560 la miniatura, para que se lean los
+nombres y las medidas de cada ambiente al ampliarlos.
 
 El marcado sirve AVIF primero y deja el JPEG de respaldo, así que cada navegador
 baja un solo archivo. El AVIF pesa un 60 por ciento menos a igual calidad.

@@ -14,7 +14,11 @@
      Lectura orientativa del plano de proyecto: ajustar con la
      implantación comercial definitiva antes de publicar.
   ------------------------------------------------------------------- */
-  /* Planilla del desarrollo (mock up v1, slide 8).
+  /* Los planos por casa (PDF del desarrollo, septiembre 2026) rotulan las
+     unidades N1 a N6. La correspondencia con las letras del sitio es
+     O=N1, R=N2, B=N3, I=N4, E=N5, N=N6, y las superficies de cada plano
+     coinciden una por una con las de esta tabla.
+     Planilla del desarrollo (mock up v1, slide 8).
      Las seis casas se identifican por letra y en orden deletrean NEIBOR.
      x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
      de cada letra se dedujo de la orientación de fondo declarada. */
@@ -136,7 +140,19 @@
     cifras.forEach(function (el) { obsC.observe(el); });
   }
 
-  /* ---------- 4. El proyecto: el scroll controla la imagen ----------
+  /* ---------- 4. El detalle del proyecto, plegado ----------
+     Al abrirlo, lo de adentro nunca llegó a cruzar el observador de
+     revelados, así que se muestra a mano y se avisa del cambio de alto. */
+  var detalle = $('#proyecto-detalle');
+  if (detalle) {
+    detalle.addEventListener('toggle', function () {
+      if (!detalle.open) return;
+      $$('.rev, .rev-izq, .rev-der', detalle).forEach(function (el) { el.classList.add('en'); });
+      window.dispatchEvent(new Event('resize'));
+    });
+  }
+
+  /* ---------- 5. El proyecto: el scroll controla la imagen ----------
      Gana el punto cuyo centro queda más cerca de la línea de lectura.
      Se mide cuadro a cuadro, y sólo mientras la secuencia está en
      pantalla, para que nunca salte puntos ni quede colgada. */
@@ -198,7 +214,7 @@
     medir();
   }
 
-  /* ---------- 5. Las seis casas: chinchetas, ficha y visor ---------- */
+  /* ---------- 6. Las seis casas: chinchetas, ficha y visor ---------- */
   var impl = $('#implantacion');
   if (impl) {
     CASAS.forEach(function (c, i) {
@@ -307,7 +323,7 @@
     });
   }
 
-  /* ---------- 6. WhatsApp con mensaje según el lugar del clic ---------- */
+  /* ---------- 7. WhatsApp con mensaje según el lugar del clic ---------- */
   function enlaceWA(texto) {
     return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(texto);
   }
@@ -325,7 +341,7 @@
     });
   });
 
-  /* ---------- 7. Formulario: arma el mensaje y abre el canal ----------
+  /* ---------- 8. Formulario: arma el mensaje y abre el canal ----------
      No hay backend en esta versión. Para conectar un CRM, reemplazar
      armar() por un fetch al endpoint y mantener el fallback.
   ------------------------------------------------------------------- */
@@ -370,7 +386,7 @@
     });
   }
 
-  /* ---------- 8. Plano o axonométrica ---------- */
+  /* ---------- 9. Plano o axonométrica ---------- */
   if (impl) {
     var capas = $$('.capa', impl);
     $$('[data-vista]').forEach(function (b) {
@@ -388,7 +404,7 @@
     });
   }
 
-  /* ---------- 9. Galería a pantalla completa ---------- */
+  /* ---------- 10. Galería a pantalla completa ---------- */
   var pista = $('#galeria-pista');
   if (pista) {
     var slides = $$('.galeria__slide', pista);
@@ -450,7 +466,7 @@
     marcar(0);
   }
 
-  /* ---------- 10. Medición de clicks ----------
+  /* ---------- 11. Medición de clicks ----------
      Los eventos se empujan a dataLayer, que es lo que leen Google Tag
      Manager, GA4 o Meta. Cuando haya cuenta se conecta sin tocar esto. */
   function evento(nombre, datos) {
@@ -479,7 +495,7 @@
     }
   });
 
-  /* ---------- 11. Navegación interna suave con cabecera fija ---------- */
+  /* ---------- 12. Navegación interna suave con cabecera fija ---------- */
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if (!a) return;

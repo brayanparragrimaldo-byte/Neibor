@@ -204,3 +204,32 @@ cuando el HTML nuevo ya estaba publicado y algunos AVIF todavía no habían
 llegado a todos los servidores. Ahora el JavaScript escucha el error en captura,
 tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`, así que basta
 con que quede un formato en pie para que la imagen aparezca.
+
+## Planos nuevos, aérea en el concepto y proyecto plegable
+
+**Los seis planos se rehicieron desde los PDF del desarrollo.** Los anteriores
+eran una versión chica y sin rótulos. Los nuevos van a 3000 px y traen el
+nombre y la medida de cada ambiente: dormitorios, vestidor, baños, quincho,
+cocina, estar comedor, ingreso, servicio y estacionamiento. En el visor se
+sirve la versión de 1600 px y el enlace de tamaño completo da el original.
+
+Los PDF venían de canto, con un `/Rotate` que dejaba el dibujo y la leyenda
+vertical, y con márgenes blancos grandes. Se enderezaron y se recortaron al
+contenido.
+
+**Las superficies de los seis planos coinciden una por una** con las que ya
+tenía el sitio: 711, 557, 550, 502, 595 y 790 m² de terreno. No hubo nada que
+corregir.
+
+Los planos rotulan las unidades **N1 a N6** mientras el sitio las identifica por
+letra. La correspondencia es O=N1, R=N2, B=N3, I=N4, E=N5, N=N6. Queda anotada
+en `js/site.js` por si más adelante se unifica el criterio.
+
+**La banda del concepto** pasó de la calle interna a la vista aérea del barrio,
+encuadrada sobre las casas.
+
+**El detalle del proyecto se pliega.** La sección muestra la aérea, la bajada y
+las tres cifras, y el resto se abre con un botón. Cerrada mide 1382 px en
+escritorio contra los 5406 de antes, así que quien no quiere el detalle llega
+a la ubicación cuatro pantallas antes. Al abrirla, la secuencia anclada sigue
+recorriendo sus diez puntos en orden.

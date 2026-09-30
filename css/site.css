@@ -306,6 +306,8 @@ button{ font:inherit; color:inherit; }
 .proy{ position:relative; background:var(--tinta); color:var(--papel); }
 .proy__cuerpo{ position:relative; }
 .banda--entrada{ height:clamp(380px,72svh,760px); }
+/* La aérea es 4:3 y la banda una franja: el encuadre baja hacia las casas */
+.banda--entrada picture > img{ object-position:center 66%; }
 .placa .corchete{ display:block; margin-bottom:1.1rem; opacity:.8; }
 
 .proy__intro{ display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
@@ -325,6 +327,27 @@ button{ font:inherit; color:inherit; }
   letter-spacing:-.03em; line-height:1; }
 .arq__cifra span{ display:block; margin-top:.55rem; font-size:var(--t-rotulo);
   letter-spacing:.18em; text-transform:uppercase; font-weight:600; opacity:.5; }
+
+/* El detalle del proyecto se pliega: quien no lo abre pasa a la ubicación */
+.desplegar{ margin-top:clamp(2.6rem,5vw,4.2rem); }
+.desplegar > summary{
+  display:flex; list-style:none; width:fit-content; margin-inline:auto; justify-content:center;
+}
+.desplegar > summary::-webkit-details-marker{ display:none; }
+.desplegar__txt::after{ content:attr(data-abrir); }
+.desplegar[open] .desplegar__txt::after{ content:attr(data-cerrar); }
+.desplegar__cruz{ width:12px; height:12px; position:relative; flex:none; }
+.desplegar__cruz::before,.desplegar__cruz::after{
+  content:""; position:absolute; inset:50% 0 auto 0; height:1.6px; background:currentColor;
+  transition:transform .45s var(--easing);
+}
+.desplegar__cruz::after{ transform:rotate(90deg); }
+.desplegar[open] .desplegar__cruz::after{ transform:rotate(0deg); }
+.desplegar__pie{
+  text-align:center; max-width:46ch; margin:1.2rem auto 0;
+  font-size:.92rem; color:var(--texto-sobre-oscuro);
+}
+.desplegar[open] .desplegar__pie{ display:none; }
 
 /* ---------- 12. Las seis casas ---------- */
 

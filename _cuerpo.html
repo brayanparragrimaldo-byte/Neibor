@@ -258,7 +258,7 @@
         <figure class="planos__marco">
           <picture>
             <source id="visor-avif" type="image/avif" srcset="img/plano-casa-n-m.avif">
-            <img id="visor-img" src="img/plano-casa-n-m.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="1500" height="1059" decoding="async" fetchpriority="low">
+            <img id="visor-img" src="img/plano-casa-n-m.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="1600" height="990" decoding="async" fetchpriority="low">
           </picture>
         </figure>
         <div class="planos__pie">
@@ -276,7 +276,7 @@
       <div class="planos__tira">
         <p class="nota">El plano corresponde a esta casa. Las demás imágenes son del proyecto, que es el mismo para las seis unidades.</p>
         <button type="button" class="mini mini--plano" id="mini-plano" aria-current="true" data-full="img/plano-casa-n.jpg" data-pie="El plano de esta casa">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/plano-casa-n-t.avif 560w, img/plano-casa-n-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/plano-casa-n-t.jpg 560w, img/plano-casa-n-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/plano-casa-n-t.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/plano-casa-n-t.avif 560w, img/plano-casa-n-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/plano-casa-n-t.jpg 560w, img/plano-casa-n-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/plano-casa-n-t.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="560" height="347" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">El plano de esta casa</span>
         </button>
         <button type="button" class="mini" data-full="img/planta-render.jpg" data-pie="La planta ambientada">
@@ -387,7 +387,12 @@
 <section class="proy" id="proyecto">
 
   <div class="banda banda--entrada">
-    <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/calle-interna-m.avif"><source type="image/avif" srcset="img/calle-interna.avif"><source media="(max-width: 760px)" srcset="img/calle-interna-m.jpg"><img src="img/calle-interna.jpg" alt="Calle interna del barrio, con adoquinado, árboles nuevos y cocheras bajo losa a ambos lados." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+    <picture>
+      <source type="image/avif" media="(max-width: 760px)" srcset="img/hero-aerea-m.avif">
+      <source type="image/avif" srcset="img/hero-aerea.avif">
+      <source media="(max-width: 760px)" srcset="img/hero-aerea-m.jpg">
+      <img src="img/hero-aerea.jpg" alt="Vista aérea de la manzana de Neibor dentro de Villa Allende Golf, con el campo de golf detrás y las Sierras Chicas en el horizonte." width="1448" height="1086" loading="lazy" decoding="async">
+    </picture>
     <div class="placa rev">
       <span class="corchete">El proyecto</span>
       <h2>El barrio del futuro se parece al de antes.</h2>
@@ -414,100 +419,108 @@
         <div class="cifra"><span class="cifra__n" data-contar="4">4</span><span class="cifra__t">Calles alrededor</span></div>
       </div>
 
-      <!-- Secuencia anclada: la imagen cambia con el punto que se está leyendo -->
-      <div class="arq__col" id="arq">
-        <div class="arq__sticky">
-          <div class="arq__marco">
-            <picture><source type="image/avif" srcset="img/hero-axonometrica-m.avif"><source type="image/jpeg" srcset="img/hero-axonometrica-m.jpg"><img src="img/hero-axonometrica-m.jpg" data-arq="0" class="viva" alt="Vista axonométrica del sector, con la manzana de Neibor en color y las vecinas en blanco." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/peatonal-general-m.avif"><source type="image/jpeg" srcset="img/peatonal-general-m.jpg"><img src="img/peatonal-general-m.jpg" data-arq="1" alt="Calle interna al atardecer, con los frentes entre el arbolado y las cocheras bajo losa." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-fachada-posterior-m.avif"><source type="image/jpeg" srcset="img/r-fachada-posterior-m.jpg"><img src="img/r-fachada-posterior-m.jpg" data-arq="2" alt="Fondo de la casa al atardecer, con la galería abierta al jardín privado." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-fachada-frontal-m.avif"><source type="image/jpeg" srcset="img/r-fachada-frontal-m.jpg"><img src="img/r-fachada-frontal-m.jpg" data-arq="3" alt="Frente de la casa en ladrillo gris a la vista, con el paño de celosía entre los árboles." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-fachada-frontal-2-m.avif"><source type="image/jpeg" srcset="img/r-fachada-frontal-2-m.jpg"><img src="img/r-fachada-frontal-2-m.jpg" data-arq="4" alt="Losa de hormigón volando sobre la cochera semicubierta del frente." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-ingreso-casa-m.avif"><source type="image/jpeg" srcset="img/r-ingreso-casa-m.jpg"><img src="img/r-ingreso-casa-m.jpg" data-arq="5" alt="Ingreso de la casa: puerta pivotante de madera entre paños de vidrio, con vista directa al fondo." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-comedor-m.avif"><source type="image/jpeg" srcset="img/r-comedor-m.jpg"><img src="img/r-comedor-m.jpg" data-arq="6" alt="Comedor abierto al patio interior con el olivo, y el estar a continuación." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-cocina-m.avif"><source type="image/jpeg" srcset="img/r-cocina-m.jpg"><img src="img/r-cocina-m.jpg" data-arq="7" alt="Cocina con isla de piedra, frentes de roble y ventana corrida sobre la mesada." width="1700" height="1139" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-dormitorio-m.avif"><source type="image/jpeg" srcset="img/r-dormitorio-m.jpg"><img src="img/r-dormitorio-m.jpg" data-arq="8" alt="Dormitorio principal con ventanal de piso a techo abierto al jardín." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-            <picture><source type="image/avif" srcset="img/r-galeria-m.avif"><source type="image/jpeg" srcset="img/r-galeria-m.jpg"><img src="img/r-galeria-m.jpg" data-arq="9" alt="Galería cubierta con mesa larga, fogón y el jardín a continuación." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+      <details class="desplegar" id="proyecto-detalle">
+        <summary class="btn btn--fantasma">
+          <span class="desplegar__txt" data-abrir="Ver el proyecto en detalle" data-cerrar="Ocultar el detalle"></span>
+          <span class="desplegar__cruz" aria-hidden="true"></span>
+        </summary>
+        <p class="desplegar__pie">Diez puntos: la manzana, la calle, el lote, los materiales y la casa por dentro.</p>
+
+        <!-- Secuencia anclada: la imagen cambia con el punto que se está leyendo -->
+        <div class="arq__col" id="arq">
+          <div class="arq__sticky">
+            <div class="arq__marco">
+              <picture><source type="image/avif" srcset="img/hero-axonometrica-m.avif"><source type="image/jpeg" srcset="img/hero-axonometrica-m.jpg"><img src="img/hero-axonometrica-m.jpg" data-arq="0" class="viva" alt="Vista axonométrica del sector, con la manzana de Neibor en color y las vecinas en blanco." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/peatonal-general-m.avif"><source type="image/jpeg" srcset="img/peatonal-general-m.jpg"><img src="img/peatonal-general-m.jpg" data-arq="1" alt="Calle interna al atardecer, con los frentes entre el arbolado y las cocheras bajo losa." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-fachada-posterior-m.avif"><source type="image/jpeg" srcset="img/r-fachada-posterior-m.jpg"><img src="img/r-fachada-posterior-m.jpg" data-arq="2" alt="Fondo de la casa al atardecer, con la galería abierta al jardín privado." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-fachada-frontal-m.avif"><source type="image/jpeg" srcset="img/r-fachada-frontal-m.jpg"><img src="img/r-fachada-frontal-m.jpg" data-arq="3" alt="Frente de la casa en ladrillo gris a la vista, con el paño de celosía entre los árboles." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-fachada-frontal-2-m.avif"><source type="image/jpeg" srcset="img/r-fachada-frontal-2-m.jpg"><img src="img/r-fachada-frontal-2-m.jpg" data-arq="4" alt="Losa de hormigón volando sobre la cochera semicubierta del frente." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-ingreso-casa-m.avif"><source type="image/jpeg" srcset="img/r-ingreso-casa-m.jpg"><img src="img/r-ingreso-casa-m.jpg" data-arq="5" alt="Ingreso de la casa: puerta pivotante de madera entre paños de vidrio, con vista directa al fondo." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-comedor-m.avif"><source type="image/jpeg" srcset="img/r-comedor-m.jpg"><img src="img/r-comedor-m.jpg" data-arq="6" alt="Comedor abierto al patio interior con el olivo, y el estar a continuación." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-cocina-m.avif"><source type="image/jpeg" srcset="img/r-cocina-m.jpg"><img src="img/r-cocina-m.jpg" data-arq="7" alt="Cocina con isla de piedra, frentes de roble y ventana corrida sobre la mesada." width="1700" height="1139" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-dormitorio-m.avif"><source type="image/jpeg" srcset="img/r-dormitorio-m.jpg"><img src="img/r-dormitorio-m.jpg" data-arq="8" alt="Dormitorio principal con ventanal de piso a techo abierto al jardín." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+              <picture><source type="image/avif" srcset="img/r-galeria-m.avif"><source type="image/jpeg" srcset="img/r-galeria-m.jpg"><img src="img/r-galeria-m.jpg" data-arq="9" alt="Galería cubierta con mesa larga, fogón y el jardín a continuación." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+            </div>
           </div>
+
+          <ol class="arq__lista">
+            <li class="arq__item activo" data-arq-item="0">
+              <h3><span>01 / La manzana</span>Una manzana entera, con cuatro calles alrededor</h3>
+              <p>Villa Allende creció con dos trazados que no terminan de coincidir. Donde se cruzan quedó esta manzana en cuña, rodeada por <b>Ecuador, Guido, Paraguay y Montevideo</b>. Esa forma irregular da origen al símbolo de Neibor y ordena todo el proyecto.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="1">
+              <h3><span>02 / La calle</span>Una calle que no lleva a ningún lado</h3>
+              <p>Las seis casas se apoyan sobre el perímetro y dejan el centro libre. La calle interna tiene dos ingresos y termina en las casas, así que por ahí no pasa nadie más. Los árboles adultos del borde quedaron donde estaban.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="2">
+              <h3><span>03 / El lote</span>Cada casa con su terreno y su fondo</h3>
+              <p>Los lotes son escriturables y ninguno comparte fondo con otro. Todos dan contra la línea de árboles del borde.</p>
+              <div class="arq__cifra">
+                <div><b>502 a 790 m²</b><span>De terreno</span></div>
+                <div><b>224 a 241 m²</b><span>Por casa</span></div>
+              </div>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="3">
+              <h3><span>04 / La piel</span>Ladrillo gris a la vista</h3>
+              <p>Un solo material resuelve el frente completo, en aparejo corrido y sin revoque encima. Sobre el ingreso, ese mismo ladrillo se abre en celosía: de noche deja pasar la luz hacia la calle, y la mirada no.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="4">
+              <h3><span>05 / El techo</span>Losa de hormigón que vuela</h3>
+              <p>Las cubiertas son planas y de hormigón visto. Vuelan sobre el ingreso, sobre la cochera y sobre la galería, y la misma pieza es estructura, alero y cielorraso.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="5">
+              <h3><span>06 / La llegada</span>Se entra y ya se ve el fondo</h3>
+              <p>Una puerta pivotante de madera, tan alta como el paño de vidrio que tiene al lado. El piso de hormigón alisado arranca acá, cruza la casa y sigue afuera bajo la galería, sin cambio de nivel.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="6">
+              <h3><span>07 / El patio</span>Un olivo en el medio de la casa</h3>
+              <p>Entre el ingreso y el estar hay un patio propio. Ilumina la casa por el centro, sin abrir una ventana a la calle.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="7">
+              <h3><span>08 / El día</span>Cocina, comedor y estar en un solo tiro</h3>
+              <p>La isla mira al comedor y el comedor mira al jardín. El vidrio llega al piso y al techo en dos orientaciones, así que el ambiente recibe luz de dos lados durante todo el día.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="8">
+              <h3><span>09 / La noche</span>Los dormitorios dan al fondo</h3>
+              <p>Tres dormitorios, con el principal en suite y vestidor. El ventanal abre contra el jardín y ninguna habitación mira a la calle.</p>
+              <span class="barra"></span>
+            </li>
+            <li class="arq__item" data-arq-item="9">
+              <h3><span>10 / La galería</span>La casa se estira hasta el fondo</h3>
+              <p>La galería está al mismo nivel y con el mismo piso que el comedor, con asador y fogón sobre el césped. En verano el comedor sigue afuera.</p>
+              <span class="barra"></span>
+            </li>
+          </ol>
         </div>
 
-        <ol class="arq__lista">
-          <li class="arq__item activo" data-arq-item="0">
-            <h3><span>01 / La manzana</span>Una manzana entera, con cuatro calles alrededor</h3>
-            <p>Villa Allende creció con dos trazados que no terminan de coincidir. Donde se cruzan quedó esta manzana en cuña, rodeada por <b>Ecuador, Guido, Paraguay y Montevideo</b>. Esa forma irregular da origen al símbolo de Neibor y ordena todo el proyecto.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="1">
-            <h3><span>02 / La calle</span>Una calle que no lleva a ningún lado</h3>
-            <p>Las seis casas se apoyan sobre el perímetro y dejan el centro libre. La calle interna tiene dos ingresos y termina en las casas, así que por ahí no pasa nadie más. Los árboles adultos del borde quedaron donde estaban.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="2">
-            <h3><span>03 / El lote</span>Cada casa con su terreno y su fondo</h3>
-            <p>Los lotes son escriturables y ninguno comparte fondo con otro. Todos dan contra la línea de árboles del borde.</p>
-            <div class="arq__cifra">
-              <div><b>502 a 790 m²</b><span>De terreno</span></div>
-              <div><b>224 a 241 m²</b><span>Por casa</span></div>
-            </div>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="3">
-            <h3><span>04 / La piel</span>Ladrillo gris a la vista</h3>
-            <p>Un solo material resuelve el frente completo, en aparejo corrido y sin revoque encima. Sobre el ingreso, ese mismo ladrillo se abre en celosía: de noche deja pasar la luz hacia la calle, y la mirada no.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="4">
-            <h3><span>05 / El techo</span>Losa de hormigón que vuela</h3>
-            <p>Las cubiertas son planas y de hormigón visto. Vuelan sobre el ingreso, sobre la cochera y sobre la galería, y la misma pieza es estructura, alero y cielorraso.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="5">
-            <h3><span>06 / La llegada</span>Se entra y ya se ve el fondo</h3>
-            <p>Una puerta pivotante de madera, tan alta como el paño de vidrio que tiene al lado. El piso de hormigón alisado arranca acá, cruza la casa y sigue afuera bajo la galería, sin cambio de nivel.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="6">
-            <h3><span>07 / El patio</span>Un olivo en el medio de la casa</h3>
-            <p>Entre el ingreso y el estar hay un patio propio. Ilumina la casa por el centro, sin abrir una ventana a la calle.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="7">
-            <h3><span>08 / El día</span>Cocina, comedor y estar en un solo tiro</h3>
-            <p>La isla mira al comedor y el comedor mira al jardín. El vidrio llega al piso y al techo en dos orientaciones, así que el ambiente recibe luz de dos lados durante todo el día.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="8">
-            <h3><span>09 / La noche</span>Los dormitorios dan al fondo</h3>
-            <p>Tres dormitorios, con el principal en suite y vestidor. El ventanal abre contra el jardín y ninguna habitación mira a la calle.</p>
-            <span class="barra"></span>
-          </li>
-          <li class="arq__item" data-arq-item="9">
-            <h3><span>10 / La galería</span>La casa se estira hasta el fondo</h3>
-            <p>La galería está al mismo nivel y con el mismo piso que el comedor, con asador y fogón sobre el césped. En verano el comedor sigue afuera.</p>
-            <span class="barra"></span>
-          </li>
-        </ol>
-      </div>
+        <figure class="fig fig--16x9 corte-ti rev" style="margin:clamp(3rem,6vw,5rem) 0 0">
+          <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/planta-render-m.avif"><source type="image/avif" srcset="img/planta-render.avif"><source media="(max-width: 760px)" srcset="img/planta-render-m.jpg"><img src="img/planta-render.jpg" alt="Planta de la casa vista desde arriba: el ala de dormitorios arriba, el estar comedor y la cocina abajo, la galería en el medio y la cochera para dos autos a la derecha." width="1800" height="1013" loading="lazy" decoding="async"></picture>
+          <figcaption>La casa desde arriba</figcaption>
+        </figure>
+        <p class="nota rev">Imágenes de proyecto. Mobiliario, equipamiento y parquización de carácter ilustrativo.</p>
 
-      <figure class="fig fig--16x9 corte-ti rev" style="margin:clamp(3rem,6vw,5rem) 0 0">
-        <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/planta-render-m.avif"><source type="image/avif" srcset="img/planta-render.avif"><source media="(max-width: 760px)" srcset="img/planta-render-m.jpg"><img src="img/planta-render.jpg" alt="Planta de la casa vista desde arriba: el ala de dormitorios arriba, el estar comedor y la cocina abajo, la galería en el medio y la cochera para dos autos a la derecha." width="1800" height="1013" loading="lazy" decoding="async"></picture>
-        <figcaption>La casa desde arriba</figcaption>
-      </figure>
-      <p class="nota rev">Imágenes de proyecto. Mobiliario, equipamiento y parquización de carácter ilustrativo.</p>
-
-      <h3 class="titulo rev" style="font-size:clamp(1.6rem,3.2vw,2.6rem);margin-top:clamp(3rem,6vw,5rem)">Qué entra en cada casa</h3>
-      <ul class="programa rev rev-d1">
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-auto"></use></svg>Cochera doble</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-suite"></use></svg>Dormitorio principal con vestidor y baño en suite</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-cama"></use></svg>Dos dormitorios secundarios</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-ducha"></use></svg>Dos baños y un toilette</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-sofa"></use></svg>Cocina, comedor y living integrados</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-lavadero"></use></svg>Lavadero con tender</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-parrilla"></use></svg>Galería con asador</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-deposito"></use></svg>Espacio de guardado y depósito</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-radiador"></use></svg>Calefacción central</li>
-        <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-ventana"></use></svg>Aberturas de vidrio doble</li>
-      </ul>
+        <h3 class="titulo rev" style="font-size:clamp(1.6rem,3.2vw,2.6rem);margin-top:clamp(3rem,6vw,5rem)">Qué entra en cada casa</h3>
+        <ul class="programa rev rev-d1">
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-auto"></use></svg>Cochera doble</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-suite"></use></svg>Dormitorio principal con vestidor y baño en suite</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-cama"></use></svg>Dos dormitorios secundarios</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-ducha"></use></svg>Dos baños y un toilette</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-sofa"></use></svg>Cocina, comedor y living integrados</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-lavadero"></use></svg>Lavadero con tender</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-parrilla"></use></svg>Galería con asador</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-deposito"></use></svg>Espacio de guardado y depósito</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-radiador"></use></svg>Calefacción central</li>
+          <li><svg class="ico ico--sm" aria-hidden="true"><use href="#i-ventana"></use></svg>Aberturas de vidrio doble</li>
+        </ul>
+      </details>
 
     </div>
   </div>
