@@ -811,6 +811,14 @@ button{ font:inherit; color:inherit; }
    el escalón entre el papel de las dos secciones de arriba y la tinta del
    contacto, y de paso separa las tres sin necesidad de un filete. */
 .respaldo{ position:relative; }
+@media (min-width:901px){
+  /* Al quedar sólo el banner, la sección se volvió más corta que el rótulo
+     vertical, que arranca en el borde del contenido y se derramaba sobre la
+     sección de abajo. El piso de altura lo contiene y de paso le da cuerpo de
+     banda a las tres firmas, que es lo que se pidió de esta sección. */
+  .respaldo{ min-height:clamp(470px,54svh,580px); display:flex; align-items:center; }
+  .respaldo > .envoltura{ width:100%; }
+}
 
 .marcas{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.2rem,3vw,2.6rem);
   border-top:1px solid var(--linea-clara); }
@@ -829,11 +837,6 @@ button{ font:inherit; color:inherit; }
 .marca__rol{ display:block; margin-top:.8rem; font-size:var(--t-rotulo); letter-spacing:.18em;
   text-transform:uppercase; font-weight:600; opacity:.75; }
 
-/* El contacto al margen inferior izquierdo, como pie de la sección. */
-.datos-directos--pie{ margin-top:clamp(3rem,6vw,5rem); max-width:min(100%, 460px); }
-.datos-directos--pie li{ border-color:var(--linea-clara); padding:.95rem 0; }
-.datos-directos--pie a{ font-size:1.02rem; }
-.datos-directos--pie small{ opacity:.68; }
 
 /* ============================================================
    28. Hero claro: la axonométrica manda y el texto se invierte

@@ -472,8 +472,16 @@ ubicación, el titular se va de la vista y no del documento: queda un
 `titulo-oculto` para que la sección siga teniendo encabezado y el enlace del menú
 lleve a un bloque con nombre.
 
-**Queda el banner de marcas** con las tres firmas y su papel, y abajo a la
-izquierda los datos de contacto: WhatsApp, correo y dónde queda. Sin QR.
+**Queda el banner de marcas** con las tres firmas y su papel. Los datos de
+contacto que habían entrado al pie se sacaron en la misma tanda: seguían estando
+completos en la sección de contacto, dos bloques más abajo, y repetirlos aflojaba
+el banner. Sin QR.
+
+Al quedar sólo el banner la sección bajó a 368 píxeles y se volvió más corta que
+el rótulo vertical "Respaldo", que arranca en el borde del contenido y se
+derramaba 44 píxeles sobre la sección de abajo. Arriba de 900 píxeles de ancho la
+sección lleva un piso de `clamp(470px, 54svh, 580px)` y centra su contenido: el
+rótulo entra con holgura y las tres firmas quedan con cuerpo de banda.
 
 Dos cosas de contraste que hubo que mirar al cambiar el fondo:
 
