@@ -335,13 +335,18 @@
     });
   }
 
-  /* ---------- 8. Galería a pantalla completa ---------- */
+  /* ---------- 8. Galería a pantalla completa ----------
+     Pasa sola cada cinco segundos y también a mano. El contador y las
+     flechas están para que las dos cosas se entiendan sin leer nada. */
   var pista = $('#galeria-pista');
   if (pista) {
     var slides = $$('.galeria__slide', pista);
     var barra = $('#galeria-barra');
-    var actual = 0, reloj = null;
+    var cuenta = $('#galeria-cuenta');
+    var actual = 0, reloj = null, moviendo = 0;
     var DURACION = 5000;
+
+    function dos(n) { return n < 10 ? '0' + n : String(n); }
 
     slides.forEach(function () {
       var t = document.createElement('span');
@@ -365,14 +370,16 @@
       } else {
         tramos[i].classList.add('vista');
       }
+      if (cuenta) cuenta.textContent = dos(i + 1) + ' / ' + dos(slides.length);
     }
     function ir(i, suave) {
       actual = (i + slides.length) % slides.length;
+      moviendo = Date.now();
       pista.scrollTo({ left: slides[actual].offsetLeft, behavior: suave === false || reduce ? 'auto' : 'smooth' });
       marcar(actual);
     }
     function arrancar() {
-      if (reduce) return;
+      if (reduce || (vFoto && vFoto.open)) return;
       detener();
       reloj = setInterval(function () { ir(actual + 1); }, DURACION);
     }
@@ -380,13 +387,92 @@
 
     $('#gal-ant').addEventListener('click', function () { ir(actual - 1); arrancar(); });
     $('#gal-sig').addEventListener('click', function () { ir(actual + 1); arrancar(); });
-    pista.addEventListener('pointerdown', detener);
+    pista.addEventListener('pointerdown', function () { detener(); moviendo = 0; });
     pista.addEventListener('mouseenter', detener);
     pista.addEventListener('mouseleave', arrancar);
     pista.addEventListener('scroll', function () {
+      /* Mientras corre un movimiento pedido por código llegan posiciones de
+         paso que pelean contra el destino. Se descartan por un momento, y el
+         primer toque en la tira vuelve a darle la palabra al dedo. */
+      if (Date.now() - moviendo < 700) return;
       var i = Math.round(pista.scrollLeft / pista.clientWidth);
       if (i !== actual && slides[i]) { actual = i; marcar(actual); }
     }, { passive: true });
+
+    /* --- La foto entera, en su ventana --------------------------------
+       Acá la imagen entra completa y sin recorte, que es lo contrario de
+       lo que hace la tira: allá llena la pantalla, acá se ve toda. */
+    var vFoto = $('#v-foto');
+    var fImg = $('#foto-img'), fAvif = $('#foto-avif');
+    var fPie = $('#foto-pie'), fCuenta = $('#foto-cuenta');
+    var abridores = $$('.galeria__abrir', pista);
+    var enFoto = 0, volverA = null;
+
+    function pintarFoto(i) {
+      enFoto = (i + slides.length) % slides.length;
+      var im = $('img', slides[enFoto]);
+      var pie = $('figcaption', slides[enFoto]);
+      var full = im.getAttribute('src');
+      /* El <source> va primero: cambiando sólo el src, el picture sigue
+         mostrando lo que ya había resuelto. */
+      if (fAvif) fAvif.setAttribute('srcset', full.replace(/\.jpg$/, '.avif'));
+      fImg.src = full;
+      fImg.alt = im.alt;
+      fPie.textContent = pie ? pie.textContent : '';
+      fCuenta.textContent = dos(enFoto + 1) + ' / ' + dos(slides.length);
+    }
+    function cerrarFoto() {
+      if (vFoto.close) vFoto.close(); else vFoto.removeAttribute('open');
+    }
+
+    if (vFoto && abridores.length) {
+      /* Un arrastre para pasar de imagen no tiene que abrir nada: sólo
+         cuenta como clic si el dedo o el mouse no se corrieron. */
+      var x0 = 0, y0 = 0;
+      pista.addEventListener('pointerdown', function (e) { x0 = e.clientX; y0 = e.clientY; });
+
+      abridores.forEach(function (b, i) {
+        b.addEventListener('click', function (e) {
+          /* e.detail vale 0 cuando el clic vino del teclado: ahí no hay
+             arrastre que medir y la guarda no corresponde. */
+          if (e.detail !== 0 &&
+              (Math.abs(e.clientX - x0) > 10 || Math.abs(e.clientY - y0) > 10)) return;
+          detener();
+          volverA = b;
+          pintarFoto(i);
+          if (vFoto.showModal) vFoto.showModal(); else vFoto.setAttribute('open', '');
+        });
+      });
+
+      $$('[data-cerrar]', vFoto).forEach(function (b) { b.addEventListener('click', cerrarFoto); });
+      $('#foto-ant').addEventListener('click', function () { pintarFoto(enFoto - 1); });
+      $('#foto-sig').addEventListener('click', function () { pintarFoto(enFoto + 1); });
+
+      vFoto.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); pintarFoto(enFoto - 1); }
+        else if (e.key === 'ArrowRight') { e.preventDefault(); pintarFoto(enFoto + 1); }
+      });
+      /* La ventana ocupa toda la pantalla, así que el rectángulo no sirve
+         para saber si el clic fue afuera: se mira si cayó en el fondo. */
+      vFoto.addEventListener('click', function (e) { if (e.target === vFoto) cerrarFoto(); });
+      vFoto.addEventListener('wheel', function (e) { e.preventDefault(); }, { passive: false });
+      /* Sobre el fondo se frena el desplazamiento, sobre la foto no: ahí
+         el gesto es el de agrandar con dos dedos, que en el teléfono es
+         lo único que hace a esta ventana más útil que la tira. */
+      vFoto.addEventListener('touchmove', function (e) {
+        if (!(e.target.closest && e.target.closest('.foto'))) e.preventDefault();
+      }, { passive: false });
+      /* Al cerrar, la tira queda en la imagen que se estaba mirando y el
+         foco vuelve a esa misma, no a la de donde se entró. Va con
+         preventScroll porque enfocar algo corrido de pantalla la arrastra
+         de vuelta, y eso deshacía el movimiento de la línea de arriba. */
+      vFoto.addEventListener('close', function () {
+        ir(enFoto, false);
+        var destino = abridores[enFoto] || volverA;
+        if (destino) { try { destino.focus({ preventScroll: true }); } catch (e) { destino.focus(); } }
+        arrancar();
+      });
+    }
 
     /* sólo corre mientras la galería está en pantalla */
     if ('IntersectionObserver' in window) {

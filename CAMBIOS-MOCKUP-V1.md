@@ -410,3 +410,48 @@ de Córdoba capital y la nota al pie que decía "Pendiente: distancias y tiempos
 verificados a puntos de interés". La nota se fue entera: decía que las
 referencias salían de la planimetría de proyecto, y estos tiempos no salen de
 ahí. Quedan seis etiquetas de pendiente en la página, de ocho que había.
+
+## La galería pasa a pantalla completa y la foto abre en una ventana
+
+Las diapositivas pasaron de `clamp(460px, 84svh, 900px)` a `100svh`: cada render
+ocupa una pantalla entera, como el hero.
+
+**Que se puede pasar, ahora se ve.** Las flechas estaban escondidas abajo de 640
+píxeles, así que en el teléfono no había ningún control a la vista: sólo quedaba
+descubrir el gesto. Ahora se ven en todos los tamaños y al lado va un contador
+"01 / 11", que dice cuántas son sin tener que recorrerlas. La barra de tramos de
+abajo ya mostraba el paso automático y quedó igual, cinco segundos por imagen.
+
+**La foto abre entera.** Cada imagen es un botón que abre `#v-foto`, una ventana a
+pantalla completa sobre fondo oscuro donde la imagen entra con `contain`, sin
+recorte, con su pie, el contador y flechas para seguir mirando sin volver a la
+tira. Al cerrar, la tira queda en la imagen que se estaba mirando y el foco va a
+esa misma.
+
+Tres detalles que costaron más de lo que parecían:
+
+- **Un arrastre no tiene que abrir la ventana.** Se mide cuánto se movió el dedo
+  entre `pointerdown` y el clic: más de 10 píxeles y no abre. La guarda se saltea
+  cuando `e.detail` vale 0, que es el clic que manda el teclado, porque ahí no hay
+  arrastre que medir y si no se saltea el Enter deja de funcionar.
+- **Devolver el foco arrastraba la tira.** Al cerrar, `focus()` sobre un botón
+  corrido de pantalla lo trae a la vista, y eso deshacía el `ir()` de la línea
+  anterior: la tira volvía a la primera imagen. Va con `preventScroll: true` y
+  apuntando al botón de la imagen donde se quedó, no al de donde se entró.
+- **El oyente de scroll peleaba con el movimiento pedido por código.** Mientras
+  corre un `scrollTo` llegan posiciones de paso y el redondeo las tomaba como
+  destino. Se descartan por 700 milisegundos, y el primer toque en la tira vuelve
+  a darle la palabra al dedo.
+
+**El formato no alcanza para el teléfono.** Los once renders son 16:9. Para llenar
+una pantalla parada habría que recortar hasta dejar un 26 por ciento del ancho.
+Abajo de 760 píxeles la imagen entra entera, de borde a borde, con el pie y los
+controles sobre el fondo oscuro, y la diapositiva se acorta a `clamp(460px, 74svh,
+660px)` para que no quede nadando. Lo que falta para que llene la pantalla está
+anotado en el README, en "Lo que falta para que la galería llene el teléfono".
+
+**De paso, `build.py`.** La regeneración de `index.html` dejó de ser un comando
+suelto y pasó a un archivo del repositorio, que además le pone a la hoja de
+estilos y al script un sello del contenido. Sin eso, el navegador de quien ya
+visitó la página puede quedarse con un JavaScript viejo contra un CSS nuevo, que
+es exactamente lo que pasó mientras se probaba esto.

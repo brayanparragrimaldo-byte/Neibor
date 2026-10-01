@@ -54,7 +54,15 @@ python3 -m http.server 8080
 
 **Datos pendientes.** Buscar `class="pendiente"` en `_cuerpo.html`. Cada uno marca un dato que no estaba en el material entregado. Al completarlo, se borra la etiqueta.
 
-**Regenerar `index.html`** después de editar `_cuerpo.html`: el archivo es el `<head>` de `index.html` más el cuerpo más el `<script>` final.
+**La galería.** Cada `<figure class="galeria__slide">` de `_cuerpo.html` es una imagen a pantalla completa. Para sumar o sacar una, se agrega o se borra la figura entera: el JavaScript cuenta cuántas hay y arma solo los tramos de la barra, el contador y la ventana. El `data-gal` de cada botón es la posición y lo reescribe nadie: conviene renumerarlo a mano si se intercalan imágenes. Pasa sola cada cinco segundos; la duración está en `DURACION`, y el mismo número está en la transición de `.galeria__tramo.activo i`, así que se cambian los dos juntos.
+
+**Regenerar `index.html`** después de editar `_cuerpo.html`:
+
+```bash
+python3 build.py
+```
+
+Toma el `<head>` que ya está en `index.html`, le pega el cuerpo entero y cierra con el `<script>`. De paso le pone a la hoja de estilos y al script un sello corto del contenido (`?v=76b160c5`), para que el navegador de quien ya visitó la página no mezcle un CSS viejo con un JS nuevo.
 
 ## Las imágenes
 
@@ -99,10 +107,34 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
 - **Los atributos van en cuatro columnas y la última fila se centra.** Son diez, así que sobran dos en la tercera fila: las reglas `.amen > li:nth-child(9)` y `:nth-child(10)` los corren a las columnas del medio. Si cambia la cantidad de atributos, hay que revisarlas.
 - **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
+- **La galería recorta en el escritorio y no recorta en el teléfono.** Los once renders son apaisados, de 16:9. Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
 - **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
 - **Las cifras de la banda del hero vienen del material comercial y no cierran con la ficha técnica.** Están puestas tal cual las entregó el desarrollo, pero hay tres diferencias anotadas abajo, en "Datos que no cierran entre sí". Antes de publicar en otros canales conviene unificar.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
 - **Tipografía:** Host Grotesk desde Google Fonts, la misma del manual de marca.
+
+## Lo que falta para que la galería llene el teléfono
+
+Los once renders vienen en 16:9 (1800 por 1013, salvo la cocina en 1700 por 1133
+y el baño en 1700 por 956). Esa forma llena bien una pantalla de escritorio y no
+llena una de teléfono: para cubrir 375 por 812 habría que recortar hasta dejar a
+la vista un 26 por ciento del ancho.
+
+Para que la galería vaya de borde a borde también en el teléfono hace falta un
+recorte vertical de cada render, encuadrado por quien hizo la imagen y no por un
+recorte automático al centro:
+
+```
+1200 x 2000 px   (3:5)   JPEG calidad alta, sRGB
+nombre-v.jpg             la misma base, con el sufijo -v
+```
+
+Con esos once archivos la galería pasa a pantalla completa en el teléfono
+agregando una `<source media="(max-width: 760px)">` por imagen. Mientras tanto
+queda el modo que no recorta, que muestra el render completo.
+
+Si 3:5 resulta demasiado alto para la composición, 4:5 (1200 por 1500) también
+sirve y deja algo de fondo arriba y abajo.
 
 ## Datos que no cierran entre sí
 
