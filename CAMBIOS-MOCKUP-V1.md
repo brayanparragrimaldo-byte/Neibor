@@ -495,3 +495,31 @@ Dos cosas de contraste que hubo que mirar al cambiar el fondo:
 estaba en la nota de las condiciones de reserva, que se fue. Sigue en la lista del
 README, pero ya no tiene etiqueta en la página: si esos datos llegan, hay que
 volver a abrirles un lugar.
+
+## Entra el logotipo de Calsina y se acorta el texto del contacto
+
+**El texto del contacto** perdió el cierre "y hablás con Lucas": queda "Dejá tus
+datos y te escribimos con valores, forma de pago y disponibilidad actualizada. Si
+preferís, escribís directo por WhatsApp." El punto final lo puse yo, que en el
+texto entregado no estaba y el resto de los párrafos de la página lo llevan.
+
+**El logotipo de Calsina reemplaza al nombre compuesto.** Las tres firmas pasaron
+a compartir un alto de ranura, `clamp(54px, 6.2vw, 88px)`: adentro va el logotipo
+o el nombre, y así el banner aguanta el período en que falten los otros dos. El
+pendiente ahora nombra sólo a GRAB y Autónomo.
+
+**El archivo venía dibujado sobre blanco.** Tiene canal alfa, pero todos sus
+píxeles son opacos y el fondo es blanco sólido: sobre la salvia de la sección se
+veía un recuadro blanco alrededor del logotipo. Se le quitó el fondo deshaciendo
+la composición: si C es lo que se ve, K la tinta real y a su opacidad, entonces
+C = K*a + 255*(1-a); tomando a = 1 - min(R,G,B)/255 se despeja K sin tocarle el
+tono a la tinta. Volviendo a componer el resultado sobre blanco se recupera el
+original con 0,87 de diferencia media sobre 255 y 9 en el peor píxel, así que no
+hay pérdida visible. De paso el archivo bajó de 94 a 59 kB, porque un fondo
+transparente comprime mejor que uno blanco.
+
+La cuenta quedó en `fondo-a-alfa.py`, por si los otros dos logotipos llegan igual.
+
+**No hay AVIF de este logotipo.** `sips` le tira el canal alfa al convertirlo y lo
+deja con fondo blanco, que es justo el problema que se acababa de resolver. Va
+sólo en PNG, a 640 píxeles, que es el doble de los 272 a los que se muestra.

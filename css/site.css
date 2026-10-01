@@ -829,6 +829,13 @@ button{ font:inherit; color:inherit; }
   .marca:first-child{ border-top-color:transparent; }
   .marca:last-child{ padding-bottom:0; }
 }
+/* Las tres firmas comparten alto de ranura. Mientras falten dos de los tres
+   logotipos, el que ya llegó y los dos nombres compuestos quedan a la misma
+   altura y el banner no se desarma. El de Calsina va sólo en PNG: sips le
+   tira el canal alfa al pasarlo a AVIF y lo deja con fondo blanco, que sobre
+   salvia sería un recuadro. */
+.marca__firma{ display:flex; align-items:center; height:clamp(54px,6.2vw,88px); }
+.marca__firma img{ display:block; width:auto; height:100%; max-width:100%; object-fit:contain; object-position:left center; }
 .marca__nombre{ font-size:clamp(1.5rem,2.8vw,2.2rem); font-weight:600; letter-spacing:-.03em;
   margin:0; line-height:1; }
 /* El rol no es decoración: dice qué hace cada firma. Sobre salvia, media
