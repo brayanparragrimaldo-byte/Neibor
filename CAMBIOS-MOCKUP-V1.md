@@ -87,9 +87,9 @@ Hero → Amenidades → Galería → Las seis casas → El proyecto → Dónde �
 1. **Hero.** Vista aérea apaisada del barrio a sangre, con veladuras arriba y
    abajo para que el titular se lea sobre la foto, y la banda de cifras del
    predio abajo.
-2. **Amenidades.** Subió a segundo lugar y se rehizo con la grilla centrada de
-   ícono y texto sobre fondo claro: tres columnas en desktop, dos en tablet,
-   una en móvil.
+2. **Atributos principales.** Subió a segundo lugar y se rehizo con la grilla
+   centrada de ícono y texto sobre fondo claro: cuatro columnas en desktop,
+   tres y dos al bajar, una en móvil.
 3. **Galería.** Subió a tercer lugar, antes del bloque comercial.
 4. **Las seis casas.** Cuarto lugar. Abre directamente con el conmutador
    Plano / Axonométrica, el plano con las chinchetas y la ficha por unidad. Se
@@ -305,3 +305,33 @@ contra los 502 a 790 del legajo, los 215 m² por casa contra los 224 a 241, y lo
 4.237 m² de predio contra los 3.705 que suman los seis lotes. Quedaron los dos
 juegos de números donde corresponde, sin corregir ninguno por cuenta propia, y la
 diferencia está anotada en el README para que el desarrollo defina cuál vale.
+
+## La banda se queda sin botones y los atributos pasan a cuatro columnas
+
+**Los dos botones de abajo de la banda salieron.** La banda queda en las cinco
+cifras y nada más, y con eso vuelve a 185 píxeles de alto en desktop, casi los
+164 que medía con la frase única. Conviene saber que la primera pantalla queda
+con una sola llamada a la acción, "Consultar" en la cabecera, que es fija y
+acompaña todo el scroll. Las otras siguen en su lugar: la ficha de cada casa, el
+bloque de ubicación y el formulario de contacto.
+
+**La sección pasó a llamarse "Atributos principales".** Reemplaza al rótulo "Lo
+que trae el barrio" más el titular "Todo lo que no se ve desde la vereda", que
+eran dos líneas. Quedó un solo `<h2>` con el estilo de título del resto de las
+secciones, para no perder jerarquía dentro de la página.
+
+**La grilla pasó de flex a `grid-template-columns: repeat(4, minmax(0,1fr))`.**
+Ni el ícono ni el texto cambiaron de medida: lo único que se tocó es la cantidad
+de columnas y el gap. Son diez atributos, así que la tercera fila queda con dos
+sueltos, y van a las columnas del medio con `grid-column` para que la fila cierre
+centrada:
+
+```
+cuatro columnas   4 + 4 + 2, los dos últimos en las columnas 2 y 3
+tres columnas     3 + 3 + 3 + 1, el último en la columna 2
+dos columnas      cinco filas parejas
+una columna       uno abajo del otro
+```
+
+Si alguna vez se agrega o se saca un atributo hay que revisar esas dos reglas de
+`:nth-child`, porque están escritas para diez.

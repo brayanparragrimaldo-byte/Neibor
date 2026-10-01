@@ -282,20 +282,10 @@ button{ font:inherit; color:inherit; }
 }
 .dato__d{ margin:.55rem 0 0; font-size:.8rem; line-height:1.5; opacity:.72; }
 
-/* Los botones cierran la banda sobre una línea, para que la cifra y la
-   acción no compitan por la misma altura. */
-.hero__pie .acciones{
-  margin-top:clamp(1.1rem,1.8vw,1.5rem); padding-top:clamp(1rem,1.5vw,1.25rem);
-  border-top:1px solid var(--linea-oscura); justify-content:flex-end;
-}
-
 @media (max-width:1080px){
   .datos{ grid-template-columns:repeat(3,minmax(0,1fr)); }
   .datos > li:nth-child(5n+1){ border-left:1px solid var(--linea-oscura); padding-left:clamp(.9rem,1.8vw,1.7rem); }
   .datos > li:nth-child(3n+1){ border-left:0; padding-left:0; }
-}
-@media (max-width:860px){
-  .hero__pie .acciones{ justify-content:flex-start; }
 }
 /* En el teléfono la banda se vuelve lista: el ícono y la cifra a la
    izquierda, el texto a la derecha, separados por una línea cada uno. */
@@ -733,17 +723,22 @@ button{ font:inherit; color:inherit; }
   font-size:.95rem; font-weight:500; transition:gap .4s var(--easing); }
 .mapa-enlace:hover{ gap:1.1rem; }
 
-/* 23. Amenidades: grilla centrada de ícono y texto sobre fondo claro */
+/* 23. Atributos principales: cuatro columnas sobre fondo claro */
 .amenidades{ text-align:center; }
-.amen__ante{ display:block; opacity:.5; }
-.titulo--centro{ max-width:20ch; margin-inline:auto; margin-top:.9rem; }
+.titulo--centro{ max-width:24ch; margin-inline:auto; margin-top:0; }
 
+/* Cuatro columnas iguales. Lo único que se mueve entre tamaños es el gap y
+   la cantidad de columnas: ni el ícono ni el texto cambian de medida. */
 .amen{
-  display:flex; flex-wrap:wrap; justify-content:center; list-style:none;
-  margin:clamp(3rem,6vw,5rem) 0 0; padding:0;
-  gap:clamp(2.6rem,4.4vw,4rem) clamp(1.6rem,3vw,3rem);
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  list-style:none; margin:clamp(3rem,6vw,5rem) 0 0; padding:0;
+  gap:clamp(2.6rem,4.4vw,4rem) clamp(1.4rem,2.4vw,2.6rem);
 }
-.amen li{ flex:0 1 min(100%, max(235px, 27%)); }
+/* Son diez atributos, así que la tercera fila queda con dos. Se corren a
+   las columnas del medio para que la fila cierre centrada y no pegada a
+   la izquierda. */
+.amen > li:nth-child(9){ grid-column:2; }
+.amen > li:nth-child(10){ grid-column:3; }
 .amen__ico{
   width:clamp(2.3rem,3vw,2.8rem); height:clamp(2.3rem,3vw,2.8rem);
   stroke-width:1.15; color:var(--tinta); margin:0 auto 1.25rem; display:block;
@@ -758,8 +753,20 @@ button{ font:inherit; color:inherit; }
 .seccion--oscura .amen__ico,.seccion--tinta .amen__ico{ color:var(--salvia); }
 .seccion--oscura .amen p,.seccion--tinta .amen p{ color:var(--texto-sobre-oscuro); }
 
+@media (max-width:1100px){
+  .amen{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  /* Con tres columnas los nueve primeros llenan tres filas y el décimo
+     queda solo: va al medio. */
+  .amen > li:nth-child(9){ grid-column:auto; }
+  .amen > li:nth-child(10){ grid-column:2; }
+}
+@media (max-width:760px){
+  .amen{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .amen > li:nth-child(9),
+  .amen > li:nth-child(10){ grid-column:auto; }
+}
 @media (max-width:560px){
-  .amen{ gap:2.2rem; }
+  .amen{ grid-template-columns:1fr; gap:2.2rem; }
   .amen p{ max-width:30ch; }
 }
 
