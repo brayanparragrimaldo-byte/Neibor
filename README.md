@@ -108,6 +108,7 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Los atributos van en cuatro columnas y la última fila se centra.** Son diez, así que sobran dos en la tercera fila: las reglas `.amen > li:nth-child(9)` y `:nth-child(10)` los corren a las columnas del medio. Si cambia la cantidad de atributos, hay que revisarlas.
 - **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
 - **La galería recorta en el escritorio y no recorta en el teléfono.** Los once renders son apaisados, de 16:9. Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
+- **"Quién lo hace" va sobre salvia y es la única sección en ese tono.** Es el escalón entre el papel de las dos secciones de arriba y la tinta del contacto, y de paso las separa sin necesidad de un filete. Ahí el naranja del pendiente baja a `#7a4100`, porque el de texto habitual da 3,76:1 sobre salvia y no llega al mínimo.
 - **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
 - **Las cifras de la banda del hero vienen del material comercial y no cierran con la ficha técnica.** Están puestas tal cual las entregó el desarrollo, pero hay tres diferencias anotadas abajo, en "Datos que no cierran entre sí". Antes de publicar en otros canales conviene unificar.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
@@ -170,8 +171,13 @@ El predio está en **-31.285555, -64.288894** y el enlace a Google Maps apunta
 ahí en forma directa, sin pasar por un acortador.
 
 Los que tienen lugar en la página están marcados en `_cuerpo.html` con
-`class="pendiente"`, seis etiquetas en total. Al completar uno, se borra la
+`class="pendiente"`, cinco etiquetas en total. Al completar uno, se borra la
 etiqueta.
+
+El punto 4 ya no tiene dónde marcarse: el bloque con las condiciones de reserva
+se quitó a pedido del desarrollo. Si esos datos llegan, hay que volver a abrir un
+lugar para ellos, porque hoy la página no dice nada de fiduciaria, plazo de obra
+ni permisos.
 
 Los tiempos al golf, al centro, al aeropuerto y a Córdoba capital los entregó el
 desarrollo y están puestos tal cual. No salen de una medición propia ni de la

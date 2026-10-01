@@ -455,3 +455,35 @@ suelto y pasó a un archivo del repositorio, que además le pone a la hoja de
 estilos y al script un sello del contenido. Sin eso, el navegador de quien ya
 visitó la página puede quedarse con un JavaScript viejo contra un CSS nuevo, que
 es exactamente lo que pasó mientras se probaba esto.
+
+## "Quién lo hace" queda en el banner de marcas y el contacto al pie
+
+**Fuera la textura.** La sección tenía la trama de módulos del brandbook al 5 por
+ciento sobre el verde oscuro. Salió el `div.trama` y salió su regla del CSS, que
+no se usaba en ningún otro lado.
+
+**El fondo pasa a salvia**, el neutro del manual, en lugar del verde oscuro. La
+página queda papel, papel, salvia, tinta: la sección funciona como escalón hacia
+el contacto y de paso se separa sola de la ubicación, sin filete.
+
+**Salió el titular** "Tres firmas detrás de seis casas." con su párrafo, y
+salieron los tres pasos de compra con la nota de condiciones. Como en la
+ubicación, el titular se va de la vista y no del documento: queda un
+`titulo-oculto` para que la sección siga teniendo encabezado y el enlace del menú
+lleve a un bloque con nombre.
+
+**Queda el banner de marcas** con las tres firmas y su papel, y abajo a la
+izquierda los datos de contacto: WhatsApp, correo y dónde queda. Sin QR.
+
+Dos cosas de contraste que hubo que mirar al cambiar el fondo:
+
+- El rol de cada marca estaba al 50 por ciento de opacidad. Sobre salvia eso da
+  3,8:1 y no llega. Pasó a 75 por ciento, que da 5,3. No es decoración: ese
+  renglón dice qué hace cada firma.
+- El naranja de texto del pendiente da 3,76:1 sobre salvia. En esta sección baja
+  a `#7a4100`, un paso más oscuro del mismo tono, que da 4,65.
+
+**Un pendiente se quedó sin lugar.** El de fiduciaria, plazo de obra y permisos
+estaba en la nota de las condiciones de reserva, que se fue. Sigue en la lista del
+README, pero ya no tiene etiqueta en la página: si esos datos llegan, hay que
+volver a abrirles un lugar.
