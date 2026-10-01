@@ -523,3 +523,81 @@ La cuenta quedó en `fondo-a-alfa.py`, por si los otros dos logotipos llegan igu
 **No hay AVIF de este logotipo.** `sips` le tira el canal alfa al convertirlo y lo
 deja con fondo blanco, que es justo el problema que se acababa de resolver. Va
 sólo en PNG, a 640 píxeles, que es el doble de los 272 a los que se muestra.
+
+## Dos galerías, el orden nuevo y el titular del contacto
+
+**La página pasa a ocho secciones.** Entra una galería del barrio entre el hero y
+los atributos, y la galería que ya estaba queda después de los atributos con los
+renders de la casa:
+
+```
+Hero → Galería: el barrio → Atributos principales → Galería: la casa
+     → Las seis casas → Dónde → Quién → Contacto
+```
+
+Las dos no quedaron pegadas a propósito. Entre medio van los atributos, que
+dicen con palabras lo que las imágenes muestran sin texto, y así ninguna de las
+dos tiras se lee como la continuación de la otra.
+
+**La galería del barrio** lleva las seis imágenes de `SLIDE 02`: los dos
+ingresos, la calle interna de día y al atardecer, y el frente de la manzana desde
+afuera en dos encuadres.
+
+**La galería de la casa** reemplaza sus once renders por los doce de `SLIDE 04`,
+en orden de recorrido: el frente, la casa al atardecer, el ingreso, el comedor,
+la cocina, el living en dos luces, la galería desde adentro y desde el jardín, el
+dormitorio principal y el baño en dos encuadres.
+
+Los epígrafes y los textos alternativos salen de mirar cada imagen, no del nombre
+del archivo: donde el archivo dice "Ingreso Principal 02" la imagen es la calle
+interna con la gente caminando, y eso es lo que dice el epígrafe.
+
+**Las miniaturas del visor de planos también pasaron a los renders nuevos.** No
+lo pidieron, pero dejar los viejos ahí mostraba dos generaciones del mismo
+ambiente a dos clics de distancia. Son las mismas nueve posiciones, con las
+imágenes equivalentes del juego nuevo.
+
+**El componente de galería ahora admite varias instancias.** Antes la tira, la
+barra, el contador y las flechas se buscaban por identificador, así que no podía
+haber dos. Ahora cada `<section class="galeria" data-galeria>` se arma sola a
+partir de sus `[data-pista]`, `[data-barra]`, `[data-cuenta]`, `[data-ant]` y
+`[data-sig]`, y la ventana de la foto ampliada es una sola, compartida, que
+guarda de cuál galería vino.
+
+**Un rótulo nuevo abajo a la derecha** dice "El barrio" o "La casa" al lado del
+contador. Con dos tiras iguales separadas por una sección, sin eso no se sabe en
+cuál de las dos se está. El menú de la cabecera pasó a nombrarlas igual.
+
+**El titular del contacto** pasa a decir "Contacto" solo. Con eso, el rótulo
+vertical del margen izquierdo decía exactamente la misma palabra que el titular,
+así que se quitó de esa sección. En las demás sigue, porque ahí nombra algo que
+el titular no dice.
+
+**Se borraron los sesenta y seis archivos `r-*`** de los renders viejos, 10,3 MB
+que ya no usaba nadie. Siguen en el historial de git.
+
+## Las imágenes que no abrían fuera de Safari
+
+Se revisó el reporte de que en Safari cargaban y en los demás navegadores no.
+
+El sitio publicado estaba sano al momento de revisarlo: las 78 imágenes AVIF que
+había abrían bien en Chromium, ningún archivo referenciado faltaba y la red de
+seguridad que atrapa una fuente caída funcionaba. Pero al generar las dieciocho
+imágenes nuevas aparecieron **dos archivos AVIF que Safari abre y Chromium
+rechaza**, con el mismo origen, la misma orden de conversión y los mismos
+encabezados que los que sí abren. Es un defecto intermitente de `sips`.
+
+Eso explica el reporte. Hasta el 30/09 la página no tenía respaldo: dentro de un
+`<picture>`, cuando la fuente elegida falla el navegador no prueba con la
+siguiente, deja el hueco vacío. Safari abría esos archivos y mostraba la página
+entera; los demás mostraban huecos. Desde el 30/09 el JavaScript atrapa el error
+y pide el JPEG, así que el hueco no vuelve a quedar aunque un archivo salga malo.
+
+Los dos archivos se volvieron a generar y ahora abren. Se verificaron **las 126
+imágenes AVIF del sitio, una por una, en Chromium**: ninguna falla. Esa
+verificación queda documentada en el README como paso obligatorio antes de
+publicar imágenes nuevas.
+
+Queda una cosa para el lado de quien reportó: si todavía se ven huecos, es caché.
+Pages manda `cache-control: max-age=600` y conviene recargar forzando antes de
+buscar otra explicación.

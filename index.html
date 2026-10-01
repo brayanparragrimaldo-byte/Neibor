@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/site.css?v=72249621">
+<link rel="stylesheet" href="css/site.css?v=6e503996">
 <!-- La imagen del hero arranca junto con la hoja de estilos -->
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha-m.avif" media="(max-width: 760px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha.avif" media="(min-width: 761px)" fetchpriority="high">
@@ -68,7 +68,8 @@
   </a>
   <nav aria-label="Secciones">
     <ul class="menu">
-      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#exteriores">El barrio</a></li>
+      <li><a href="#galeria">La casa</a></li>
       <li><a href="#seis">Las seis</a></li>
       <li><a href="#donde">Dónde</a></li>
       <li><a href="#quien">Quién lo hace</a></li>
@@ -125,6 +126,43 @@
       </li>
     </ul>
   </div>
+</section>
+
+<!-- ================= GALERÍA · EL BARRIO ================= -->
+<section class="galeria" id="exteriores" data-galeria aria-roledescription="carrusel" aria-label="El barrio en imágenes">
+  <div class="galeria__pista" data-pista>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="0" aria-label="Ampliar la imagen: El ingreso principal"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-ingreso-principal-m.avif"><source type="image/avif" srcset="img/ext-ingreso-principal.avif"><source media="(max-width: 760px)" srcset="img/ext-ingreso-principal-m.jpg"><img src="img/ext-ingreso-principal.jpg" alt="Ingreso principal al barrio: dos muros de ladrillo claro con el logo de Neibor y una viga horizontal que cruza sobre el camino, entre pinos grandes." width="1672" height="941" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El ingreso principal</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="1" aria-label="Ampliar la imagen: La calle interna"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-calle-interna-m.avif"><source type="image/avif" srcset="img/ext-calle-interna.avif"><source media="(max-width: 760px)" srcset="img/ext-calle-interna-m.jpg"><img src="img/ext-calle-interna.jpg" alt="La calle interna al atardecer, con las cocheras cubiertas a un lado, los canteros al borde del pavimento y dos personas caminando." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La calle interna</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="2" aria-label="Ampliar la imagen: El ingreso secundario"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-ingreso-secundario-m.avif"><source type="image/avif" srcset="img/ext-ingreso-secundario.avif"><source media="(max-width: 760px)" srcset="img/ext-ingreso-secundario-m.jpg"><img src="img/ext-ingreso-secundario.jpg" alt="Ingreso secundario: el camino entre los dos muros de ladrillo con el logo de Neibor, enmarcado por los pinos." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El ingreso secundario</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="3" aria-label="Ampliar la imagen: La calle al caer la tarde"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-calle-atardecer-m.avif"><source type="image/avif" srcset="img/ext-calle-atardecer.avif"><source media="(max-width: 760px)" srcset="img/ext-calle-atardecer-m.jpg"><img src="img/ext-calle-atardecer.jpg" alt="La calle interna al atardecer, pavimentada en adoquín, con árboles jóvenes en el cantero central y las cocheras a los costados." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La calle al caer la tarde</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="4" aria-label="Ampliar la imagen: El frente de la manzana"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-frente-manzana-m.avif"><source type="image/avif" srcset="img/ext-frente-manzana.avif"><source media="(max-width: 760px)" srcset="img/ext-frente-manzana-m.jpg"><img src="img/ext-frente-manzana.jpg" alt="El frente de la manzana visto desde afuera: las casas bajas detrás de los árboles y una cochera cubierta sobre el borde." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El frente de la manzana</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="5" aria-label="Ampliar la imagen: La manzana desde la calle"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/ext-frente-manzana-2-m.avif"><source type="image/avif" srcset="img/ext-frente-manzana-2.avif"><source media="(max-width: 760px)" srcset="img/ext-frente-manzana-2-m.jpg"><img src="img/ext-frente-manzana-2.jpg" alt="La manzana desde la calle: las casas de una planta entre los árboles, con las cocheras sobre el frente y el cielo abierto arriba." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La manzana desde la calle</figcaption>
+    </figure>
+  </div>
+  <div class="galeria__nav">
+    <span class="galeria__donde">El barrio</span>
+    <p class="galeria__cuenta" data-cuenta aria-live="polite"></p>
+    <button type="button" data-ant aria-label="Imagen anterior"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg></button>
+    <button type="button" data-sig aria-label="Imagen siguiente"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg></button>
+  </div>
+  <div class="galeria__barra" data-barra aria-hidden="true"></div>
 </section>
 
 <!-- ================= AMENIDADES ================= -->
@@ -187,72 +225,65 @@
   </div>
 </section>
 
-<!-- ================= GALERÍA ================= -->
-<section class="galeria" id="galeria" aria-roledescription="carrusel" aria-label="Galería del proyecto">
-  <div class="galeria__pista" id="galeria-pista">
+<!-- ================= GALERÍA · LA CASA ================= -->
+<section class="galeria" id="galeria" data-galeria aria-roledescription="carrusel" aria-label="La casa en imágenes">
+  <div class="galeria__pista" data-pista>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="0" aria-label="Ampliar la imagen: El ingreso al barrio"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-ingreso-barrio-m.avif"><source type="image/avif" srcset="img/r-ingreso-barrio.avif"><source media="(max-width: 760px)" srcset="img/r-ingreso-barrio-m.jpg"><img src="img/r-ingreso-barrio.jpg" alt="Ingreso principal al barrio, con el muro de ladrillo y el logo de Neibor bajo los pinos." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>El ingreso al barrio</figcaption>
+      <button class="galeria__abrir" type="button" data-gal="0" aria-label="Ampliar la imagen: El frente de la casa"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-frente-m.avif"><source type="image/avif" srcset="img/casa-frente.avif"><source media="(max-width: 760px)" srcset="img/casa-frente-m.jpg"><img src="img/casa-frente.jpg" alt="Frente de la casa: la cochera cubierta a la izquierda, el volumen de ladrillo claro con los paños de celosía y el camino de ingreso entre las gramíneas." width="1672" height="941" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El frente de la casa</figcaption>
     </figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="1" aria-label="Ampliar la imagen: El segundo ingreso"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-ingreso-secundario-m.avif"><source type="image/avif" srcset="img/r-ingreso-secundario.avif"><source media="(max-width: 760px)" srcset="img/r-ingreso-secundario-m.jpg"><img src="img/r-ingreso-secundario.jpg" alt="Segundo ingreso al barrio, con el muro de ladrillo y el logo de Neibor entre los pinos." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>El segundo ingreso</figcaption>
+      <button class="galeria__abrir" type="button" data-gal="1" aria-label="Ampliar la imagen: La casa al atardecer"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-atardecer-m.avif"><source type="image/avif" srcset="img/casa-atardecer.avif"><source media="(max-width: 760px)" srcset="img/casa-atardecer-m.jpg"><img src="img/casa-atardecer.jpg" alt="La casa al atardecer desde el jardín: la galería abierta de lado a lado, el interior iluminado y el césped por delante." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La casa al atardecer</figcaption>
     </figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="2" aria-label="Ampliar la imagen: El frente"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-fachada-frontal-m.avif"><source type="image/avif" srcset="img/r-fachada-frontal.avif"><source media="(max-width: 760px)" srcset="img/r-fachada-frontal-m.jpg"><img src="img/r-fachada-frontal.jpg" alt="Frente de una de las casas desde la calle interna, con las cocheras bajo losa." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>El frente</figcaption>
-    </figure>
-    <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="3" aria-label="Ampliar la imagen: La fachada al fondo"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-fachada-posterior-m.avif"><source type="image/avif" srcset="img/r-fachada-posterior.avif"><source media="(max-width: 760px)" srcset="img/r-fachada-posterior-m.jpg"><img src="img/r-fachada-posterior.jpg" alt="Fachada posterior al atardecer, con la galería abierta al jardín." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>La fachada al fondo</figcaption>
-    </figure>
-    <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="4" aria-label="Ampliar la imagen: El ingreso a la casa"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-ingreso-casa-m.avif"><source type="image/avif" srcset="img/r-ingreso-casa.avif"><source media="(max-width: 760px)" srcset="img/r-ingreso-casa-m.jpg"><img src="img/r-ingreso-casa.jpg" alt="Ingreso a la vivienda con puerta pivotante de madera entre muros de ladrillo." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <button class="galeria__abrir" type="button" data-gal="2" aria-label="Ampliar la imagen: El ingreso a la casa"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-ingreso-m.avif"><source type="image/avif" srcset="img/casa-ingreso.avif"><source media="(max-width: 760px)" srcset="img/casa-ingreso-m.jpg"><img src="img/casa-ingreso.jpg" alt="Ingreso a la casa: el camino entre dos muros, uno de ladrillo calado, hacia la puerta vidriada con marco de madera, con la vista pasante hacia el fondo." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
       <figcaption>El ingreso a la casa</figcaption>
     </figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="5" aria-label="Ampliar la imagen: El comedor"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-comedor-m.avif"><source type="image/avif" srcset="img/r-comedor.avif"><source media="(max-width: 760px)" srcset="img/r-comedor-m.jpg"><img src="img/r-comedor.jpg" alt="Comedor abierto al patio interior con el olivo." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <button class="galeria__abrir" type="button" data-gal="3" aria-label="Ampliar la imagen: El comedor"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-comedor-m.avif"><source type="image/avif" srcset="img/casa-comedor.avif"><source media="(max-width: 760px)" srcset="img/casa-comedor-m.jpg"><img src="img/casa-comedor.jpg" alt="Comedor con mesa larga de madera y sillas de respaldo curvo, abierto por un paño de vidrio al patio con el olivo, y el estar a continuación." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
       <figcaption>El comedor</figcaption>
     </figure>
-    <figure class="galeria__slide" style="margin:0"><button class="galeria__abrir" type="button" data-gal="6" aria-label="Ampliar la imagen: La cocina"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-cocina-m.avif"><source type="image/avif" srcset="img/r-cocina.avif"><source media="(max-width: 760px)" srcset="img/r-cocina-m.jpg"><img src="img/r-cocina.jpg" alt="Cocina con isla de piedra y frentes de roble." width="1700" height="1139" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>La cocina</figcaption></figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="7" aria-label="Ampliar la imagen: El living"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-living-m.avif"><source type="image/avif" srcset="img/r-living.avif"><source media="(max-width: 760px)" srcset="img/r-living-m.jpg"><img src="img/r-living.jpg" alt="Living con revestimiento de madera de piso a techo." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <button class="galeria__abrir" type="button" data-gal="4" aria-label="Ampliar la imagen: La cocina"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-cocina-m.avif"><source type="image/avif" srcset="img/casa-cocina.avif"><source media="(max-width: 760px)" srcset="img/casa-cocina-m.jpg"><img src="img/casa-cocina.jpg" alt="Cocina con isla de madera y tres banquetas, frentes de roble de piso a techo, ventana corrida sobre la mesada y salida vidriada al jardín." width="1536" height="1024" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La cocina</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="5" aria-label="Ampliar la imagen: El living"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-living-m.avif"><source type="image/avif" srcset="img/casa-living.avif"><source media="(max-width: 760px)" srcset="img/casa-living-m.jpg"><img src="img/casa-living.jpg" alt="Estar con sofá en ele frente al televisor, revestimiento de madera en la pared del fondo y la ventana con cortina hacia el jardín." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
       <figcaption>El living</figcaption>
     </figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="8" aria-label="Ampliar la imagen: La galería"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-galeria-m.avif"><source type="image/avif" srcset="img/r-galeria.avif"><source media="(max-width: 760px)" srcset="img/r-galeria-m.jpg"><img src="img/r-galeria.jpg" alt="Galería cubierta con mesa larga y fogón." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <button class="galeria__abrir" type="button" data-gal="6" aria-label="Ampliar la imagen: El living al atardecer"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-living-2-m.avif"><source type="image/avif" srcset="img/casa-living-2.avif"><source media="(max-width: 760px)" srcset="img/casa-living-2-m.jpg"><img src="img/casa-living-2.jpg" alt="El estar al caer la tarde, con el comedor a continuación y el paño de vidrio que recorre todo el frente hacia el jardín." width="1671" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El living al atardecer</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="7" aria-label="Ampliar la imagen: La galería"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-galeria-m.avif"><source type="image/avif" srcset="img/casa-galeria.avif"><source media="(max-width: 760px)" srcset="img/casa-galeria-m.jpg"><img src="img/casa-galeria.jpg" alt="Galería cubierta con mesa larga, el hogar encendido contra el muro de ladrillo y el césped a un costado." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
       <figcaption>La galería</figcaption>
     </figure>
     <figure class="galeria__slide" style="margin:0">
-      <button class="galeria__abrir" type="button" data-gal="9" aria-label="Ampliar la imagen: El dormitorio principal"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-dormitorio-m.avif"><source type="image/avif" srcset="img/r-dormitorio.avif"><source media="(max-width: 760px)" srcset="img/r-dormitorio-m.jpg"><img src="img/r-dormitorio.jpg" alt="Dormitorio principal con ventanal de piso a techo al jardín." width="1800" height="1013" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <button class="galeria__abrir" type="button" data-gal="8" aria-label="Ampliar la imagen: La galería desde el jardín"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-galeria-2-m.avif"><source type="image/avif" srcset="img/casa-galeria-2.avif"><source media="(max-width: 760px)" srcset="img/casa-galeria-2-m.jpg"><img src="img/casa-galeria-2.jpg" alt="La galería desde el jardín: la losa que vuela sobre el piso de piedra, una reposera al sol y el fogón en primer plano." width="1536" height="1024" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>La galería desde el jardín</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="9" aria-label="Ampliar la imagen: El dormitorio principal"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-dormitorio-m.avif"><source type="image/avif" srcset="img/casa-dormitorio.avif"><source media="(max-width: 760px)" srcset="img/casa-dormitorio-m.jpg"><img src="img/casa-dormitorio.jpg" alt="Dormitorio principal con el ventanal de piso a techo abierto al jardín, las cortinas a los lados y el placard con el televisor sobre la pared opuesta." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
       <figcaption>El dormitorio principal</figcaption>
     </figure>
-    <figure class="galeria__slide" style="margin:0"><button class="galeria__abrir" type="button" data-gal="10" aria-label="Ampliar la imagen: El baño principal"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/r-bano-m.avif"><source type="image/avif" srcset="img/r-bano.avif"><source media="(max-width: 760px)" srcset="img/r-bano-m.jpg"><img src="img/r-bano.jpg" alt="Baño principal revestido en piedra, con bacha tallada." width="1700" height="957" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
-      <figcaption>El baño principal</figcaption></figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="10" aria-label="Ampliar la imagen: El baño principal"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-bano-m.avif"><source type="image/avif" srcset="img/casa-bano.avif"><source media="(max-width: 760px)" srcset="img/casa-bano-m.jpg"><img src="img/casa-bano.jpg" alt="Baño principal revestido en piedra, con la mesada sobre el mueble de madera, el espejo en el nicho y el inodoro suspendido." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El baño principal</figcaption>
+    </figure>
+    <figure class="galeria__slide" style="margin:0">
+      <button class="galeria__abrir" type="button" data-gal="11" aria-label="Ampliar la imagen: El baño, desde la puerta"><picture><source type="image/avif" media="(max-width: 760px)" srcset="img/casa-bano-2-m.avif"><source type="image/avif" srcset="img/casa-bano-2.avif"><source media="(max-width: 760px)" srcset="img/casa-bano-2-m.jpg"><img src="img/casa-bano-2.jpg" alt="El baño principal desde la puerta: la ducha con mampara de vidrio, el tocador de madera con espejo y la banqueta." width="1672" height="941" loading="lazy" decoding="async"></picture><span class="galeria__lupa" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.6 3.4h6v6M9.4 20.6h-6v-6M20.6 3.4 14 10M3.4 20.6 10 14"/></svg></span></button>
+      <figcaption>El baño, desde la puerta</figcaption>
+    </figure>
   </div>
   <div class="galeria__nav">
-    <p class="galeria__cuenta" id="galeria-cuenta" aria-live="polite"></p>
-    <button type="button" id="gal-ant" aria-label="Imagen anterior"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg></button>
-    <button type="button" id="gal-sig" aria-label="Imagen siguiente"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg></button>
+    <span class="galeria__donde">La casa</span>
+    <p class="galeria__cuenta" data-cuenta aria-live="polite"></p>
+    <button type="button" data-ant aria-label="Imagen anterior"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg></button>
+    <button type="button" data-sig aria-label="Imagen siguiente"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg></button>
   </div>
-  <div class="galeria__barra" id="galeria-barra" aria-hidden="true"></div>
-
-  <dialog class="modal modal--foto" id="v-foto" aria-label="Imagen ampliada">
-    <button class="modal__cerrar" type="button" data-cerrar aria-label="Cerrar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
-    </button>
-    <button class="foto__nav foto__nav--ant" id="foto-ant" type="button" aria-label="Imagen anterior">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg>
-    </button>
-    <figure class="foto">
-      <picture><source id="foto-avif" type="image/avif"><img id="foto-img" alt=""></picture>
-      <figcaption><span id="foto-pie"></span><span class="foto__cuenta" id="foto-cuenta"></span></figcaption>
-    </figure>
-    <button class="foto__nav foto__nav--sig" id="foto-sig" type="button" aria-label="Imagen siguiente">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg>
-    </button>
-  </dialog>
+  <div class="galeria__barra" data-barra aria-hidden="true"></div>
 </section>
 
 <!-- ================= LAS SEIS CASAS ================= -->
@@ -360,41 +391,41 @@
           <span class="mini__marco"><picture><source type="image/avif" srcset="img/hero-axonometrica-t.avif 560w, img/hero-axonometrica-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/hero-axonometrica-t.jpg 560w, img/hero-axonometrica-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/hero-axonometrica-t.jpg" alt="Vista axonométrica de la manzana con las seis casas y su arbolado." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">La manzana en axonométrica</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-fachada-frontal.jpg" data-pie="El frente">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-fachada-frontal-t.avif 560w, img/r-fachada-frontal-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-fachada-frontal-t.jpg 560w, img/r-fachada-frontal-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-fachada-frontal-t.jpg" alt="Frente de la casa en ladrillo gris a la vista, con el paño de celosía entre los árboles." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El frente</span>
+        <button type="button" class="mini" data-full="img/casa-frente.jpg" data-pie="El frente de la casa">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-frente-t.avif 560w, img/casa-frente-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-frente-t.jpg 560w, img/casa-frente-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-frente-t.jpg" alt="Frente de la casa: la cochera cubierta a la izquierda, el volumen de ladrillo claro con los paños de celosía y el camino de ingreso entre las gramíneas." width="560" height="315" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">El frente de la casa</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-ingreso-casa.jpg" data-pie="El ingreso">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-ingreso-casa-t.avif 560w, img/r-ingreso-casa-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-ingreso-casa-t.jpg 560w, img/r-ingreso-casa-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-ingreso-casa-t.jpg" alt="Ingreso de la casa: puerta pivotante de madera entre paños de vidrio, con vista directa al fondo." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El ingreso</span>
+        <button type="button" class="mini" data-full="img/casa-ingreso.jpg" data-pie="El ingreso a la casa">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-ingreso-t.avif 560w, img/casa-ingreso-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-ingreso-t.jpg 560w, img/casa-ingreso-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-ingreso-t.jpg" alt="Ingreso a la casa: el camino entre dos muros, uno de ladrillo calado, hacia la puerta vidriada con marco de madera, con la vista pasante hacia el fondo." width="560" height="315" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">El ingreso a la casa</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-comedor.jpg" data-pie="El comedor y el patio">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-comedor-t.avif 560w, img/r-comedor-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-comedor-t.jpg 560w, img/r-comedor-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-comedor-t.jpg" alt="Comedor abierto al patio interior con el olivo, y el estar a continuación." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El comedor y el patio</span>
+        <button type="button" class="mini" data-full="img/casa-comedor.jpg" data-pie="El comedor">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-comedor-t.avif 560w, img/casa-comedor-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-comedor-t.jpg 560w, img/casa-comedor-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-comedor-t.jpg" alt="Comedor con mesa larga de madera y sillas de respaldo curvo, abierto por un paño de vidrio al patio con el olivo, y el estar a continuación." width="560" height="315" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">El comedor</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-cocina.jpg" data-pie="La cocina">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-cocina-t.avif 560w, img/r-cocina-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-cocina-t.jpg 560w, img/r-cocina-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-cocina-t.jpg" alt="Cocina con isla de piedra, frentes de roble y ventana corrida sobre la mesada." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+        <button type="button" class="mini" data-full="img/casa-cocina.jpg" data-pie="La cocina">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-cocina-t.avif 560w, img/casa-cocina-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-cocina-t.jpg 560w, img/casa-cocina-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-cocina-t.jpg" alt="Cocina con isla de madera y tres banquetas, frentes de roble de piso a techo, ventana corrida sobre la mesada y salida vidriada al jardín." width="560" height="373" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">La cocina</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-living.jpg" data-pie="El living">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-living-t.avif 560w, img/r-living-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-living-t.jpg 560w, img/r-living-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-living-t.jpg" alt="Estar con vidrio de piso a techo hacia el jardín y revestimiento de madera." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+        <button type="button" class="mini" data-full="img/casa-living.jpg" data-pie="El living">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-living-t.avif 560w, img/casa-living-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-living-t.jpg 560w, img/casa-living-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-living-t.jpg" alt="Estar con sofá en ele frente al televisor, revestimiento de madera en la pared del fondo y la ventana con cortina hacia el jardín." width="560" height="315" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">El living</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-dormitorio.jpg" data-pie="El dormitorio principal">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-dormitorio-t.avif 560w, img/r-dormitorio-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-dormitorio-t.jpg 560w, img/r-dormitorio-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-dormitorio-t.jpg" alt="Dormitorio principal con ventanal de piso a techo abierto al jardín." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+        <button type="button" class="mini" data-full="img/casa-dormitorio.jpg" data-pie="El dormitorio principal">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-dormitorio-t.avif 560w, img/casa-dormitorio-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-dormitorio-t.jpg 560w, img/casa-dormitorio-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-dormitorio-t.jpg" alt="Dormitorio principal con el ventanal de piso a techo abierto al jardín, las cortinas a los lados y el placard con el televisor sobre la pared opuesta." width="560" height="315" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">El dormitorio principal</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-bano.jpg" data-pie="El baño principal">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-bano-t.avif 560w, img/r-bano-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-bano-t.jpg 560w, img/r-bano-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-bano-t.jpg" alt="Baño principal revestido en piedra, con bacha tallada y mueble de roble." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+        <button type="button" class="mini" data-full="img/casa-bano.jpg" data-pie="El baño principal">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-bano-t.avif 560w, img/casa-bano-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-bano-t.jpg 560w, img/casa-bano-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-bano-t.jpg" alt="Baño principal revestido en piedra, con la mesada sobre el mueble de madera, el espejo en el nicho y el inodoro suspendido." width="560" height="315" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">El baño principal</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-galeria.jpg" data-pie="La galería">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-galeria-t.avif 560w, img/r-galeria-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-galeria-t.jpg 560w, img/r-galeria-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-galeria-t.jpg" alt="Galería cubierta con mesa larga, fogón y el jardín a continuación." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
+        <button type="button" class="mini" data-full="img/casa-galeria.jpg" data-pie="La galería">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-galeria-t.avif 560w, img/casa-galeria-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-galeria-t.jpg 560w, img/casa-galeria-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-galeria-t.jpg" alt="Galería cubierta con mesa larga, el hogar encendido contra el muro de ladrillo y el césped a un costado." width="560" height="315" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">La galería</span>
         </button>
-        <button type="button" class="mini" data-full="img/r-fachada-posterior.jpg" data-pie="El fondo">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/r-fachada-posterior-t.avif 560w, img/r-fachada-posterior-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/r-fachada-posterior-t.jpg 560w, img/r-fachada-posterior-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/r-fachada-posterior-t.jpg" alt="Fachada posterior al atardecer: la galería con asador abierta al jardín y el fogón sobre el césped." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El fondo</span>
+        <button type="button" class="mini" data-full="img/casa-atardecer.jpg" data-pie="La casa al atardecer">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-atardecer-t.avif 560w, img/casa-atardecer-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-atardecer-t.jpg 560w, img/casa-atardecer-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-atardecer-t.jpg" alt="La casa al atardecer desde el jardín: la galería abierta de lado a lado, el interior iluminado y el césped por delante." width="560" height="315" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">La casa al atardecer</span>
         </button>
       </div>
     </div>
@@ -513,9 +544,8 @@
 
 <!-- ================= CONTACTO ================= -->
 <section class="seccion seccion--tinta" id="contacto">
-  <span class="rotulo-vertical" aria-hidden="true">Contacto</span>
   <div class="envoltura">
-    <h2 class="titulo titulo--ancho rev">Diseñamos seis casas. <em>El barrio lo hacen ustedes.</em></h2>
+    <h2 class="titulo rev">Contacto</h2>
 
     <div class="contacto">
       <div>
@@ -553,6 +583,23 @@
   </div>
 </section>
 
+<!-- La ventana de la foto ampliada la comparten las dos galerías -->
+<dialog class="modal modal--foto" id="v-foto" aria-label="Imagen ampliada">
+  <button class="modal__cerrar" type="button" data-cerrar aria-label="Cerrar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <button class="foto__nav foto__nav--ant" id="foto-ant" type="button" aria-label="Imagen anterior">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 2 4 8l6 6"/></svg>
+  </button>
+  <figure class="foto">
+    <picture><source id="foto-avif" type="image/avif"><img id="foto-img" alt=""></picture>
+    <figcaption><span id="foto-pie"></span><span class="foto__cuenta" id="foto-cuenta"></span></figcaption>
+  </figure>
+  <button class="foto__nav foto__nav--sig" id="foto-sig" type="button" aria-label="Imagen siguiente">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2l6 6-6 6"/></svg>
+  </button>
+</dialog>
+
 </main>
 
 <footer class="pie">
@@ -584,6 +631,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=4aa4f9fd"></script>
+<script src="js/site.js?v=74ba809c"></script>
 </body>
 </html>

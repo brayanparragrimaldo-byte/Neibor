@@ -16,15 +16,19 @@ DIAGNOSTICO.md    análisis del material, faltantes y criterios de diseño
 CAMBIOS-MOCKUP-V1.md  qué entró desde el mock up y desde los renders nuevos
 ```
 
-## Las siete secciones
+## Las ocho secciones
 
 ```
-Hero → Atributos principales → Galería → Las seis casas → Dónde → Quién → Contacto
+Hero → Galería: el barrio → Atributos principales → Galería: la casa
+     → Las seis casas → Dónde → Quién → Contacto
 ```
 
-El orden pone la oferta antes que el relato: quien llega encuentra el plano con
-las superficies por unidad en el cuarto bloque y de ahí pasa a la ubicación,
-quién lo hace y el contacto. El relato largo del proyecto, que ocupaba una
+Dos galerías, no una, y separadas a propósito por los atributos: la primera
+muestra lo que se ve llegando (los dos ingresos, la calle interna, el frente de
+la manzana) y la segunda lo que se ve adentro de una casa. Entre las dos queda
+la lista de atributos, que es la que explica en palabras lo que las imágenes
+muestran sin texto. Después de eso viene el plano con las superficies por unidad
+y de ahí la ubicación, quién lo hace y el contacto. El relato largo del proyecto, que ocupaba una
 secuencia anclada al scroll entre "Las seis casas" y "Dónde", se quitó a pedido
 del desarrollo. Queda en el historial: `git revert` del commit que lo saca lo
 devuelve entero, con sus imágenes, que siguen en `img/`.
@@ -37,6 +41,26 @@ Como esa sección era la única oscura entre dos claras, "Dónde" lleva ahora
 ```bash
 python3 -m http.server 8080
 ```
+
+## Por qué en Safari se veían las imágenes y en los demás navegadores no
+
+Pasó y ya está resuelto. Son dos cosas que se sumaron:
+
+1. **Algunos AVIF generados con `sips` sólo los abre el decodificador de Apple.**
+   Chromium y Firefox los rechazan. Pasa sin patrón: mismo origen y misma orden,
+   y de dieciocho imágenes salen dos malas.
+2. **Un `<picture>` no prueba con la fuente siguiente cuando la elegida falla.**
+   Si el AVIF no abre, el navegador no baja el JPEG: deja el hueco vacío para
+   siempre. Safari, que sí abría esos archivos, mostraba la página entera.
+
+Desde el 30/09 el JavaScript escucha el error en captura, tira las `<source>` y
+vuelve a pedir el JPEG del propio `<img>`, así que el hueco ya no queda. Y desde
+ahora las imágenes nuevas se comprueban una por una en un motor que no sea el de
+Apple antes de publicarlas: ver "Las imágenes".
+
+Si alguien vuelve a ver huecos, casi seguro es caché: Pages manda
+`cache-control: max-age=600`, así que conviene recargar forzando (`cmd+shift+R`)
+antes de dar por buena cualquier otra explicación.
 
 ## Dónde se cambia cada cosa
 
@@ -54,7 +78,13 @@ python3 -m http.server 8080
 
 **Datos pendientes.** Buscar `class="pendiente"` en `_cuerpo.html`. Cada uno marca un dato que no estaba en el material entregado. Al completarlo, se borra la etiqueta.
 
-**La galería.** Cada `<figure class="galeria__slide">` de `_cuerpo.html` es una imagen a pantalla completa. Para sumar o sacar una, se agrega o se borra la figura entera: el JavaScript cuenta cuántas hay y arma solo los tramos de la barra, el contador y la ventana. El `data-gal` de cada botón es la posición y lo reescribe nadie: conviene renumerarlo a mano si se intercalan imágenes. Pasa sola cada cinco segundos; la duración está en `DURACION`, y el mismo número está en la transición de `.galeria__tramo.activo i`, así que se cambian los dos juntos.
+**Las galerías.** Son dos y usan el mismo mecanismo. Una `<section class="galeria" data-galeria>` con una tira `[data-pista]` adentro alcanza para que el JavaScript la arme sola: cuenta las `<figure class="galeria__slide">`, dibuja los tramos de la barra, escribe el contador y conecta las flechas `[data-ant]` y `[data-sig]`. No hay identificadores en el medio, así que agregar una tercera galería es copiar la sección y cambiarle el `id` y el rótulo.
+
+La ventana de la foto ampliada, `#v-foto`, es una sola para las dos: guarda de cuál galería vino y se mueve dentro de esa. Vive al final del `<main>`, fuera de las dos secciones.
+
+Para sumar o sacar una imagen se agrega o se borra la figura entera. El `data-gal` de cada botón es la posición y no lo reescribe nadie: conviene renumerarlo a mano si se intercalan imágenes. Pasa sola cada cinco segundos; la duración está en `DURACION`, y el mismo número está en la transición de `.galeria__tramo.activo i`, así que se cambian los dos juntos.
+
+El rótulo de abajo a la derecha (`.galeria__donde`) dice cuál de las dos se está mirando. Con dos tiras iguales seguidas, sin eso no se sabe dónde se está.
 
 **Regenerar `index.html`** después de editar `_cuerpo.html`:
 
@@ -98,6 +128,24 @@ nombres y las medidas de cada ambiente al ampliarlos.
 El marcado sirve AVIF primero y deja el JPEG de respaldo, así que cada navegador
 baja un solo archivo. El AVIF pesa un 60 por ciento menos a igual calidad.
 
+**`sips` saca de vez en cuando un AVIF que sólo abre Safari.** No es frecuente ni
+previsible: de las dieciocho imágenes nuevas, dos salieron con un archivo que el
+decodificador de Apple lee sin problema y el de Chromium rechaza. Mismo origen,
+misma orden, mismos encabezados; el defecto está adentro. Volviéndolas a generar
+con otro número de calidad salen bien.
+
+Por eso **toda imagen nueva se comprueba en un navegador que no sea Safari antes
+de publicarla**. Con el sitio servido en local, en la consola:
+
+```js
+var urls = [...document.querySelectorAll('img')].map(i => i.currentSrc);
+await Promise.all(urls.map(u => new Promise(r => {
+  var i = new Image(); i.onload = () => r(null); i.onerror = () => r(u); i.src = u;
+}))).then(x => console.log(x.filter(Boolean)));
+```
+
+Lista vacía, está bien. Lo que aparezca hay que volver a generarlo.
+
 Para sumar una imagen nueva, con `sips` alcanza:
 
 ```bash
@@ -121,7 +169,7 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
 - **Los atributos van en cuatro columnas y la última fila se centra.** Son diez, así que sobran dos en la tercera fila: las reglas `.amen > li:nth-child(9)` y `:nth-child(10)` los corren a las columnas del medio. Si cambia la cantidad de atributos, hay que revisarlas.
 - **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
-- **La galería recorta en el escritorio y no recorta en el teléfono.** Los once renders son apaisados, de 16:9. Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
+- **Las galerías recortan en el escritorio y no recortan en el teléfono.** Los dieciocho renders son apaisados, de 16:9 (salvo la cocina y la galería desde el jardín, de 3:2). Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
 - **"Quién lo hace" va sobre salvia y es la única sección en ese tono.** Es el escalón entre el papel de las dos secciones de arriba y la tinta del contacto, y de paso las separa sin necesidad de un filete. Ahí el naranja del pendiente baja a `#7a4100`, porque el de texto habitual da 3,76:1 sobre salvia y no llega al mínimo.
 - **Las tres firmas comparten alto de ranura, haya logotipo o no.** `.marca__firma` fija la altura y adentro va el logotipo o el nombre compuesto. Mientras falten dos de los tres, el banner no se desarma. Cuando lleguen los otros dos, se reemplaza el `<p class="marca__nombre">` por un `<img>` y no hay que tocar nada más.
 - **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
@@ -129,28 +177,32 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
 - **Tipografía:** Host Grotesk desde Google Fonts, la misma del manual de marca.
 
-## Lo que falta para que la galería llene el teléfono
+## Lo que falta para que las galerías llenen el teléfono
 
-Los once renders vienen en 16:9 (1800 por 1013, salvo la cocina en 1700 por 1133
-y el baño en 1700 por 956). Esa forma llena bien una pantalla de escritorio y no
-llena una de teléfono: para cubrir 375 por 812 habría que recortar hasta dejar a
-la vista un 26 por ciento del ancho.
+Los dieciocho renders vienen apaisados: dieciséis en 1672 por 941 y dos en 1536
+por 1024. Esa forma llena bien una pantalla de escritorio y no llena una de
+teléfono: para cubrir 375 por 812 habría que recortar hasta dejar a la vista un
+26 por ciento del ancho. Hoy en el teléfono la imagen entra entera y ocupa 211
+píxeles de alto, que es poco para un render.
 
-Para que la galería vaya de borde a borde también en el teléfono hace falta un
-recorte vertical de cada render, encuadrado por quien hizo la imagen y no por un
-recorte automático al centro:
+Para que las dos galerías vayan de borde a borde también en el teléfono hace
+falta un recorte vertical de cada render, encuadrado por quien hizo la imagen y
+no por un recorte automático al centro:
 
 ```
 1200 x 2000 px   (3:5)   JPEG calidad alta, sRGB
 nombre-v.jpg             la misma base, con el sufijo -v
 ```
 
-Con esos once archivos la galería pasa a pantalla completa en el teléfono
+Con esos dieciocho archivos las galerías pasan a pantalla completa en el teléfono
 agregando una `<source media="(max-width: 760px)">` por imagen. Mientras tanto
 queda el modo que no recorta, que muestra el render completo.
 
 Si 3:5 resulta demasiado alto para la composición, 4:5 (1200 por 1500) también
 sirve y deja algo de fondo arriba y abajo.
+
+Los nombres son los de `img/`: los seis `ext-` de la galería del barrio y los
+doce `casa-` de la galería de la casa.
 
 ## Datos que no cierran entre sí
 

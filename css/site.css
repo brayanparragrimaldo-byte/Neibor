@@ -720,6 +720,11 @@ button{ font:inherit; color:inherit; }
   z-index:4; display:flex; gap:.5rem; align-items:center; }
 .galeria__cuenta{ margin:0 .5rem 0 0; color:var(--papel); font-size:var(--t-rotulo);
   letter-spacing:.18em; font-weight:600; font-variant-numeric:tabular-nums; opacity:.72; }
+/* Dos galerías seguidas se confunden si no dicen cuál es cuál. El rótulo
+   va pegado al contador, que es donde ya se mira para saber dónde se está. */
+.galeria__donde{ color:var(--papel); font-size:var(--t-rotulo); letter-spacing:.18em;
+  text-transform:uppercase; font-weight:600; padding-right:.8rem;
+  border-right:1px solid rgba(238,244,237,.3); }
 .galeria__nav button{ width:44px; height:44px; border-radius:999px; cursor:pointer;
   background:rgba(238,244,237,.14); border:1px solid rgba(238,244,237,.3); color:var(--papel);
   display:grid; place-items:center; transition:background .3s; backdrop-filter:blur(6px); }
