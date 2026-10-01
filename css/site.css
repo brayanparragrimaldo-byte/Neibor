@@ -373,15 +373,15 @@ button{ font:inherit; color:inherit; }
 .seccion--oscura.seccion--corte,.seccion--tinta.seccion--corte{ border-color:var(--linea-oscura); }
 
 /* ---------- 8. Ubicación ---------- */
-/* Sin titular a la vista, el bloque arranca pegado al borde de la sección:
-   el aire de arriba lo pone el padding de la sección y no hace falta más. */
-.ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); }
+.ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); margin-top:clamp(2.4rem,5vw,4rem); }
 .ubic__a{ grid-column:1/8; }
 .ubic__b{ grid-column:8/13; display:grid; gap:clamp(1rem,2vw,1.8rem); align-content:start; }
 @media (max-width:900px){ .ubic__a,.ubic__b{ grid-column:1/-1; } }
 .refs{ list-style:none; margin:1.6rem 0 0; padding:0; }
-.refs li{ display:flex; justify-content:space-between; gap:1.2rem; padding:.95rem 0; border-top:1px solid var(--linea-clara); align-items:baseline; }
-.refs li span:last-child{ font-size:.84rem; opacity:.6; text-align:right; white-space:nowrap; }
+.refs li{ display:flex; justify-content:space-between; gap:1.2rem; padding:1.25rem 0; border-top:1px solid var(--linea-clara); align-items:baseline; }
+.refs__t{ font-size:clamp(1.3rem,2.3vw,2.05rem); font-weight:300; letter-spacing:-.04em;
+  line-height:1; text-align:right; white-space:nowrap; }
+.refs__u{ font-size:.5em; font-weight:500; letter-spacing:.04em; margin-left:.34em; opacity:.55; }
 
 /* ---------- 9. Confianza ---------- */
 .pasos-compra{ counter-reset:p; list-style:none; margin:clamp(2rem,4vw,3.2rem) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.2rem,2.6vw,2.6rem); }

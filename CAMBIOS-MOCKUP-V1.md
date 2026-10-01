@@ -382,3 +382,31 @@ el padding de la sección y sumar los dos dejaba un hueco de más.
 dimensionarse y se estiraba hasta ocupar el ancho disponible, partiendo el enlace
 en tres renglones. Ya estaba así en la versión publicada. La regla pasó a
 `.flecha` a secas y el enlace volvió a un renglón de 29 píxeles.
+
+## La ubicación pasa a ser una lista de tiempos
+
+Vuelve el titular, ahora "Vivir cerca de todo.", en el mismo estilo que el resto
+de las secciones, así que el `titulo-oculto` que lo reemplazaba ya no hace falta.
+
+Salió el párrafo del entorno ("La manzana está dentro del trazado consolidado de
+Villa Allende Golf...") y las cuatro referencias cambiaron de contenido: de
+ubicaciones relativas sin medida ("A pocas cuadras", "Al oeste") a tiempos
+concretos que entregó el desarrollo.
+
+```
+Villa Allende Golf          1 min
+Centro de Villa Allende     5 min
+Aeropuerto                 10 min
+Córdoba capital            25 min
+```
+
+Los minutos se dibujan como las cifras de la banda del hero: número en peso
+liviano con el interletrado cerrado y la unidad chica al lado. Las dos listas de
+números de la página quedan emparentadas a propósito. Las filas pasaron de
+`.95rem` a `1.25rem` de aire porque el dato creció y pedía más espacio.
+
+**Dos pendientes se cerraron de una vez.** El "Pendiente" que estaba en la fila
+de Córdoba capital y la nota al pie que decía "Pendiente: distancias y tiempos
+verificados a puntos de interés". La nota se fue entera: decía que las
+referencias salían de la planimetría de proyecto, y estos tiempos no salen de
+ahí. Quedan seis etiquetas de pendiente en la página, de ocho que había.

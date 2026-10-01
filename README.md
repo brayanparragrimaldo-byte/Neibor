@@ -98,7 +98,7 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **El naranja de marca sólo va con texto blanco.** Sobre `#af5d00` el blanco puro da 4.79:1 y pasa AA; el papel de marca daría 4.28 y no llegaría. En texto suelto sobre papel el naranja sigue reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente.
 - **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
 - **Los atributos van en cuatro columnas y la última fila se centra.** Son diez, así que sobran dos en la tercera fila: las reglas `.amen > li:nth-child(9)` y `:nth-child(10)` los corren a las columnas del medio. Si cambia la cantidad de atributos, hay que revisarlas.
-- **"Dónde" no tiene titular a la vista, pero sí encabezado.** Se quitó el título visible a pedido. En su lugar hay un `<h2 class="titulo-oculto">` que no se ve y sí se lee: sin él la sección quedaba fuera del esquema de encabezados y el enlace "Dónde" del menú apuntaba a un bloque sin nombre.
+- **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
 - **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
 - **Las cifras de la banda del hero vienen del material comercial y no cierran con la ficha técnica.** Están puestas tal cual las entregó el desarrollo, pero hay tres diferencias anotadas abajo, en "Datos que no cierran entre sí". Antes de publicar en otros canales conviene unificar.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
@@ -129,16 +129,20 @@ El detalle completo, con lo que entró desde el mock up y lo que sigue faltando,
 1. Valores, forma de pago y disponibilidad por casa. Es el único que bloquea la venta.
 2. Confirmar qué letra corresponde a cada lote sobre el plano de implantación.
 3. Logotipos de GRAB, Autónomo y Calsina en vectorial.
-4. Distancias y tiempos verificados a los puntos de interés del entorno.
-5. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
-6. Identificador de Google Tag Manager o GA4 para activar la medición.
-7. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
-8. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
+4. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
+5. Identificador de Google Tag Manager o GA4 para activar la medición.
+6. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
+7. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
 
 El predio está en **-31.285555, -64.288894** y el enlace a Google Maps apunta
 ahí en forma directa, sin pasar por un acortador.
 
-Los ocho están marcados en `_cuerpo.html` con `class="pendiente"`. Al completar
-uno, se borra la etiqueta.
+Los que tienen lugar en la página están marcados en `_cuerpo.html` con
+`class="pendiente"`, seis etiquetas en total. Al completar uno, se borra la
+etiqueta.
+
+Los tiempos al golf, al centro, al aeropuerto y a Córdoba capital los entregó el
+desarrollo y están puestos tal cual. No salen de una medición propia ni de la
+planimetría.
 
 La URL del sitio publicado es https://brayanparragrimaldo-byte.github.io/Neibor/ y ya está puesta en las etiquetas Open Graph. Si el repositorio cambia de nombre o de dueño, hay que actualizarlas en el `<head>` de `index.html`.
