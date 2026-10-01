@@ -250,15 +250,69 @@ button{ font:inherit; color:inherit; }
 
 .hero__pie{
   position:relative; z-index:3; background:var(--tinta);
-  display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(1.5rem,4vw,4rem);
-  align-items:end; padding:clamp(1.8rem,3.2vw,2.8rem) var(--gutter) clamp(1.8rem,3vw,2.6rem);
+  padding:clamp(1.5rem,2.4vw,2rem) var(--gutter) clamp(1.5rem,2.2vw,1.9rem);
 }
-.hero__bajada{ font-size:clamp(1.25rem,2vw,1.95rem); font-weight:400; line-height:1.24; letter-spacing:-.022em; margin:0; max-width:28ch; }
-.hero__bajada b{ font-weight:600; }
-.hero__pie .acciones{ margin-top:0; justify-content:flex-end; }
+
+/* La banda de datos del predio.
+   Los íconos de acá son marcas de medida (perímetro, lote, planta) y no
+   objetos como los de amenidades: son dos familias distintas a propósito,
+   para que la banda no se lea como una repetición de aquella grilla.
+   La cifra manda, el rótulo la nombra y el pie sólo aparece donde el
+   dato necesita explicarse. */
+.datos{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+  column-gap:clamp(1rem,2vw,2rem); row-gap:clamp(1.6rem,3vw,2.4rem);
+}
+.datos > li{ border-left:1px solid var(--linea-oscura); padding-left:clamp(.9rem,1.8vw,1.7rem); }
+.datos > li:nth-child(5n+1){ border-left:0; padding-left:0; }
+
+.dato__n{
+  display:flex; align-items:baseline; margin:0;
+  font-size:clamp(1.35rem,2.2vw,2.05rem); font-weight:300; line-height:1; letter-spacing:-.042em;
+}
+.dato__ico{
+  width:1.45rem; height:1.45rem; stroke-width:1.1;
+  color:var(--salvia); opacity:.8; align-self:center; margin-right:.6rem;
+}
+.dato__u{ font-size:.46em; font-weight:500; letter-spacing:.02em; margin-left:.3em; opacity:.62; }
+.dato__t{
+  margin:.6rem 0 0; font-size:var(--t-rotulo); letter-spacing:.16em;
+  text-transform:uppercase; font-weight:600; opacity:.6; line-height:1.4;
+}
+.dato__d{ margin:.55rem 0 0; font-size:.8rem; line-height:1.5; opacity:.72; }
+
+/* Los botones cierran la banda sobre una línea, para que la cifra y la
+   acción no compitan por la misma altura. */
+.hero__pie .acciones{
+  margin-top:clamp(1.1rem,1.8vw,1.5rem); padding-top:clamp(1rem,1.5vw,1.25rem);
+  border-top:1px solid var(--linea-oscura); justify-content:flex-end;
+}
+
+@media (max-width:1080px){
+  .datos{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .datos > li:nth-child(5n+1){ border-left:1px solid var(--linea-oscura); padding-left:clamp(.9rem,1.8vw,1.7rem); }
+  .datos > li:nth-child(3n+1){ border-left:0; padding-left:0; }
+}
 @media (max-width:860px){
-  .hero__pie{ grid-template-columns:1fr; align-items:start; }
   .hero__pie .acciones{ justify-content:flex-start; }
+}
+/* En el teléfono la banda se vuelve lista: el ícono y la cifra a la
+   izquierda, el texto a la derecha, separados por una línea cada uno. */
+@media (max-width:720px){
+  .datos{ grid-template-columns:1fr; column-gap:0; row-gap:0; }
+  .datos > li,
+  .datos > li:nth-child(5n+1),
+  .datos > li:nth-child(3n+1){
+    border-left:0; padding-left:0;
+    border-top:1px solid var(--linea-oscura); padding-top:1rem; padding-bottom:1rem;
+  }
+  .datos > li:first-child{ border-top:0; padding-top:0; }
+  .datos > li:last-child{ padding-bottom:0; }
+  .dato__n{ font-size:1.5rem; }
+  .dato__ico{ width:1.5rem; height:1.5rem; }
+  .dato__t{ margin-top:.45rem; }
+  .dato__d{ margin-top:.45rem; max-width:40ch; }
 }
 
 .desplazar{
@@ -654,13 +708,13 @@ button{ font:inherit; color:inherit; }
 
 /* Hero: la imagen manda, el titular acompaña */
 .hero__titular{
-  align-self:end; justify-self:start;
+  grid-row:3; grid-column:1; align-self:end; justify-self:start;
   font-size:clamp(1.55rem,3.4vw,3.1rem); font-weight:400; line-height:1.06;
   letter-spacing:-.028em; margin:0; max-width:18ch;
 }
 .hero__titular b{ font-weight:600; }
 .hero__apunte{
-  align-self:end; justify-self:end; text-align:right; margin:0;
+  grid-row:3; grid-column:1; align-self:end; justify-self:end; text-align:right; margin:0;
   font-size:var(--t-rotulo); letter-spacing:.2em; text-transform:uppercase; font-weight:600; opacity:.7;
 }
 @media (max-width:860px){

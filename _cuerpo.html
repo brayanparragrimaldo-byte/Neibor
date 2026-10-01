@@ -27,6 +27,11 @@
   <symbol id="i-deposito" viewBox="0 0 24 24"><path d="M3 20V8.6L12 4l9 4.6V20z"/><path d="M6.6 20v-7.2h10.8V20"/><path d="M6.6 16.2h10.8"/></symbol>
   <symbol id="i-radiador" viewBox="0 0 24 24"><path d="M5.6 5v14M9.6 5v14M13.6 5v14M17.6 5v14"/><path d="M3.6 8h16M3.6 16h16"/><path d="M20.6 9.6v4.8"/></symbol>
   <symbol id="i-ventana" viewBox="0 0 24 24"><rect x="4.2" y="3.4" width="15.6" height="17.2" rx="1.4"/><path d="M12 3.4v17.2M4.2 12h15.6"/></symbol>
+  <symbol id="i-predio" viewBox="0 0 24 24"><path d="M9 3.2H20.6V20.8H3.4V6.43Z"/><circle cx="8.4" cy="11.6" r="2.6"/><circle cx="14.8" cy="9.4" r="1.9"/><circle cx="14.2" cy="16" r="2.4"/><circle cx="7.4" cy="17.3" r="1.5"/></symbol>
+  <symbol id="i-casas" viewBox="0 0 24 24"><path d="M2.8 5.2H7.4V10.2H2.8Z"/><path d="M8.8 5.2H14V10.2H8.8Z"/><path d="M15.4 5.2H21.2V10.2H15.4Z"/><path d="M2.8 13.8H8.6V18.8H2.8Z"/><path d="M10 13.8H14.6V18.8H10Z"/><path d="M16 13.8H21.2V18.8H16Z"/></symbol>
+  <symbol id="i-lote" viewBox="0 0 24 24"><path d="M3.2 3.6H20.8V18.4H3.2Z"/><path d="M7.6 7.8H16.4V14.6H7.6Z"/><path d="M3.2 21.2h17.6"/><path d="M3.2 20v2.4M20.8 20v2.4"/></symbol>
+  <symbol id="i-superficie" viewBox="0 0 24 24"><path d="M3.4 4.2H20.6V19.8H3.4Z"/><path d="M12.6 4.2v7M12.6 14.2v5.6"/><path d="M12.6 11.2h8"/></symbol>
+  <symbol id="i-comunes" viewBox="0 0 24 24"><circle cx="8.2" cy="8.6" r="3.4"/><circle cx="16.2" cy="11.4" r="2.6"/><circle cx="10.6" cy="16.4" r="2.8"/><circle cx="17.6" cy="18.2" r="1.6"/></symbol>
 </defs></svg>
 
 <header class="cabecera" id="cabecera">
@@ -43,7 +48,6 @@
     </ul>
   </nav>
   <div class="cabecera__cta">
-    <a class="btn btn--fantasma" href="#seis">Ver las seis casas</a>
     <a class="btn" data-wa="Hola, vi la web de Neibor y quiero información de las seis casas." href="#contacto">Consultar<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
   </div>
 </header>
@@ -53,7 +57,7 @@
 <!-- ================= HERO ================= -->
 <section class="hero hero--mixto" aria-label="Neibor, seis casas en Villa Allende Golf">
   <div class="hero__media">
-    <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/hero-aerea-m.avif"><source type="image/avif" srcset="img/hero-aerea.avif"><source media="(max-width: 760px)" srcset="img/hero-aerea-m.jpg"><img src="img/hero-aerea.jpg" alt="Vista aérea de Neibor dentro de Villa Allende Golf: las seis casas en primer plano, el campo de golf detrás y las Sierras Chicas en el horizonte." width="1448" height="1086" fetchpriority="high"></picture>
+    <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/hero-aerea-ancha-m.avif"><source type="image/avif" srcset="img/hero-aerea-ancha.avif"><source media="(max-width: 760px)" srcset="img/hero-aerea-ancha-m.jpg"><img src="img/hero-aerea-ancha.jpg" alt="Vista aérea de Neibor al atardecer: las seis casas sobre su manzana, la arboleda de Villa Allende Golf alrededor y las Sierras Chicas en el horizonte." width="1672" height="941" fetchpriority="high"></picture>
 
   <div class="hero__capa">
     <div class="hero__meta">
@@ -61,14 +65,38 @@
       <span class="corchete">Seis casas</span>
     </div>
     <div class="hero__fila"></div>
-    <h1 class="hero__titular rev">Menos casas.<br><b>Más comunidad.</b></h1>
-    <p class="hero__apunte rev rev-d1">Seis casas<br>Una manzana</p>
+    <h1 class="hero__titular rev">El valor de <b>estar cerca.</b></h1>
+    <p class="hero__apunte rev rev-d1">6 casas</p>
     <span class="desplazar" aria-hidden="true">Bajar <i></i></span>
   </div>
   </div>
 
   <div class="hero__pie">
-    <p class="hero__bajada rev">Seis casas sobre una manzana entera de Villa Allende Golf, con <b>cuatro calles alrededor</b> y los árboles grandes que ya estaban.</p>
+    <ul class="datos rev">
+      <li>
+        <p class="dato__n"><svg class="ico dato__ico" aria-hidden="true"><use href="#i-predio"></use></svg>4.237<span class="dato__u">m²</span></p>
+        <p class="dato__t">De predio verde</p>
+      </li>
+      <li>
+        <p class="dato__n"><svg class="ico dato__ico" aria-hidden="true"><use href="#i-casas"></use></svg>6</p>
+        <p class="dato__t">Casas</p>
+        <p class="dato__d">De una sola planta, con materiales de primera calidad y terminaciones de alta gama.</p>
+      </li>
+      <li>
+        <p class="dato__n"><svg class="ico dato__ico" aria-hidden="true"><use href="#i-lote"></use></svg>500<span class="dato__u">m²</span></p>
+        <p class="dato__t">Lotes</p>
+        <p class="dato__d">Entre 450 y 550 m², rodeados de amplias áreas verdes en un entorno seguro.</p>
+      </li>
+      <li>
+        <p class="dato__n"><svg class="ico dato__ico" aria-hidden="true"><use href="#i-superficie"></use></svg>215<span class="dato__u">m²</span></p>
+        <p class="dato__t">Por casa</p>
+        <p class="dato__d">Superficie total, con ambientes amplios en una sola planta.</p>
+      </li>
+      <li>
+        <p class="dato__n"><svg class="ico dato__ico" aria-hidden="true"><use href="#i-comunes"></use></svg>1.000<span class="dato__u">m²</span></p>
+        <p class="dato__t">Áreas comunes parquizadas</p>
+      </li>
+    </ul>
     <div class="acciones rev rev-d1">
       <a class="btn" href="#seis">Ver las seis casas<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
       <a class="btn btn--fantasma" data-wa="Hola, vi la web de Neibor y quiero información de las seis casas." href="#contacto">Hablar por WhatsApp</a>

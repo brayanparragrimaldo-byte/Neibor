@@ -96,9 +96,28 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Tres papeles de botón, uno por intención.** Sólido tinta para convertir (pedir valores, agendar visita), naranja `btn--acento` para abrir material (el plano, la ficha técnica), contorno para navegar. `btn--chico` es una medida, no un papel.
 - **El naranja de marca sólo va con texto blanco.** Sobre `#af5d00` el blanco puro da 4.79:1 y pasa AA; el papel de marca daría 4.28 y no llegaría. En texto suelto sobre papel el naranja sigue reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente.
 - **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
-- **El naranja de marca no se usa en botones.** Sobre papel da 4.28:1 de contraste, por debajo del mínimo para texto chico. Queda reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente, que es además el uso que le da el manual.
+- **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
+- **Las cifras de la banda del hero vienen del material comercial y no cierran con la ficha técnica.** Están puestas tal cual las entregó el desarrollo, pero hay tres diferencias anotadas abajo, en "Datos que no cierran entre sí". Antes de publicar en otros canales conviene unificar.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
 - **Tipografía:** Host Grotesk desde Google Fonts, la misma del manual de marca.
+
+## Datos que no cierran entre sí
+
+La banda del hero lleva las cinco cifras del material comercial. La ficha de cada
+casa y la ventana de planos llevan las del legajo de obra. En tres puntos no dicen
+lo mismo, así que figuran los dos valores en la web y ninguno fue corregido por
+cuenta propia:
+
+| Dato | Banda del hero | Ficha por casa |
+|---|---|---|
+| Superficie del lote | entre 450 y 550 m² | 502, 550, 557, 595, 711 y 790 m² |
+| Superficie de la casa | 215 m² | entre 224 y 241 m² (cubierta más semicubierta) |
+| Superficie del predio | 4.237 m² | los seis lotes suman 3.705 m², y con los 1.000 de áreas comunes dan 4.705 |
+
+Dos lecturas posibles: que la banda hable de superficie cubierta y de lote promedio
+de una etapa anterior del proyecto, o que la ficha sume semicubierto donde la banda
+no lo hace. Hace falta que el desarrollo diga cuál de las dos vale para que la web
+quede con una sola cifra por concepto.
 
 ## Pendiente antes de considerarla terminada
 

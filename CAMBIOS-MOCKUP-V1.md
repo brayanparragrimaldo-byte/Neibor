@@ -84,8 +84,9 @@ La página pasó de quince bloques a ocho:
 Hero → Amenidades → Galería → Las seis casas → El proyecto → Dónde → Quién → Contacto
 ```
 
-1. **Hero.** Vista aérea del barrio a sangre, con veladuras arriba y abajo para
-   que el titular se lea sobre la foto.
+1. **Hero.** Vista aérea apaisada del barrio a sangre, con veladuras arriba y
+   abajo para que el titular se lea sobre la foto, y la banda de cifras del
+   predio abajo.
 2. **Amenidades.** Subió a segundo lugar y se rehizo con la grilla centrada de
    ícono y texto sobre fondo claro: tres columnas en desktop, dos en tablet,
    una en móvil.
@@ -254,3 +255,53 @@ Esto agrega un tercer papel al sistema de botones, que antes tenía dos. Quedan
 así, uno por intención: sólido tinta para convertir, naranja para abrir
 material, contorno para navegar. Las chinchetas se tiñen del mismo naranja al
 pasar por encima, para que se lea que abren lo mismo que el botón.
+
+## El hero pasa a la aérea apaisada y la banda se vuelve ficha
+
+**La foto.** Entró `AEREA - SLIDE 01 APAISADA`, de 1672 por 941, en lugar de la
+aérea cuadrada. En móvil no se sirve la misma apaisada reducida, porque recortada
+a vertical dejaría las casas fuera de cuadro: va un recorte propio de 760 por 941
+sacado del original a resolución plena y centrado en la manzana, así el teléfono
+ve las sierras arriba y las casas abajo. Los dos `preload` del `<head>` y la
+imagen de Open Graph apuntan a la nueva, que además es 16:9 y encaja mejor en las
+tarjetas sociales que la anterior.
+
+La aérea vieja sigue en el repositorio porque la usa la banda de "El barrio del
+futuro se parece al de antes", dentro de la secuencia del proyecto.
+
+**El titular.** "Menos casas. Más comunidad." pasó a "El valor de estar cerca."
+y el apunte de la derecha, que decía "Seis casas / Una manzana", quedó en
+"6 casas". Como el titular bajó a un solo renglón, los dos se colocaron
+explícitamente en la misma fila de la grilla para que compartan línea de base;
+antes el apunte caía en una fila implícita debajo.
+
+**La cabecera.** Se quitó el botón "Ver las seis casas" de arriba. Queda un solo
+botón, el que convierte, y la misma acción sigue disponible en la banda del hero
+y en el menú, en "Las seis".
+
+**La banda.** La frase única dejó lugar a las cinco cifras del predio: 4.237 m²
+de predio verde, 6 casas, 500 m² de lote, 215 m² por casa y 1.000 m² de áreas
+comunes. Cada una lleva un ícono propio, la cifra en peso liviano y el rótulo en
+versalitas; las tres del medio suman una línea de apoyo y las dos de los extremos
+quedan sin ella, que es lo que evita que las cinco celdas se lean iguales.
+
+Cinco columnas con filete entre medio en desktop, tres y dos en tablet, y lista
+con filete arriba en teléfono. Los botones cierran la banda sobre una línea, en
+vez de competir con las cifras por el mismo renglón. La banda pasó de 164 a 284
+píxeles de alto en desktop, que es el costo de llevar cinco datos donde había una
+oración.
+
+**Los íconos.** Son cinco nuevos y forman una familia aparte de la de amenidades.
+Aquellos son objetos; estos son marcas de planta, que es como el proyecto se
+dibuja a sí mismo: el perímetro de la manzana con el corte de 30 grados de la
+marca y las copas adentro, las seis huellas de las casas, el lote con la huella y
+su acotación, la planta con los ambientes, y el arbolado suelto de las áreas
+comunes. El primer dibujo de este último, un camino en diagonal entre copas, se
+descartó porque a tamaño chico se leía como un signo de porcentaje, y el segundo,
+con el camino horizontal, como una cara.
+
+**Las cifras no cierran con la ficha técnica.** El lote de "entre 450 y 550 m²"
+contra los 502 a 790 del legajo, los 215 m² por casa contra los 224 a 241, y los
+4.237 m² de predio contra los 3.705 que suman los seis lotes. Quedaron los dos
+juegos de números donde corresponde, sin corregir ninguno por cuenta propia, y la
+diferencia está anotada en el README para que el desarrollo defina cuál vale.
