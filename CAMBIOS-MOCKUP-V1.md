@@ -359,3 +359,26 @@ pide nadie: los diez renders de la secuencia, la planta, la aérea cuadrada, la
 peatonal y el logotipo en tinta. No se borraron para que `git revert` del commit
 que saca la sección la devuelva completa. GitHub Pages sólo sirve lo que el
 navegador pide, así que no pesan en la carga de nadie.
+
+## La ubicación se queda sin titular y sin las dos imágenes de arriba
+
+Salieron el titular "Sentirse lejos, aun estando cerca.", el plano del sector
+("El trazado del sector") y la vista aérea del barrio ("El barrio hoy"). La
+sección queda con el párrafo del entorno, las cuatro referencias, el enlace a
+Google Maps, las coordenadas y la foto de Villa Allende con las sierras. Pasó de
+unos 1.900 a 918 píxeles de alto en desktop.
+
+El titular se fue de la vista, no del documento: en su lugar quedó un
+`<h2 class="titulo-oculto">Dónde queda</h2>`, que ningún ojo ve y todo lector de
+pantalla anuncia. Sin él la sección se salía del esquema de encabezados y el
+enlace "Dónde" del menú llevaba a un bloque sin nombre. La utilidad
+`.titulo-oculto` es nueva y sirve para cualquier otro caso igual.
+
+Con el titular fuera, `.ubic` perdió su `margin-top`: el aire de arriba ya lo pone
+el padding de la sección y sumar los dos dejaba un hueco de más.
+
+**Un error que apareció al mirar de cerca.** La medida de la flecha vivía sólo en
+`.btn .flecha`. El enlace al mapa no es un botón, así que su SVG no tenía con qué
+dimensionarse y se estiraba hasta ocupar el ancho disponible, partiendo el enlace
+en tres renglones. Ya estaba así en la versión publicada. La regla pasó a
+`.flecha` a secas y el enlace volvió a un renglón de 29 píxeles.

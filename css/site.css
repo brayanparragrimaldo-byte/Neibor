@@ -64,6 +64,12 @@ button{ font:inherit; color:inherit; }
 ::selection{ background:var(--tierra); color:var(--papel); }
 
 /* ---------- 2. Utilidades de estructura ---------- */
+/* Encabezado que sostiene el esquema del documento sin entrar en la
+   composición: lo anuncia el lector de pantalla, no se ve. */
+.titulo-oculto{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0;
+}
 .envoltura{ width:100%; max-width:var(--ancho); margin-inline:auto; padding-inline:var(--gutter); }
 .seccion{ position:relative; padding-block:var(--bloque); }
 .seccion--oscura{ background:var(--verde); color:var(--papel); }
@@ -162,8 +168,10 @@ button{ font:inherit; color:inherit; }
 }
 .btn:hover{ transform:translateY(-2px); }
 .btn:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
-.btn .flecha{ width:.85em; height:.85em; flex:none; transition:transform .45s var(--easing); }
-.btn:hover .flecha{ transform:translate(3px,-3px); }
+/* La medida de la flecha estaba sólo dentro de .btn, así que en el enlace
+   al mapa el SVG no tenía con qué dimensionarse y se comía el renglón. */
+.flecha{ width:.85em; height:.85em; flex:none; transition:transform .45s var(--easing); }
+.btn:hover .flecha,.mapa-enlace:hover .flecha{ transform:translate(3px,-3px); }
 
 .btn--fantasma{ --fondo:transparent; --tinte:currentColor; border-color:currentColor; opacity:.85; }
 .btn--fantasma:hover{ opacity:1; }
@@ -365,7 +373,9 @@ button{ font:inherit; color:inherit; }
 .seccion--oscura.seccion--corte,.seccion--tinta.seccion--corte{ border-color:var(--linea-oscura); }
 
 /* ---------- 8. Ubicación ---------- */
-.ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); margin-top:clamp(2.4rem,5vw,4rem); }
+/* Sin titular a la vista, el bloque arranca pegado al borde de la sección:
+   el aire de arriba lo pone el padding de la sección y no hace falta más. */
+.ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); }
 .ubic__a{ grid-column:1/8; }
 .ubic__b{ grid-column:8/13; display:grid; gap:clamp(1rem,2vw,1.8rem); align-content:start; }
 @media (max-width:900px){ .ubic__a,.ubic__b{ grid-column:1/-1; } }
