@@ -335,3 +335,27 @@ una columna       uno abajo del otro
 
 Si alguna vez se agrega o se saca un atributo hay que revisar esas dos reglas de
 `:nth-child`, porque están escritas para diez.
+
+## Fuera la sección "El proyecto"
+
+Se quitó entera a pedido: el titular "El barrio del futuro se parece al de antes",
+la secuencia anclada al scroll de diez puntos con sus diez renders, la planta de
+la casa y la lista "Qué entra en cada casa". La página pasó de ocho secciones a
+siete y de unos 11.500 a 7.782 píxeles de alto en desktop.
+
+Con la sección se fueron también las piezas que existían sólo para ella: el
+enlace "El proyecto" del menú, los bloques 4 y 5 del JavaScript (el plegado y el
+motor de la secuencia) y veintitrés clases de CSS, entre ellas `.arq`, `.proy`,
+`.banda`, `.placa`, `.desplegar`, `.programa` y `.cifras`. Los bloques numerados
+de la hoja de estilos quedaron renumerados en orden, porque la quita dejó huecos.
+
+**Lo que hubo que arreglar.** Esa sección era la única oscura entre "Las seis
+casas" y "Dónde", que son las dos claras. Al sacarla quedaban una pegada a la
+otra sobre el mismo papel, sin corte visible. "Dónde" lleva ahora la clase
+`seccion--corte`, un filete de un píxel que marca el límite sin tocar el fondo.
+
+**Las imágenes quedaron en `img/`.** Veinticuatro archivos, unos 6 MB, ya no los
+pide nadie: los diez renders de la secuencia, la planta, la aérea cuadrada, la
+peatonal y el logotipo en tinta. No se borraron para que `git revert` del commit
+que saca la sección la devuelva completa. GitHub Pages sólo sirve lo que el
+navegador pide, así que no pesan en la carga de nadie.

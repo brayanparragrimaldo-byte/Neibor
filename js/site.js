@@ -140,81 +140,7 @@
     cifras.forEach(function (el) { obsC.observe(el); });
   }
 
-  /* ---------- 4. El detalle del proyecto, plegado ----------
-     Al abrirlo, lo de adentro nunca llegó a cruzar el observador de
-     revelados, así que se muestra a mano y se avisa del cambio de alto. */
-  var detalle = $('#proyecto-detalle');
-  if (detalle) {
-    detalle.addEventListener('toggle', function () {
-      if (!detalle.open) return;
-      $$('.rev, .rev-izq, .rev-der', detalle).forEach(function (el) { el.classList.add('en'); });
-      window.dispatchEvent(new Event('resize'));
-    });
-  }
-
-  /* ---------- 5. El proyecto: el scroll controla la imagen ----------
-     Gana el punto cuyo centro queda más cerca de la línea de lectura.
-     Se mide cuadro a cuadro, y sólo mientras la secuencia está en
-     pantalla, para que nunca salte puntos ni quede colgada. */
-  var arq = $('#arq');
-  if (arq) {
-    var items = $$('.arq__item', arq);
-    var imgs = $$('.arq__marco img', arq);
-    var marco = $('.arq__marco', arq);
-    var pegote = $('.arq__sticky', arq);
-    var activo = -1, ultimo = null, corriendo = false;
-
-    function pintar(i) {
-      if (i === activo) return;
-      activo = i;
-      items.forEach(function (it, k) { it.classList.toggle('activo', k === i); });
-      imgs.forEach(function (im, k) { im.classList.toggle('viva', k === i); });
-    }
-
-    /* Apilado (móvil) la foto queda arriba y se lee debajo.
-       En dos columnas se lee a la altura del centro de la foto. */
-    function linea() {
-      var alto = parseFloat(getComputedStyle(pegote).top) || 0;
-      var fin = alto + marco.offsetHeight;
-      return window.innerWidth <= 960
-        ? fin + (window.innerHeight - fin) * 0.3
-        : alto + marco.offsetHeight * 0.5;
-    }
-
-    function medir() {
-      var pos = window.pageYOffset + 'x' + window.innerHeight;
-      if (pos === ultimo) return;
-      ultimo = pos;
-      var y = linea(), mejor = 0, dist = Infinity;
-      for (var k = 0; k < items.length; k++) {
-        var r = items[k].getBoundingClientRect();
-        var d = Math.abs(r.top + r.height / 2 - y);
-        if (d < dist) { dist = d; mejor = k; }
-      }
-      pintar(mejor);
-    }
-
-    function bucle() {
-      if (!corriendo) return;
-      medir();
-      requestAnimationFrame(bucle);
-    }
-
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (ents) {
-        var dentro = ents[0].isIntersecting;
-        if (dentro && !corriendo) { corriendo = true; requestAnimationFrame(bucle); }
-        else if (!dentro) { corriendo = false; }
-      }, { rootMargin: '300px 0px 300px 0px' }).observe(arq);
-    } else {
-      corriendo = true;
-      requestAnimationFrame(bucle);
-    }
-    window.addEventListener('resize', function () { ultimo = null; medir(); });
-    medir();
-  }
-
-  /* ---------- 6. Las seis casas: chinchetas, ficha y visor ---------- */
+  /* ---------- 4. Las seis casas: chinchetas, ficha y visor ---------- */
   var impl = $('#implantacion');
   if (impl) {
     CASAS.forEach(function (c, i) {
@@ -328,7 +254,7 @@
     });
   }
 
-  /* ---------- 7. WhatsApp con mensaje según el lugar del clic ---------- */
+  /* ---------- 5. WhatsApp con mensaje según el lugar del clic ---------- */
   function enlaceWA(texto) {
     return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(texto);
   }
@@ -346,7 +272,7 @@
     });
   });
 
-  /* ---------- 8. Formulario: arma el mensaje y abre el canal ----------
+  /* ---------- 6. Formulario: arma el mensaje y abre el canal ----------
      No hay backend en esta versión. Para conectar un CRM, reemplazar
      armar() por un fetch al endpoint y mantener el fallback.
   ------------------------------------------------------------------- */
@@ -391,7 +317,7 @@
     });
   }
 
-  /* ---------- 9. Plano o axonométrica ---------- */
+  /* ---------- 7. Plano o axonométrica ---------- */
   if (impl) {
     var capas = $$('.capa', impl);
     $$('[data-vista]').forEach(function (b) {
@@ -409,7 +335,7 @@
     });
   }
 
-  /* ---------- 10. Galería a pantalla completa ---------- */
+  /* ---------- 8. Galería a pantalla completa ---------- */
   var pista = $('#galeria-pista');
   if (pista) {
     var slides = $$('.galeria__slide', pista);
@@ -471,7 +397,7 @@
     marcar(0);
   }
 
-  /* ---------- 11. Medición de clicks ----------
+  /* ---------- 9. Medición de clicks ----------
      Los eventos se empujan a dataLayer, que es lo que leen Google Tag
      Manager, GA4 o Meta. Cuando haya cuenta se conecta sin tocar esto. */
   function evento(nombre, datos) {
@@ -500,7 +426,7 @@
     }
   });
 
-  /* ---------- 12. Navegación interna suave con cabecera fija ---------- */
+  /* ---------- 10. Navegación interna suave con cabecera fija ---------- */
   document.addEventListener('click', function (e) {
     var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if (!a) return;

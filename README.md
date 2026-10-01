@@ -16,16 +16,21 @@ DIAGNOSTICO.md    análisis del material, faltantes y criterios de diseño
 CAMBIOS-MOCKUP-V1.md  qué entró desde el mock up y desde los renders nuevos
 ```
 
-## Las ocho secciones
+## Las siete secciones
 
 ```
-Hero → Amenidades → Galería → Las seis casas → El proyecto → Dónde → Quién → Contacto
+Hero → Atributos principales → Galería → Las seis casas → Dónde → Quién → Contacto
 ```
 
-El orden pone la oferta antes que el relato: quien llega decidido encuentra el
-plano con las superficies por unidad en el cuarto bloque, y quien necesita
-convencerse sigue hacia "El proyecto", que cuenta la manzana, la calle, el lote,
-los materiales y el interior en una sola secuencia anclada al scroll.
+El orden pone la oferta antes que el relato: quien llega encuentra el plano con
+las superficies por unidad en el cuarto bloque y de ahí pasa a la ubicación,
+quién lo hace y el contacto. El relato largo del proyecto, que ocupaba una
+secuencia anclada al scroll entre "Las seis casas" y "Dónde", se quitó a pedido
+del desarrollo. Queda en el historial: `git revert` del commit que lo saca lo
+devuelve entero, con sus imágenes, que siguen en `img/`.
+
+Como esa sección era la única oscura entre dos claras, "Dónde" lleva ahora
+`seccion--corte`, un filete que marca dónde termina una y empieza la otra.
 
 ## Probarla en local
 
@@ -37,15 +42,11 @@ python3 -m http.server 8080
 
 **Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-ingresos.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones son una lectura del plano de proyecto: hay que ajustarlas contra la implantación comercial definitiva. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
 
-**El detalle del proyecto se pliega.** La sección `#proyecto` muestra la aérea, la bajada y las tres cifras; lo demás vive dentro de `<details id="proyecto-detalle">` y se abre con el botón. Quien no lo abre pasa directo a la ubicación. Al abrirse, el JavaScript revela lo de adentro y avisa del cambio de alto para que la secuencia anclada se recalcule.
-
 **Las chinchetas del plano abren la ventana.** Además de cambiar la ficha, una chincheta abre el visor de planos con el material de esa casa, y al cerrarlo el foco vuelve a la chincheta. Las letras de abajo sólo cambian la ficha, para poder comparar superficies sin abrir y cerrar. El disparador de la ventana se pasa como argumento a `abrir()`, que es de donde sale la vuelta del foco.
 
 **El visor de planos.** La ventana `#planos`, en la sección de las casas. A la izquierda queda el plano de la casa elegida, pegado mientras se recorre la tira de la derecha; al tocar una miniatura, esa imagen pasa al marco grande. Para sumar o sacar una imagen alcanza con agregar o borrar un `<button class="mini">` en `_cuerpo.html`: lleva `data-full` con la imagen grande y `data-pie` con el epígrafe. La primera miniatura es la del plano y la actualiza el JavaScript con cada casa, así que no se toca.
 
 **La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
-
-**La secuencia anclada de "El proyecto".** Cada punto son dos piezas que tienen que quedar en el mismo orden dentro de `_cuerpo.html`: el `<img data-arq="N">` dentro de `.arq__marco` y el `<li data-arq-item="N">` dentro de `.arq__lista`. El JavaScript no necesita saber cuántos son.
 
 **WhatsApp.** Constante `WA` en `js/site.js`. Cada CTA lleva su propio mensaje en el atributo `data-wa`, así el asesor sabe desde qué sección escribieron.
 
@@ -61,12 +62,12 @@ Cada foto vive en hasta tres anchos y en dos formatos:
 
 ```
 nombre.jpg / .avif      1800 px   a sangre y galería
-nombre-m.jpg / .avif    1000 px   móvil, secuencia anclada y visor
+nombre-m.jpg / .avif    1000 px   móvil y visor                    
 nombre-t.jpg / .avif     560 px   miniaturas de la ventana de planos
 ```
 
 Los logotipos van sólo a 800 px (`-m`), que alcanza para los tres lugares donde
-aparecen: la cabecera a 120, la placa a 192 y el pie a 300.
+aparecen: la cabecera a 120 y el pie a 300.
 
 Los planos por casa son la excepción: salen de los PDF del desarrollo y van a
 3000 px el original, 1600 el del visor y 560 la miniatura, para que se lean los
