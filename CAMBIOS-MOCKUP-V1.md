@@ -1081,3 +1081,52 @@ arquitecto.
 implantación cuadrada y la axonométrica del hero ya no los referencia nadie. Son
 unos 54 archivos. No se borraron: son material del cliente y están a un pedido de
 volver.
+
+---
+
+## Los planos por casa, el tamaño completo adentro y la limpieza de archivos
+
+**Entran los seis planos.** Cada ventana suma una tercera lámina, y es la
+primera: el plano de esa unidad, no de su tipología. La ventana abre en él.
+
+**Sin la leyenda de superficies.** Los PDF traen una columna de texto vertical
+sobre el margen derecho con "CASA Nx" y las cuatro superficies. Se recorta
+midiendo la tinta por columna: el dibujo es una banda ancha y la leyenda una
+fina y suelta. Sale en los seis.
+
+Conviene que salga por otro motivo: **esa leyenda trae las superficies viejas**,
+las que el desarrollo acaba de reemplazar. El plano de la Casa N dice "SUP
+TERRENO: 711 M2" cuando la planilla nueva dice 660. Si la leyenda quedara a la
+vista, el plano contradiría a la ficha que está al lado.
+
+**Y los números internos no siguen a los nombres de archivo.** Adentro, los
+planos se rotulan N1 a N6. El archivo "3. CASA I" se rotula N3 y el "5. CASA 0"
+se rotula N4. Se cargaron por el nombre del archivo, que es lo que indicó el
+desarrollo. Como la leyenda se recorta, nada de eso se publica, pero el dato
+está acá por si alguna vez hay que rastrearlo.
+
+**`qlmanage` y no `sips`.** `sips` ignora el `/Rotate` de la página: devuelve
+tres de los seis cabeza abajo y los seis cortados por el borde de la hoja.
+`qlmanage`, que usa el visor del sistema, los devuelve enteros y derechos. Vale
+anotarlo porque el error de `sips` era convincente: los planos parecían venir
+mal del arquitecto.
+
+**El tamaño completo ahora se abre adentro de la página.** Era un enlace con
+`target="_blank"` que abría una pestaña con un JPEG suelto, fuera del sitio.
+Ahora el marco grande y el botón del pie abren la ventana `#v-foto`, la misma de
+las galerías, con la clase `foto--sola`: sin flechas ni contador. Un toque más y
+el plano pasa a su medida real y la ventana se recorre, que es lo que hace falta
+para leer "Dormitorio 4.00 m x 3.60 m" en un teléfono.
+
+**Un error viejo que salió a la luz.** `ventana()` cerraba la ventana comparando
+las coordenadas del clic contra el rectángulo del diálogo. Al abrirse otra
+ventana encima, la página pierde la barra de desplazamiento, todo se corre unos
+píxeles y el punto guardado queda afuera: la ventana de planos se cerraba sola
+al pedir el tamaño completo. Ahora se mira si el clic cayó en la ventana misma,
+que es lo que ya hacía la de fotos.
+
+**Se borran 37 archivos de imagen.** Quedaron sin uso después de los últimos
+cambios: la implantación cuadrada, la axonométrica del hero, la planta ambientada
+vieja, los dos logotipos de Neibor que no se usan, y cinco familias que ya no
+referencia nadie. `img/` baja de 209 a 172 archivos. Los planos por unidad no se
+borraron: se reemplazaron por los nuevos, recortados y sin leyenda.

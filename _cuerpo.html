@@ -357,7 +357,7 @@
   <dialog class="modal modal--planos" id="planos" aria-labelledby="planos-titulo">
     <header class="modal__enc">
       <span class="corchete" id="planos-rotulo">Casa N</span>
-      <h2 class="modal__titulo" id="planos-titulo">La planta y la axonométrica de esta casa</h2>
+      <h2 class="modal__titulo" id="planos-titulo">El plano de esta casa, con su planta y su axonométrica</h2>
       <button type="button" class="modal__cerrar" data-cerrar aria-label="Cerrar las imágenes de la casa">
         <span class="equis" aria-hidden="true"></span>
       </button>
@@ -365,15 +365,15 @@
 
     <div class="modal__cuerpo planos">
       <div class="planos__visor">
-        <figure class="planos__marco">
+        <button type="button" class="planos__marco" id="visor-abrir" aria-label="Ver esta imagen en tamaño completo">
           <picture>
-            <source id="visor-avif" type="image/avif" srcset="img/tipo-neib-planta-m.avif">
-            <img id="visor-img" src="img/tipo-neib-planta-m.jpg" alt="Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha." width="1000" height="562" decoding="async" fetchpriority="low">
+            <source id="visor-avif" type="image/avif" srcset="img/plano-casa-n-m.avif">
+            <img id="visor-img" src="img/plano-casa-n-m.jpg" alt="Plano de la Casa N sobre su lote, con los ambientes acotados." width="680" height="1200" decoding="async" fetchpriority="low">
           </picture>
-        </figure>
+        </button>
         <div class="planos__pie">
-          <span id="visor-pie">La planta de esta casa</span>
-          <a id="visor-full" href="img/tipo-neib-planta.jpg" target="_blank" rel="noopener">Abrir en tamaño completo</a>
+          <span id="visor-pie">El plano de esta casa</span>
+          <button type="button" id="visor-full">Ver en tamaño completo</button>
         </div>
         <dl class="planos__datos">
           <div><dt>Orientación del fondo</dt><dd id="visor-orient">Noreste</dd></div>
@@ -383,8 +383,12 @@
       </div>
 
       <div class="planos__tira">
-        <p class="nota">Las dos imágenes son del tipo de casa, no de la unidad. N, E, I y B comparten uno; O y R, el otro.</p>
-        <button type="button" class="mini" id="mini-planta" aria-current="true" data-full="img/tipo-neib-planta.jpg" data-pie="La planta de esta casa">
+        <p class="nota">El plano es de esta unidad. La planta y la axonométrica son del tipo: N, E, I y B comparten uno; O y R, el otro.</p>
+        <button type="button" class="mini mini--plano" id="mini-plano" aria-current="true" data-full="img/plano-casa-n.jpg" data-pie="El plano de esta casa">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/plano-casa-n-t.avif"><img src="img/plano-casa-n-t.jpg" alt="Plano de la Casa N sobre su lote, con los ambientes acotados." width="316" height="560" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">El plano</span>
+        </button>
+        <button type="button" class="mini" id="mini-planta" data-full="img/tipo-neib-planta.jpg" data-pie="La planta de esta casa">
           <span class="mini__marco"><picture><source type="image/avif" srcset="img/tipo-neib-planta-t.avif"><img src="img/tipo-neib-planta-t.jpg" alt="Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha." width="560" height="316" loading="lazy" decoding="async"></picture></span>
           <span class="mini__pie">La planta</span>
         </button>

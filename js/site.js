@@ -33,6 +33,8 @@
   /* Las dos láminas de la ventana. El texto alternativo cambia con la
      tipología porque son dos casas distintas, no dos encuadres de la misma. */
   var LAMINAS = [
+    { clave:'plano', id:'mini-plano', pie:'El plano de esta casa', porCasa:true,
+      alt:'Plano de la %s sobre su lote, con los ambientes acotados.' },
     { clave:'planta', id:'mini-planta', pie:'La planta de esta casa', alt:{
       neib:'Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha.',
       or:'Planta de la casa vista desde arriba y sin techo: la cochera arriba a la izquierda, el estar y el comedor arriba, el patio con el olivo en el medio y la barra de dormitorios abajo.' } },
@@ -64,11 +66,11 @@
     }
     disparador.addEventListener('click', function () { abrir(disparador); });
     $$('[data-cerrar]', dlg).forEach(function (b) { b.addEventListener('click', cerrar); });
-    dlg.addEventListener('click', function (e) {
-      var r = dlg.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right ||
-          e.clientY < r.top || e.clientY > r.bottom) cerrar();
-    });
+    /* El clic en el velo le llega a la ventana misma, así que alcanza con
+       mirar dónde cayó y no con comparar coordenadas: al abrirse otra ventana
+       encima, la página pierde la barra de desplazamiento, todo se corre unos
+       píxeles y el punto guardado quedaba fuera del rectángulo. */
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) cerrar(); });
     dlg.addEventListener('close', function () { (ultimo || disparador).focus(); });
     dlg.addEventListener('wheel', frenar, { passive: false });
     dlg.addEventListener('touchmove', frenar, { passive: false });
@@ -151,11 +153,11 @@
     /* ---- Visor: la miniatura elegida pasa al marco grande ---- */
     var visor = $('#visor-img'), visorAvif = $('#visor-avif'),
         visorPie = $('#visor-pie'), visorFull = $('#visor-full'),
-        rotuloPlanos = $('#planos-rotulo'),
+        visorAbrir = $('#visor-abrir'), rotuloPlanos = $('#planos-rotulo'),
         vOrient = $('#visor-orient'), vTerreno = $('#visor-terreno'), vCub = $('#visor-cub'),
         minis = $$('.mini');
     LAMINAS.forEach(function (l) { l.boton = $('#' + l.id); });
-    var miniPlanta = LAMINAS[0].boton;
+    var miniPrimera = LAMINAS[0].boton;
 
     function mostrar(b) {
       if (!b || !visor) return;
@@ -178,6 +180,20 @@
       b.addEventListener('click', function () { mostrar(b); });
     });
 
+    /* El tamaño completo se abre en la misma página, en la ventana de foto
+       que ya usan las galerías. Antes era un enlace a la imagen suelta, que
+       sacaba al visitante del sitio a una pestaña con un JPEG. */
+    function verEntero(origen) {
+      var b = $('.mini[aria-current="true"]') || miniPrimera;
+      if (!b || typeof window.abrirSuelta !== 'function') return;
+      var foto = $('img', b);
+      window.abrirSuelta(b.getAttribute('data-full'), foto ? foto.alt : '',
+                         b.getAttribute('data-pie'), origen || b);
+    }
+    if (visorAbrir) visorAbrir.addEventListener('click', function () { verEntero(visorAbrir); });
+    var botonEntero = $('#visor-full');
+    if (botonEntero) botonEntero.addEventListener('click', function () { verEntero(botonEntero); });
+
     /* Las miniaturas viven dentro de una ventana cerrada, donde la carga
        diferida del navegador no llega a dispararse. Se sueltan la primera
        vez que se abre, así no pesan mientras nadie las mira. */
@@ -192,7 +208,7 @@
     ventana($('#ficha-tecnica'), $('#abrir-ficha-tecnica'));
     var vPlanos = ventana($('#planos'), $('#ficha-plano'), function () {
       soltarMinis();
-      mostrar(miniPlanta);
+      mostrar(miniPrimera);
     });
 
     function elegir(i) {
@@ -210,12 +226,14 @@
       LAMINAS.forEach(function (l) {
         var b = l.boton;
         if (!b) return;
-        var base = 'img/tipo-' + c.tipo + '-' + l.clave;
+        var base = l.porCasa ? 'img/plano-casa-' + c.letra.toLowerCase()
+                             : 'img/tipo-' + c.tipo + '-' + l.clave;
+        var alt = l.porCasa ? l.alt.replace('%s', c.n) : l.alt[c.tipo];
         b.setAttribute('data-full', base + '.jpg');
         b.setAttribute('data-pie', l.pie);
         var fuente = $('source', b), foto = $('img', b);
         if (fuente) fuente.setAttribute('srcset', base + '-t.avif');
-        if (foto) { foto.src = base + '-t.jpg'; foto.alt = l.alt[c.tipo]; }
+        if (foto) { foto.src = base + '-t.jpg'; foto.alt = alt; }
       });
 
       if (rotuloPlanos) rotuloPlanos.textContent = c.n;
@@ -224,7 +242,7 @@
         vTerreno.textContent = c.terreno;
         vCub.textContent = c.cub;
       }
-      mostrar(miniPlanta);
+      mostrar(miniPrimera);
 
       $$('[data-casa]').forEach(function (b) {
         b.setAttribute('aria-pressed', parseInt(b.getAttribute('data-casa'), 10) === i ? 'true' : 'false');
@@ -339,6 +357,24 @@
     if (vFoto.close) vFoto.close(); else vFoto.removeAttribute('open');
   }
 
+  /* La misma ventana sirve para una imagen sola, como el plano de una casa.
+     Sin tira no hay anterior ni siguiente, así que las flechas y el contador
+     se apagan, y al cerrar el foco vuelve a donde se tocó. */
+  window.abrirSuelta = function (full, alt, pie, origen) {
+    if (!vFoto || !fImg) return;
+    enTira = null;
+    volverA = origen || null;
+    if (fAvif) fAvif.setAttribute('srcset', full.replace(/\.jpg$/, '.avif'));
+    fImg.src = full;
+    fImg.alt = alt || '';
+    fPie.textContent = pie || '';
+    fCuenta.textContent = '';
+    vFoto.classList.add('foto--sola');
+    vFoto.classList.remove('foto--lupa');
+    fCuenta.textContent = 'Tocar para agrandar';
+    if (vFoto.showModal) vFoto.showModal(); else vFoto.setAttribute('open', '');
+  };
+
   function armarGaleria(raiz) {
     var pista = $('[data-pista]', raiz);
     var barra = $('[data-barra]', raiz);
@@ -414,6 +450,7 @@
           if (e.detail !== 0 &&
               (Math.abs(e.clientX - x0) > 10 || Math.abs(e.clientY - y0) > 10)) return;
           detener();
+          vFoto.classList.remove('foto--sola');
           enTira = tira;
           volverA = b;
           pintarFoto(i);
@@ -445,7 +482,21 @@
     /* La ventana ocupa toda la pantalla, así que el rectángulo no sirve
        para saber si el clic fue afuera: se mira si cayó en el fondo. */
     vFoto.addEventListener('click', function (e) { if (e.target === vFoto) cerrarFoto(); });
-    vFoto.addEventListener('wheel', function (e) { e.preventDefault(); }, { passive: false });
+
+    /* Un plano entrando en pantalla no se lee: las medidas de los ambientes
+       quedan en dos píxeles. Con un toque pasa a su medida real y la ventana
+       se desplaza, que es lo que se pide cuando se abre "en tamaño completo". */
+    fImg.addEventListener('click', function () {
+      if (!vFoto.classList.contains('foto--sola')) return;
+      var grande = vFoto.classList.toggle('foto--lupa');
+      fCuenta.textContent = grande ? 'Tocar para achicar' : 'Tocar para agrandar';
+      if (!grande) { vFoto.scrollTop = 0; vFoto.scrollLeft = 0; }
+    });
+
+    vFoto.addEventListener('wheel', function (e) {
+      if (vFoto.classList.contains('foto--lupa')) return;   /* ahí hay que poder recorrer */
+      e.preventDefault();
+    }, { passive: false });
     /* Sobre el fondo se frena el desplazamiento, sobre la foto no: ahí
        el gesto es el de agrandar con dos dedos, que en el teléfono es
        lo único que hace a esta ventana más útil que la tira. */
@@ -457,7 +508,13 @@
        preventScroll porque enfocar algo corrido de pantalla la arrastra
        de vuelta, y eso deshacía el movimiento de la línea de arriba. */
     vFoto.addEventListener('close', function () {
-      if (!enTira) return;
+      vFoto.classList.remove('foto--sola', 'foto--lupa');
+      if (!enTira) {
+        if (volverA) {
+          try { volverA.focus({ preventScroll: true }); } catch (e) { volverA.focus(); }
+        }
+        return;
+      }
       enTira.ir(enFoto, false);
       var destino = enTira.abridores[enFoto] || volverA;
       if (destino) { try { destino.focus({ preventScroll: true }); } catch (e) { destino.focus(); } }
