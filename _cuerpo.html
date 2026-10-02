@@ -187,7 +187,7 @@
       <li>
         <svg class="ico amen__ico" aria-hidden="true"><use href="#i-patio"></use></svg>
         <h3>Patios propios extensos</h3>
-        <p>Entre 502 y 790 m² de terreno por casa.</p>
+        <p>Entre 500 y 756 m² de terreno por casa.</p>
       </li>
       <li>
         <svg class="ico amen__ico" aria-hidden="true"><use href="#i-ingresos"></use></svg>
@@ -328,13 +328,11 @@
         </div>
         <dl>
           <dt>Orientación del fondo</dt><dd id="ficha-orient">Noreste</dd>
-          <dt>Terreno propio</dt><dd id="ficha-terreno">711 m²</dd>
-          <dt>Superficie cubierta</dt><dd id="ficha-cub">161 m²</dd>
-          <dt>Semicubierta</dt><dd id="ficha-semi">67 m²</dd>
-          <dt>Superficie total</dt><dd id="ficha-total">228 m²</dd>
+          <dt>Terreno propio</dt><dd id="ficha-terreno">660 m²</dd>
+          <dt>Superficie cubierta</dt><dd id="ficha-cub">225 m²</dd>
           <dt>Dormitorios</dt><dd>3, uno en suite con vestidor</dd>
           <dt>Cochera</dt><dd>Doble, bajo losa</dd>
-          <dt>Plano</dt><dd><button type="button" class="btn btn--acento btn--chico" id="ficha-plano" aria-haspopup="dialog" data-evento="ver_plano">Ver el plano<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
+          <dt>Planta</dt><dd><button type="button" class="btn btn--acento btn--chico" id="ficha-plano" aria-haspopup="dialog" data-evento="ver_plano">Ver la planta<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
           <dt>Ficha técnica</dt><dd><button type="button" class="btn btn--acento btn--chico" id="abrir-ficha-tecnica" aria-haspopup="dialog" data-evento="ver_ficha_tecnica">Ver la ficha técnica<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
         </dl>
 
@@ -359,8 +357,8 @@
   <dialog class="modal modal--planos" id="planos" aria-labelledby="planos-titulo">
     <header class="modal__enc">
       <span class="corchete" id="planos-rotulo">Casa N</span>
-      <h2 class="modal__titulo" id="planos-titulo">El plano de esta casa y el proyecto en imágenes</h2>
-      <button type="button" class="modal__cerrar" data-cerrar aria-label="Cerrar los planos">
+      <h2 class="modal__titulo" id="planos-titulo">La planta y la axonométrica de esta casa</h2>
+      <button type="button" class="modal__cerrar" data-cerrar aria-label="Cerrar las imágenes de la casa">
         <span class="equis" aria-hidden="true"></span>
       </button>
     </header>
@@ -369,75 +367,30 @@
       <div class="planos__visor">
         <figure class="planos__marco">
           <picture>
-            <source id="visor-avif" type="image/avif" srcset="img/plano-casa-n-m.avif">
-            <img id="visor-img" src="img/plano-casa-n-m.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="1600" height="990" decoding="async" fetchpriority="low">
+            <source id="visor-avif" type="image/avif" srcset="img/tipo-neib-planta-m.avif">
+            <img id="visor-img" src="img/tipo-neib-planta-m.jpg" alt="Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha." width="1000" height="562" decoding="async" fetchpriority="low">
           </picture>
         </figure>
         <div class="planos__pie">
-          <span id="visor-pie">El plano de esta casa</span>
-          <a id="visor-full" href="img/plano-casa-n.jpg" target="_blank" rel="noopener">Abrir en tamaño completo</a>
+          <span id="visor-pie">La planta de esta casa</span>
+          <a id="visor-full" href="img/tipo-neib-planta.jpg" target="_blank" rel="noopener">Abrir en tamaño completo</a>
         </div>
         <dl class="planos__datos">
-          <div><dt>Terreno</dt><dd id="visor-terreno">711 m²</dd></div>
-          <div><dt>Cubierta</dt><dd id="visor-cub">161 m²</dd></div>
-          <div><dt>Semicubierta</dt><dd id="visor-semi">67 m²</dd></div>
-          <div><dt>Total</dt><dd id="visor-total">228 m²</dd></div>
+          <div><dt>Orientación del fondo</dt><dd id="visor-orient">Noreste</dd></div>
+          <div><dt>Terreno propio</dt><dd id="visor-terreno">660 m²</dd></div>
+          <div><dt>Superficie cubierta</dt><dd id="visor-cub">225 m²</dd></div>
         </dl>
       </div>
 
       <div class="planos__tira">
-        <p class="nota">El plano corresponde a esta casa. Las demás imágenes son del proyecto, que es el mismo para las seis unidades.</p>
-        <button type="button" class="mini mini--plano" id="mini-plano" aria-current="true" data-full="img/plano-casa-n.jpg" data-pie="El plano de esta casa">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/plano-casa-n-t.avif 560w, img/plano-casa-n-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/plano-casa-n-t.jpg 560w, img/plano-casa-n-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/plano-casa-n-t.jpg" alt="Plano de la casa sobre su lote, con las superficies al pie." width="560" height="347" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El plano de esta casa</span>
+        <p class="nota">Las dos imágenes son del tipo de casa, no de la unidad. N, E, I y B comparten uno; O y R, el otro.</p>
+        <button type="button" class="mini" id="mini-planta" aria-current="true" data-full="img/tipo-neib-planta.jpg" data-pie="La planta de esta casa">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/tipo-neib-planta-t.avif"><img src="img/tipo-neib-planta-t.jpg" alt="Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha." width="560" height="316" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">La planta</span>
         </button>
-        <button type="button" class="mini" data-full="img/planta-render.jpg" data-pie="La planta ambientada">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/planta-render-t.avif 560w, img/planta-render-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/planta-render-t.jpg 560w, img/planta-render-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/planta-render-t.jpg" alt="Planta de la casa vista desde arriba, con el mobiliario dibujado." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La planta ambientada</span>
-        </button>
-        <button type="button" class="mini" data-full="img/implantacion-ingresos.jpg" data-pie="La manzana y los ingresos">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/implantacion-ingresos-t.avif 560w, img/implantacion-ingresos-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/implantacion-ingresos-t.jpg 560w, img/implantacion-ingresos-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/implantacion-ingresos-t.jpg" alt="Planta de implantación de la manzana con las seis casas, la calle interna y los dos ingresos." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La manzana y los ingresos</span>
-        </button>
-        <button type="button" class="mini" data-full="img/hero-axonometrica.jpg" data-pie="La manzana en axonométrica">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/hero-axonometrica-t.avif 560w, img/hero-axonometrica-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/hero-axonometrica-t.jpg 560w, img/hero-axonometrica-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/hero-axonometrica-t.jpg" alt="Vista axonométrica de la manzana con las seis casas y su arbolado." width="1000" height="600" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La manzana en axonométrica</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-frente.jpg" data-pie="El frente de la casa">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-frente-t.avif 560w, img/casa-frente-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-frente-t.jpg 560w, img/casa-frente-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-frente-t.jpg" alt="Frente de la casa: la cochera cubierta a la izquierda, el volumen de ladrillo claro con los paños de celosía y el camino de ingreso entre las gramíneas." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El frente de la casa</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-ingreso.jpg" data-pie="El ingreso a la casa">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-ingreso-t.avif 560w, img/casa-ingreso-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-ingreso-t.jpg 560w, img/casa-ingreso-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-ingreso-t.jpg" alt="Ingreso a la casa: el camino entre dos muros, uno de ladrillo calado, hacia la puerta vidriada con marco de madera, con la vista pasante hacia el fondo." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El ingreso a la casa</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-comedor.jpg" data-pie="El comedor">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-comedor-t.avif 560w, img/casa-comedor-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-comedor-t.jpg 560w, img/casa-comedor-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-comedor-t.jpg" alt="Comedor con mesa larga de madera y sillas de respaldo curvo, abierto por un paño de vidrio al patio con el olivo, y el estar a continuación." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El comedor</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-cocina.jpg" data-pie="La cocina">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-cocina-t.avif 560w, img/casa-cocina-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-cocina-t.jpg 560w, img/casa-cocina-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-cocina-t.jpg" alt="Cocina con isla de madera y tres banquetas, frentes de roble de piso a techo, ventana corrida sobre la mesada y salida vidriada al jardín." width="560" height="373" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La cocina</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-living.jpg" data-pie="El living">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-living-t.avif 560w, img/casa-living-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-living-t.jpg 560w, img/casa-living-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-living-t.jpg" alt="Estar con sofá en ele frente al televisor, revestimiento de madera en la pared del fondo y la ventana con cortina hacia el jardín." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El living</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-dormitorio.jpg" data-pie="El dormitorio principal">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-dormitorio-t.avif 560w, img/casa-dormitorio-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-dormitorio-t.jpg 560w, img/casa-dormitorio-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-dormitorio-t.jpg" alt="Dormitorio principal con el ventanal de piso a techo abierto al jardín, las cortinas a los lados y el placard con el televisor sobre la pared opuesta." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El dormitorio principal</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-bano.jpg" data-pie="El baño principal">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-bano-t.avif 560w, img/casa-bano-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-bano-t.jpg 560w, img/casa-bano-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-bano-t.jpg" alt="Baño principal revestido en piedra, con la mesada sobre el mueble de madera, el espejo en el nicho y el inodoro suspendido." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">El baño principal</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-galeria.jpg" data-pie="La galería">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-galeria-t.avif 560w, img/casa-galeria-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-galeria-t.jpg 560w, img/casa-galeria-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-galeria-t.jpg" alt="Galería cubierta con mesa larga, el hogar encendido contra el muro de ladrillo y el césped a un costado." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La galería</span>
-        </button>
-        <button type="button" class="mini" data-full="img/casa-atardecer.jpg" data-pie="La casa al atardecer">
-          <span class="mini__marco"><picture><source type="image/avif" srcset="img/casa-atardecer-t.avif 560w, img/casa-atardecer-m.avif 1000w" sizes="(max-width: 900px) 44vw, 250px"><source type="image/jpeg" srcset="img/casa-atardecer-t.jpg 560w, img/casa-atardecer-m.jpg 1000w" sizes="(max-width: 900px) 44vw, 250px"><img src="img/casa-atardecer-t.jpg" alt="La casa al atardecer desde el jardín: la galería abierta de lado a lado, el interior iluminado y el césped por delante." width="560" height="315" loading="lazy" decoding="async"></picture></span>
-          <span class="mini__pie">La casa al atardecer</span>
+        <button type="button" class="mini" id="mini-axo" data-full="img/tipo-neib-axo.jpg" data-pie="La axonométrica de esta casa">
+          <span class="mini__marco"><picture><source type="image/avif" srcset="img/tipo-neib-axo-t.avif"><img src="img/tipo-neib-axo-t.jpg" alt="La misma casa en axonométrica, con las paredes cortadas: los dormitorios y los baños a la izquierda, el patio con el fogón en el medio, el comedor, la cocina y el estar a la derecha, y los dos autos en la cochera." width="560" height="316" loading="lazy" decoding="async"></picture></span>
+          <span class="mini__pie">La axonométrica</span>
         </button>
       </div>
     </div>

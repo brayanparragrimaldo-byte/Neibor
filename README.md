@@ -91,11 +91,13 @@ trabajo, no parte del sitio.
 
 ## Dónde se cambia cada cosa
 
-**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-aerea.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones las dio el desarrollo sobre esta aérea: de izquierda a derecha, N, E, I, B en las cuatro casas de arriba de la calle interna y O, R en las dos de abajo. Si se cambia la imagen, hay que recalcular los seis porcentajes. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
+**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-aerea.jpg`, más el tipo, la orientación del fondo, el terreno propio, la superficie cubierta y el estado. Las posiciones las dio el desarrollo sobre esta aérea: de izquierda a derecha, N, E, I, B en las cuatro casas de arriba de la calle interna y O, R en las dos de abajo. Si se cambia la imagen, hay que recalcular los seis porcentajes. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. `tipo` agrupa las casas por tipología, `neib` u `or`, y de ahí salen las dos imágenes de la ventana: `img/tipo-<tipo>-planta.jpg` e `img/tipo-<tipo>-axo.jpg`, cada una con sus `-m` y `-t`.
 
 **Las chinchetas del plano abren la ventana.** Además de cambiar la ficha, una chincheta abre el visor de planos con el material de esa casa, y al cerrarlo el foco vuelve a la chincheta. Las letras de abajo sólo cambian la ficha, para poder comparar superficies sin abrir y cerrar. El disparador de la ventana se pasa como argumento a `abrir()`, que es de donde sale la vuelta del foco.
 
-**El visor de planos.** La ventana `#planos`, en la sección de las casas. A la izquierda queda el plano de la casa elegida, pegado mientras se recorre la tira de la derecha; al tocar una miniatura, esa imagen pasa al marco grande. Para sumar o sacar una imagen alcanza con agregar o borrar un `<button class="mini">` en `_cuerpo.html`: lleva `data-full` con la imagen grande y `data-pie` con el epígrafe. La primera miniatura es la del plano y la actualiza el JavaScript con cada casa, así que no se toca.
+**El visor de la casa.** La ventana `#planos`, en la sección de las casas. Lleva dos imágenes y nada más: la planta y la axonométrica de la tipología. Las dos las arma el JavaScript con cada casa a partir del array `LAMINAS`, así que las miniaturas de `_cuerpo.html` no se editan a mano: hay que tocar `LAMINAS`, que es de donde salen la clave del archivo, el epígrafe y el texto alternativo de cada tipología.
+
+Dentro de un `<picture>` el `<source>` gana sobre el `src` del `<img>`, así que al cambiar de casa hay que cambiar los dos. Si se cambia sólo el `src`, la miniatura se queda mostrando la tipología anterior.
 
 **La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
 
@@ -299,14 +301,16 @@ cuenta propia:
 
 | Dato | Banda del hero | Ficha por casa |
 |---|---|---|
-| Superficie del lote | entre 500 y 750 m² | 502, 550, 557, 595, 711 y 790 m² |
-| Superficie de la casa | 225 m² | entre 224 y 241 m² (cubierta más semicubierta) |
-| Superficie del predio | 4.237 m² | los seis lotes suman 3.705 m², y con los 1.000 de áreas comunes dan 4.705 |
+| Superficie del lote | entre 500 y 750 m² | 500, 515, 525, 544, 660 y 756 m² |
+| Superficie de la casa | 225 m², rotulado "superficie total" | 225 m², rotulado "superficie cubierta" |
+| Superficie del predio | 4.237 m² | los seis lotes suman 3.500 m², y con los 1.000 de áreas comunes dan 4.500 |
 
-El desarrollo corrigió las dos primeras el 01/10 y quedaron mucho más cerca. La
-de la casa ya cierra: 225 es el piso del rango de la ficha. La del lote casi:
-cinco de los seis lotes entran entre 500 y 750, pero el más grande mide 790 y
-queda 40 m² arriba del techo declarado. La del predio sigue sin cerrar por 468 m².
+El desarrollo mandó la planilla nueva el 01/10 y las tres quedaron más cerca. La
+del lote casi cierra: cinco entran entre 500 y 750 y el más grande mide 756, seis
+metros arriba del techo declarado. La del predio bajó la diferencia de 468 a 263
+metros. La de la casa es la que hay que mirar: el número es el mismo en los dos
+lados, pero el hero lo llama superficie total y la ficha lo llama cubierta, que
+no son lo mismo. Uno de los dos rótulos está mal.
 
 **Y ahora hay una diferencia dentro de la propia página.** La banda del hero dice
 "entre 500 y 750 m²" y el atributo "Patios propios extensos", en los atributos

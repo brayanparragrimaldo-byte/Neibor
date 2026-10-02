@@ -10,29 +10,35 @@
   window.dataLayer = window.dataLayer || [];
 
   /* ---------- Las seis casas ----------------------------------------
-     Coordenadas en % sobre la imagen de implantación (implantacion-ingresos.jpg).
-     Lectura orientativa del plano de proyecto: ajustar con la
-     implantación comercial definitiva antes de publicar.
+     Orientación de fondo, terreno propio y superficie cubierta: planilla
+     del desarrollo, octubre de 2026. La semicubierta y la superficie total
+     no vinieron en esa planilla, así que la ficha no las muestra: las que
+     había antes salían de otra fuente y ya no cierran con los 225 m² de
+     cubierta.
+     x / y son porcentajes sobre img/implantacion-aerea.jpg. Las posiciones
+     las dio el desarrollo: de izquierda a derecha, N, E, I y B arriba de la
+     calle interna y O, R abajo. En orden deletrean NEIBOR.
+     tipo agrupa las casas por tipología: N, E, I y B comparten una planta y
+     O, R la otra. De ahí salen las dos imágenes de la ventana.
   ------------------------------------------------------------------- */
-  /* Los planos por casa (PDF del desarrollo, septiembre 2026) rotulan las
-     unidades N1 a N6. La correspondencia con las letras del sitio es
-     O=N1, R=N2, B=N3, I=N4, E=N5, N=N6, y las superficies de cada plano
-     coinciden una por una con las de esta tabla.
-     Planilla del desarrollo (mock up v1, slide 8).
-     Las seis casas se identifican por letra y en orden deletrean NEIBOR.
-     x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
-     de cada letra se dedujo de la orientación de fondo declarada. */
-  /* Superficies tomadas de los planos por casa (septiembre 2026).
-     Las seis se identifican por letra y en orden deletrean NEIBOR.
-     x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
-     de cada letra se dedujo de la orientación de fondo declarada. */
   var CASAS = [
-    { letra:'N', n:'Casa N', x:20.3, y:53.8, orient:'Noreste',  terreno:'711 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'E', n:'Casa E', x:32.4, y:47.5, orient:'Este',     terreno:'557 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'I', n:'Casa I', x:43.2, y:41.9, orient:'Este',     terreno:'550 m²', cub:'172 m²', semi:'69 m²', total:'241 m²', estado:'Consultar' },
-    { letra:'B', n:'Casa B', x:52.6, y:32.1, orient:'Sudeste',  terreno:'502 m²', cub:'158 m²', semi:'66 m²', total:'224 m²', estado:'Consultar' },
-    { letra:'O', n:'Casa O', x:58.0, y:67.2, orient:'Noroeste', terreno:'595 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'R', n:'Casa R', x:72.9, y:55.3, orient:'Noroeste', terreno:'790 m²', cub:'170 m²', semi:'66 m²', total:'236 m²', estado:'Consultar' }
+    { letra:'N', n:'Casa N', x:20.3, y:53.8, tipo:'neib', orient:'Noreste',  terreno:'660 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'E', n:'Casa E', x:32.4, y:47.5, tipo:'neib', orient:'Este',     terreno:'515 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'I', n:'Casa I', x:43.2, y:41.9, tipo:'neib', orient:'Este',     terreno:'500 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'B', n:'Casa B', x:52.6, y:32.1, tipo:'neib', orient:'Sudeste',  terreno:'544 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'O', n:'Casa O', x:58.0, y:67.2, tipo:'or',   orient:'Noroeste', terreno:'525 m²', cub:'225 m²', estado:'Consultar' },
+    { letra:'R', n:'Casa R', x:72.9, y:55.3, tipo:'or',   orient:'Noroeste', terreno:'756 m²', cub:'225 m²', estado:'Consultar' }
+  ];
+
+  /* Las dos láminas de la ventana. El texto alternativo cambia con la
+     tipología porque son dos casas distintas, no dos encuadres de la misma. */
+  var LAMINAS = [
+    { clave:'planta', id:'mini-planta', pie:'La planta de esta casa', alt:{
+      neib:'Planta de la casa vista desde arriba y sin techo: la barra de dormitorios arriba, el patio con el árbol en el medio, el comedor, la cocina y el estar abajo, y la cochera para dos autos a la derecha.',
+      or:'Planta de la casa vista desde arriba y sin techo: la cochera arriba a la izquierda, el estar y el comedor arriba, el patio con el olivo en el medio y la barra de dormitorios abajo.' } },
+    { clave:'axo', id:'mini-axo', pie:'La axonométrica de esta casa', alt:{
+      neib:'La misma casa en axonométrica, con las paredes cortadas: los dormitorios y los baños a la izquierda, el patio con el fogón en el medio, el comedor, la cocina y el estar a la derecha, y los dos autos en la cochera.',
+      or:'La misma casa en axonométrica, con el techo de canto rodado a la vista: los dormitorios en la barra de abajo, el patio con el olivo en el medio y el estar, el comedor y la cocina arriba.' } }
   ];
 
   function $(s, c) { return (c || document).querySelector(s); }
@@ -140,16 +146,16 @@
     });
 
     var nombre = $('#ficha-nombre'), estado = $('#ficha-estado'),
-        orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub'),
-        semi = $('#ficha-semi'), total = $('#ficha-total');
+        orient = $('#ficha-orient'), terreno = $('#ficha-terreno'), cub = $('#ficha-cub');
 
     /* ---- Visor: la miniatura elegida pasa al marco grande ---- */
     var visor = $('#visor-img'), visorAvif = $('#visor-avif'),
         visorPie = $('#visor-pie'), visorFull = $('#visor-full'),
-        miniPlano = $('#mini-plano'), rotuloPlanos = $('#planos-rotulo'),
-        vTerreno = $('#visor-terreno'), vCub = $('#visor-cub'),
-        vSemi = $('#visor-semi'), vTotal = $('#visor-total'),
+        rotuloPlanos = $('#planos-rotulo'),
+        vOrient = $('#visor-orient'), vTerreno = $('#visor-terreno'), vCub = $('#visor-cub'),
         minis = $$('.mini');
+    LAMINAS.forEach(function (l) { l.boton = $('#' + l.id); });
+    var miniPlanta = LAMINAS[0].boton;
 
     function mostrar(b) {
       if (!b || !visor) return;
@@ -186,39 +192,39 @@
     ventana($('#ficha-tecnica'), $('#abrir-ficha-tecnica'));
     var vPlanos = ventana($('#planos'), $('#ficha-plano'), function () {
       soltarMinis();
-      mostrar(miniPlano);
+      mostrar(miniPlanta);
     });
 
     function elegir(i) {
       var c = CASAS[i];
       if (!c) return;
-      var letra = c.letra.toLowerCase();
       nombre.textContent = c.n;
       estado.textContent = c.estado;
       orient.textContent = c.orient;
       terreno.textContent = c.terreno;
       cub.textContent = c.cub;
-      semi.textContent = c.semi;
-      total.textContent = c.total;
 
-      /* El visor sigue a la casa elegida y vuelve siempre a su plano. */
-      if (miniPlano) {
-        var foto = $('img', miniPlano);
-        miniPlano.setAttribute('data-full', 'img/plano-casa-' + letra + '.jpg');
-        miniPlano.setAttribute('data-pie', 'El plano de la ' + c.n);
-        if (foto) {
-          foto.src = 'img/plano-casa-' + letra + '-m.jpg';
-          foto.alt = 'Plano de la ' + c.n + ' sobre su lote, con las superficies al pie.';
-        }
-        if (rotuloPlanos) rotuloPlanos.textContent = c.n;
-        if (vTerreno) {
-          vTerreno.textContent = c.terreno;
-          vCub.textContent = c.cub;
-          vSemi.textContent = c.semi;
-          vTotal.textContent = c.total;
-        }
-        mostrar(miniPlano);
+      /* Las dos imágenes son del tipo de casa, no de la unidad. Dentro de un
+         <picture> el <source> gana, así que hay que cambiarlo a él y no sólo
+         el src del <img>, o la miniatura se queda con la tipología anterior. */
+      LAMINAS.forEach(function (l) {
+        var b = l.boton;
+        if (!b) return;
+        var base = 'img/tipo-' + c.tipo + '-' + l.clave;
+        b.setAttribute('data-full', base + '.jpg');
+        b.setAttribute('data-pie', l.pie);
+        var fuente = $('source', b), foto = $('img', b);
+        if (fuente) fuente.setAttribute('srcset', base + '-t.avif');
+        if (foto) { foto.src = base + '-t.jpg'; foto.alt = l.alt[c.tipo]; }
+      });
+
+      if (rotuloPlanos) rotuloPlanos.textContent = c.n;
+      if (vOrient) {
+        vOrient.textContent = c.orient;
+        vTerreno.textContent = c.terreno;
+        vCub.textContent = c.cub;
       }
+      mostrar(miniPlanta);
 
       $$('[data-casa]').forEach(function (b) {
         b.setAttribute('aria-pressed', parseInt(b.getAttribute('data-casa'), 10) === i ? 'true' : 'false');

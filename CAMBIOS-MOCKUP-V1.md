@@ -1033,3 +1033,51 @@ a cualquier ancho.
 conmutador eran absolutas y sin él la figura medía cero de alto. Ahora la imagen
 va en el flujo y su propio alto manda, así que se fueron también el `@supports`
 de respaldo y las reglas `.capa`.
+
+---
+
+## Datos nuevos de las seis casas y ventanas con dos imágenes
+
+**Las cifras.** Llegó la planilla del desarrollo con tres datos por casa. Se
+cargaron tal cual en la ficha y en la ventana.
+
+| Casa | Orientación | Terreno antes | Terreno ahora | Cubierta antes | Cubierta ahora |
+|---|---|---|---|---|---|
+| N | Noreste | 711 m² | 660 m² | 161 m² | 225 m² |
+| E | Este | 557 m² | 515 m² | 161 m² | 225 m² |
+| I | Este | 550 m² | 500 m² | 172 m² | 225 m² |
+| B | Sudeste | 502 m² | 544 m² | 158 m² | 225 m² |
+| O | Noroeste | 595 m² | 525 m² | 161 m² | 225 m² |
+| R | Noroeste | 790 m² | 756 m² | 170 m² | 225 m² |
+
+Las seis orientaciones ya coincidían y no se tocaron.
+
+**Se van la semicubierta y la superficie total.** La planilla nueva no las trae.
+Las que había salían de otra fuente y dejaban de cerrar: con 225 de cubierta, los
+67 de semicubierta darían 292 y la fila de total decía 228. Antes que publicar
+una cuenta que no da, las dos filas salieron de la ficha y de la ventana. Si el
+desarrollo manda esos dos números, vuelven en un minuto.
+
+**El atributo del barrio se actualiza solo por consecuencia.** "Patios propios
+extensos" decía "entre 502 y 790 m²", que eran los lotes viejos. Ahora dice
+"entre 500 y 756 m²", que es lo que sale de la planilla nueva.
+
+**Las ventanas quedan con dos imágenes y nada más.** Antes tenían trece: el
+plano de la unidad, la planta ambientada, dos vistas de la manzana y nueve
+fotos de interiores. Ahora llevan la planta y la axonométrica de la tipología.
+
+Las seis casas son dos tipologías: N, E, I y B comparten una y O, R la otra. Las
+imágenes son de la tipología, no de la unidad, y la nota al pie de la ventana lo
+dice para que nadie lea la planta como si fuera de su casa.
+
+**Los dos archivos del tipo O/R vienen con el nombre cruzado.** El que se llama
+"Axo Render CASA O _ R" es una planta cenital y el que se llama "Planta render
+CASA O _ R" es una axonométrica. Se cargaron por lo que muestran, no por cómo se
+llaman, para que las dos tipologías ofrezcan lo mismo. Vale la pena avisarle al
+arquitecto.
+
+**Queda material sin usar en `img/`.** Los seis planos por unidad
+(`plano-casa-<letra>`), la planta ambientada vieja (`planta-render`), la
+implantación cuadrada y la axonométrica del hero ya no los referencia nadie. Son
+unos 54 archivos. No se borraron: son material del cliente y están a un pedido de
+volver.

@@ -524,7 +524,7 @@ button{ font:inherit; color:inherit; }
 .planos__pie span{ opacity:.55; }
 .planos__pie a{ text-decoration:underline; text-underline-offset:.2em; }
 .planos__datos{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:.9rem;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem;
   margin:1.1rem 0 0; padding-top:1rem; border-top:1px solid var(--linea-clara);
 }
 .planos__datos dt{ font-size:var(--t-rotulo); letter-spacing:.14em; text-transform:uppercase;
