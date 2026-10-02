@@ -830,3 +830,53 @@ detecta y pasa al JPEG sola, que llega con el 100 por ciento de los píxeles.
 
 **`diagnostico.html` ahora prueba los píxeles** y no la cabecera, así que puede
 distinguir "no llega", "llega y no abre" y "abre y está vacía".
+
+## Entra "Atributos principales de cada casa"
+
+Nueva sección después de la galería de la casa, con los diez atributos de la
+vivienda. La página pasa a nueve secciones.
+
+**El dibujo no repite el de los atributos del barrio.** Aquella va en cuatro
+columnas con ícono grande, título y bajada, porque son conceptos que hay que
+explicar. Esta va en dos columnas de filas con filete y el ícono chico al lado
+del texto, porque son etiquetas cortas que se leen de un vistazo. Con el mismo
+dibujo, la página tendría dos grillas de íconos casi iguales a dos secciones de
+distancia. El filete es el mismo de la lista de tiempos de "Dónde".
+
+Las columnas se llenan de arriba hacia abajo y no de izquierda a derecha
+(`grid-auto-flow: column` sobre cinco filas), así la secuencia del listado
+original se mantiene al recorrer cada columna. En el teléfono queda una sola
+columna de diez.
+
+**Ocho de los diez íconos ya existían.** Los había dibujado para una sección que
+después se quitó y quedaron sin uso: `i-suite`, `i-cama`, `i-ducha`, `i-sofa`,
+`i-lavadero`, `i-parrilla`, `i-deposito` y `i-radiador`.
+
+**Dos se hicieron ahora.** `i-cochera` es un auto bajo una losa con los apoyos
+llegando al piso: el auto suelto ya lo usa "Estacionamiento de cortesía" en los
+atributos del barrio y repetirlo confundiría las dos cosas. `i-ventana` se
+rehízo: el cruce de cuatro paños que tenía no decía nada de vidrio doble, y
+ahora es un marco dentro de otro, con las esquinas casi rectas para que no
+parezca una tecla de luz.
+
+**El texto se pasó a la voz de la página.** El original venía en caja de título
+y con abreviaturas ("1 Dorm. c/ Vestidor y Baño En Suite"), y el resto de la
+página escribe en redonda y sin abreviar: la ficha de cada casa ya dice
+"3, uno en suite con vestidor". Se mantuvieron las palabras y las barras; se
+cambió la caja y se desarmaron las abreviaturas.
+
+| Original | En la página |
+|---|---|
+| Cochera doble | Cochera doble |
+| 1 Dorm. c/ Vestidor y Baño En Suite | 1 dormitorio con vestidor y baño en suite |
+| 2 Dormitorios Secundarios | 2 dormitorios secundarios |
+| 2 Baños / 1 Toilette | 2 baños / 1 toilette |
+| Cocina/ Comedor / Living | Cocina / comedor / living |
+| Lavadero / Tender | Lavadero / tender |
+| Galería c/Asador | Galería con asador |
+| Espacio de guardado / Depósito | Espacio de guardado / depósito |
+| Calefacción central | Calefacción central |
+| Aberturas de vidrio doble | Aberturas de vidrio doble |
+
+"Las seis casas" lleva ahora `seccion--corte`, el filete que separa dos secciones
+claras seguidas, porque la nueva queda justo encima y las dos van sobre papel.

@@ -667,6 +667,39 @@ button{ font:inherit; color:inherit; }
   .amen p{ max-width:30ch; }
 }
 
+/* 18. Atributos de cada casa: lista con filete, a dos columnas
+   Acá los atributos son etiquetas cortas, sin bajada que explicar. Una
+   lista con filete lee más rápido que otra grilla de tarjetas, y de paso
+   no repite el dibujo de los atributos del barrio, que quedan a dos
+   secciones de distancia. El filete es el mismo de la lista de tiempos de
+   "Dónde", así que la página ya sabe hablar así. */
+.prog{
+  list-style:none; padding:0;
+  margin:clamp(2.6rem,5vw,3.8rem) auto 0; max-width:1120px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:repeat(5,auto);
+  grid-auto-flow:column;
+  column-gap:clamp(2rem,5vw,4.5rem);
+  text-align:left;
+}
+.prog li{
+  display:flex; align-items:center; gap:clamp(.85rem,1.5vw,1.2rem);
+  padding:clamp(.95rem,1.7vw,1.2rem) 0;
+  border-top:1px solid var(--linea-clara);
+  font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.35;
+}
+.prog__ico{
+  width:clamp(1.5rem,2vw,1.75rem); height:clamp(1.5rem,2vw,1.75rem);
+  flex:none; stroke-width:1.2; color:var(--tinta); opacity:.78;
+}
+.seccion--oscura .prog__ico,.seccion--tinta .prog__ico{ color:var(--salvia); }
+
+@media (max-width:760px){
+  /* En una columna la lista se arma sola de arriba hacia abajo. */
+  .prog{ grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row; }
+}
+
 /* Desplegable de ficha técnica */
 .ficha-tecnica__cuerpo{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(1.6rem,3vw,2.6rem); }
 .ficha-tecnica__cuerpo h4{ font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase;

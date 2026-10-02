@@ -16,19 +16,20 @@ DIAGNOSTICO.md    análisis del material, faltantes y criterios de diseño
 CAMBIOS-MOCKUP-V1.md  qué entró desde el mock up y desde los renders nuevos
 ```
 
-## Las ocho secciones
+## Las nueve secciones
 
 ```
 Hero → Galería: el barrio → Atributos principales → Galería: la casa
-     → Las seis casas → Dónde → Quién → Contacto
+     → Atributos de cada casa → Las seis casas → Dónde → Quién → Contacto
 ```
 
 Dos galerías, no una, y separadas a propósito por los atributos: la primera
 muestra lo que se ve llegando (los dos ingresos, la calle interna, el frente de
 la manzana) y la segunda lo que se ve adentro de una casa. Entre las dos queda
 la lista de atributos, que es la que explica en palabras lo que las imágenes
-muestran sin texto. Después de eso viene el plano con las superficies por unidad
-y de ahí la ubicación, quién lo hace y el contacto. El relato largo del proyecto, que ocupaba una
+muestran sin texto. Después de la galería de la casa viene la lista de lo que
+tiene cada casa, y recién ahí el plano con las superficies por unidad. De ahí la
+ubicación, quién lo hace y el contacto. El relato largo del proyecto, que ocupaba una
 secuencia anclada al scroll entre "Las seis casas" y "Dónde", se quitó a pedido
 del desarrollo. Queda en el historial: `git revert` del commit que lo saca lo
 devuelve entero, con sus imágenes, que siguen en `img/`.
@@ -239,6 +240,12 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Tres papeles de botón, uno por intención.** Sólido tinta para convertir (pedir valores, agendar visita), naranja `btn--acento` para abrir material (el plano, la ficha técnica), contorno para navegar. `btn--chico` es una medida, no un papel.
 - **El naranja de marca sólo va con texto blanco.** Sobre `#af5d00` el blanco puro da 4.79:1 y pasa AA; el papel de marca daría 4.28 y no llegaría. En texto suelto sobre papel el naranja sigue reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente.
 - **Si una imagen no llega, hay red.** Dentro de un `<picture>`, cuando la fuente elegida falla el navegador no prueba con la siguiente: deja el hueco vacío. El JavaScript escucha el error en captura, tira las `<source>` y vuelve a pedir el JPEG del propio `<img>`.
+- **Hay dos listas de atributos y no se dibujan igual.** La del barrio (`.amen`)
+  va en cuatro columnas, con ícono grande, título y bajada: son conceptos que hay
+  que explicar. La de cada casa (`.prog`) va en dos columnas de filas con filete,
+  con ícono chico al lado del texto: son etiquetas cortas que no necesitan
+  explicación y así leen más rápido. Si se igualaran, la página tendría dos
+  grillas de íconos casi idénticas a dos secciones de distancia.
 - **Los atributos van en cuatro columnas y la última fila se centra.** Son diez, así que sobran dos en la tercera fila: las reglas `.amen > li:nth-child(9)` y `:nth-child(10)` los corren a las columnas del medio. Si cambia la cantidad de atributos, hay que revisarlas.
 - **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
 - **Las galerías recortan en el escritorio y no recortan en el teléfono.** Los dieciocho renders son apaisados, de 16:9 (salvo la cocina y la galería desde el jardín, de 3:2). Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
