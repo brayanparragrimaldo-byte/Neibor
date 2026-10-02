@@ -764,3 +764,69 @@ https://brayanparragrimaldo-byte.github.io/Neibor/?revisar=1
 Alcanza con una captura de ese panel para saber qué está pasando en el navegador
 donde falla. El panel sólo aparece con ese parámetro: la página normal no lo
 lleva.
+
+## La causa real: AVIF que declaran su medida y no traen imagen
+
+Las capturas de la página mostraron lo que faltaba saber: **el maquetado estaba
+perfecto**. El hero ocupaba toda la pantalla, los títulos, el contador 03 / 06,
+la barra de progreso con sus doce tramos y los epígrafes, todo en su lugar. Lo
+único que no había eran los píxeles de las fotos.
+
+Eso no es ni carga ni maquetado, y explica por qué todas las comprobaciones
+anteriores daban bien: **yo verificaba con `naturalWidth`, que sale de la
+cabecera del archivo, no de los píxeles.** Un AVIF puede declarar 1672 de ancho
+y no traer imagen adentro. El navegador dispara `load`, el ancho es correcto, la
+red de seguridad no tiene de qué enterarse, y en pantalla queda el fondo.
+
+Dibujando cada archivo en un lienzo y leyendo los píxeles, el resultado fue
+inmediato:
+
+```
+hero-aerea-ancha.avif         1672 px   0% de pixeles opacos   VACIA
+ext-ingreso-principal.avif    1672 px   0%                     VACIA
+casa-frente.avif              1672 px   0%                     VACIA
+implantacion-ingresos.avif     730 px   100%                   bien
+ubicacion-aerea-sierras.avif   984 px   100%                   bien
+```
+
+Dieciocho archivos vacíos, todos de 1671 píxeles o más. Las dos imágenes que sí
+se veían eran justo las chicas, y en el teléfono se ve todo porque ahí se sirven
+las versiones de 1000 píxeles.
+
+### La regla
+
+Probando anchos: 1664 funciona, 1672 no. Pero `casa-living-2` seguía vacía a
+1600, a 1536, a 1440 y a 1280. La diferencia es que su original mide 1671 de
+ancho, impar, y arrastra la altura a impar en cada reducción. Forzada a
+1600 x 900 funciona.
+
+```
+hasta 1000 px de ancho   cualquier medida sirve
+arriba de 1000 px        ancho y alto tienen que ser pares
+```
+
+Con esa regla aparecieron cuatro archivos más que estaban vacíos sin que nadie
+lo supiera: los dos logotipos grandes, sin uso, y las versiones medianas de los
+planos de las casas O y R, que sí se usan y las arma el JavaScript a partir de
+la letra, por lo que no figuraban como referencia en el HTML.
+
+### Qué se hizo
+
+**Se regeneraron las dieciocho grandes a 1600 px**, con las dos medidas pares.
+`casa-living-2` y `casa-cocina-t` hubo que forzarlas con
+`--resampleHeightWidth`. Los planos O y R, a 1600 x 1054 y 1600 x 880.
+
+**Se borraron once AVIF rotos que no usaba nadie**: los dos logotipos grandes,
+los seis planos de 3000 px y cuatro imágenes de la sección que se quitó.
+
+**Se verificaron los ochenta AVIF del sitio dibujándolos uno por uno.** Ninguno
+vacío.
+
+**La página ahora se defiende sola de esto.** Como `onerror` nunca se entera, el
+guión del `<head>` dibuja en un lienzo de ocho por ocho cada imagen AVIF al
+terminar de cargar; si sale transparente entera, tira las `<source>` y pide el
+JPEG. Comprobado apuntando el hero a un archivo vacío a propósito: la página lo
+detecta y pasa al JPEG sola, que llega con el 100 por ciento de los píxeles.
+
+**`diagnostico.html` ahora prueba los píxeles** y no la cabecera, así que puede
+distinguir "no llega", "llega y no abre" y "abre y está vacía".

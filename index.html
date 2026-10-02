@@ -47,13 +47,38 @@
     img.setAttribute('src', src + (src.indexOf('?') < 0 ? '?r' : '&r'));
   }
   document.addEventListener('error', function (e) { rescatar(e.target); }, true);
+  /* Hay una falla peor que la de arriba y no avisa de ninguna manera: un
+     AVIF que declara su medida en la cabecera y no trae imagen adentro.
+     El navegador dispara load, naturalWidth da el numero correcto y en
+     pantalla no se ve nada. Pasa con los que saca sips arriba de unos 1000
+     pixeles cuando alguna medida es impar. La unica forma de detectarlo es
+     dibujarlo y mirar si salio algo. */
+  function vacia(img) {
+    if ((img.currentSrc || '').indexOf('.avif') < 0) return false;
+    try {
+      var c = document.createElement('canvas');
+      c.width = c.height = 8;
+      var x = c.getContext('2d');
+      x.drawImage(img, 0, 0, 8, 8);
+      var d = x.getImageData(0, 0, 8, 8).data;
+      for (var p = 3; p < d.length; p += 4) if (d[p] > 10) return false;
+      return true;
+    } catch (e) { return false; }
+  }
+
   /* Segunda pasada, por si algo quedo roto sin que el evento llegara. */
   function barrer() {
     var im = document.images;
     for (var i = 0; i < im.length; i++) {
-      if (im[i].complete && im[i].naturalWidth === 0) rescatar(im[i]);
+      if (!im[i].complete) continue;
+      if (im[i].naturalWidth === 0 || vacia(im[i])) rescatar(im[i]);
     }
   }
+  /* Y en cuanto cada una termina, sin esperar a las pasadas de abajo. */
+  document.addEventListener('load', function (e) {
+    var o = e.target;
+    if (o && o.tagName === 'IMG' && o.naturalWidth && vacia(o)) rescatar(o);
+  }, true);
   document.addEventListener('DOMContentLoaded', barrer);
   window.addEventListener('load', barrer);
   setTimeout(barrer, 4000);

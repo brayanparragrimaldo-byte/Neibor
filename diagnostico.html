@@ -91,13 +91,32 @@
 
   var AVIF_1PX = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIABoAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEDQgMgkQAAAAB8dSLfI=';
 
+  /* No alcanza con que el archivo abra: hay AVIF que declaran su medida en
+     la cabecera y no traen imagen adentro. El navegador dispara load, el
+     ancho sale correcto y en pantalla no hay nada. Se dibuja en un lienzo
+     y se mira si salio algo. */
   function probarImagen(url) {
     return new Promise(function (ok) {
       var i = new Image(), listo = false;
       var t = setTimeout(function () {
         if (!listo) { listo = true; ok({ url: url, ancho: 0, motivo: 'tardo demasiado' }); }
       }, 15000);
-      i.onload = function () { if (listo) return; listo = true; clearTimeout(t); ok({ url: url, ancho: i.naturalWidth }); };
+      i.onload = function () {
+        if (listo) return; listo = true; clearTimeout(t);
+        var opacos = -1;
+        try {
+          var c = document.createElement('canvas');
+          c.width = c.height = 16;
+          var x = c.getContext('2d');
+          x.drawImage(i, 0, 0, 16, 16);
+          var d = x.getImageData(0, 0, 16, 16).data;
+          opacos = 0;
+          for (var p = 3; p < d.length; p += 4) if (d[p] > 10) opacos++;
+        } catch (e) { opacos = -1; }
+        if (opacos === 0) ok({ url: url, ancho: 0, vacia: true, medida: i.naturalWidth,
+                               motivo: 'abre pero esta vacia' });
+        else ok({ url: url, ancho: i.naturalWidth });
+      };
       i.onerror = function () { if (listo) return; listo = true; clearTimeout(t); ok({ url: url, ancho: 0, motivo: 'no abre' }); };
       i.src = url + (url.indexOf('?') < 0 ? '?' : '&') + 'rev=' + Math.random();
     });
@@ -219,9 +238,11 @@
       for (var q = 0; q < tanda.length; q++) {
         var x = tanda[q];
         if (!x.ancho) {
-          var cod = 0;
-          try { cod = (await fetch(x.url + '?rev=' + Math.random(), { method: 'HEAD' })).status; } catch (e) {}
-          x.motivo = (cod === 200) ? 'llega pero no abre' : 'no esta en el servidor (' + cod + ')';
+          if (!x.vacia) {
+            var cod = 0;
+            try { cod = (await fetch(x.url + '?rev=' + Math.random(), { method: 'HEAD' })).status; } catch (e) {}
+            x.motivo = (cod === 200) ? 'llega pero no abre' : 'no esta en el servidor (' + cod + ')';
+          }
           fallan.push(x.url + ': ' + x.motivo);
         }
         cuerpo += '<tr><td><code>' + x.url + '</code></td>' +

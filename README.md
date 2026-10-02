@@ -154,23 +154,56 @@ nombres y las medidas de cada ambiente al ampliarlos.
 El marcado sirve AVIF primero y deja el JPEG de respaldo, así que cada navegador
 baja un solo archivo. El AVIF pesa un 60 por ciento menos a igual calidad.
 
-**`sips` saca de vez en cuando un AVIF que sólo abre Safari.** No es frecuente ni
-previsible: de las dieciocho imágenes nuevas, dos salieron con un archivo que el
-decodificador de Apple lee sin problema y el de Chromium rechaza. Mismo origen,
-misma orden, mismos encabezados; el defecto está adentro. Volviéndolas a generar
-con otro número de calidad salen bien.
+### La regla de las medidas pares
 
-Por eso **toda imagen nueva se comprueba en un navegador que no sea Safari antes
-de publicarla**. Con el sitio servido en local, en la consola:
+**Arriba de unos 1000 píxeles, `sips` saca un AVIF vacío si alguna de las dos
+medidas es impar.** El archivo pesa lo que tiene que pesar, declara su ancho y su
+alto en la cabecera y adentro no trae imagen. El navegador dispara `load`,
+`naturalWidth` da el número correcto, y en pantalla no se ve nada. El
+decodificador de Apple lo abre igual, así que en Safari no se nota.
+
+Esto tuvo la página con el hero y las dos galerías en blanco durante un día
+entero en Chrome, Firefox y Edge.
+
+La regla, entonces:
+
+```
+hasta 1000 px de ancho   cualquier medida sirve
+arriba de 1000 px        ancho y alto tienen que ser pares
+```
+
+`sips -Z 1600` sobre un original de 1672 x 941 da 1600 x 900 y está bien. Sobre
+uno de 1671 x 941 da 1600 x 901 y sale vacío. Cuando la cuenta no cierra, se
+fuerzan las dos medidas:
+
+```bash
+sips -s format avif -s formatOptions 48 --resampleHeightWidth 900 1600 foto.png --out foto.avif
+```
+
+### Comprobar que una imagen trae imagen
+
+**No alcanza con que el archivo abra.** Hay que dibujarlo y mirar si salió algo.
+Con el sitio servido en local, en la consola del navegador:
 
 ```js
 var urls = [...document.querySelectorAll('img')].map(i => i.currentSrc);
-await Promise.all(urls.map(u => new Promise(r => {
-  var i = new Image(); i.onload = () => r(null); i.onerror = () => r(u); i.src = u;
+await Promise.all(urls.map(u => new Promise(ok => {
+  var i = new Image();
+  i.onload = () => {
+    var c = document.createElement('canvas'); c.width = c.height = 16;
+    var x = c.getContext('2d'); x.drawImage(i, 0, 0, 16, 16);
+    var d = x.getImageData(0, 0, 16, 16).data;
+    for (var p = 3; p < d.length; p += 4) if (d[p] > 10) return ok(null);
+    ok(u + ' VACIA');
+  };
+  i.onerror = () => ok(u + ' no abre');
+  i.src = u;
 }))).then(x => console.log(x.filter(Boolean)));
 ```
 
-Lista vacía, está bien. Lo que aparezca hay que volver a generarlo.
+Lista vacía, está bien. Lo que aparezca hay que volver a generarlo con las dos
+medidas pares. `diagnostico.html` hace esta misma prueba sobre todos los
+archivos del sitio.
 
 Para sumar una imagen nueva, con `sips` alcanza:
 
