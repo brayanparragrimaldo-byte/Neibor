@@ -1173,3 +1173,34 @@ cinta no le tapara la última línea. Baja a 51 a 86, igual que el de arriba.
 recorrido. La cabecera sigue pegada arriba con su botón "Consultar", así que la
 vía de contacto no desaparece, pero ahora hay un solo acceso permanente en vez
 de dos.
+
+---
+
+## "Las seis" se reordena y respira menos
+
+A pedido del desarrollo, sobre un mock up suyo.
+
+| | Antes | Ahora |
+|---|---|---|
+| Letras de las casas | abajo de la ficha | arriba de todo, afuera de la ficha |
+| Los dos botones | adentro de la columna derecha | fila propia abajo, cruzando las dos columnas |
+| Aire de la sección | 99 px arriba y abajo | 54 px |
+| Hueco abajo de la aérea | unos 400 px | 52 px |
+
+**Lo que arregla el reordenamiento.** Sacando los dos botones de la columna, la
+ficha baja de 859 a 554 px de alto y la aérea mide 502: quedan casi parejas y el
+hueco que se abría abajo de la imagen prácticamente desaparece. Eso era la mayor
+parte del espacio vacío, más que el colchón de la sección.
+
+**Las letras arriba, afuera de la ficha.** El filete grueso arranca abajo de
+ellas, como en el mock up. De paso quedan fuera del `aria-live` de la ficha, que
+no tiene por qué anunciar el cambio de estado de seis botones cada vez que se
+toca uno.
+
+**Los botones cruzan las dos columnas y se alinean a la derecha**, con el borde
+derecho de la ficha, que es lo que accionan. Abajo de 560 px se apilan y toman el
+ancho entero.
+
+**El aire se achica redefiniendo `--bloque` sobre `#seis`**, no pisando el
+`padding`. El rótulo vertical "Seis" se cuelga de ese mismo token, así que
+acompaña sin tocar nada más.

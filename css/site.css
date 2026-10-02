@@ -332,6 +332,24 @@ button{ font:inherit; color:inherit; }
 .seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,31%,440px);
   gap:clamp(1.6rem,3.2vw,3rem); align-items:start; }
 @media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
+/* Esta sección respira menos que las demás, a pedido del desarrollo: con la
+   aérea y la ficha casi del mismo alto, el aire de 99 px arriba y abajo
+   quedaba como un hueco y no como un respiro. Se redefine el token en vez de
+   pisar el padding, así el rótulo vertical "Seis", que se cuelga de él,
+   acompaña sin tocar nada más. */
+#seis{ --bloque: clamp(38px, 6vh, 82px); }
+
+/* Las letras van arriba de todo, afuera de la ficha: el filete grueso de la
+   ficha arranca abajo de ellas, y de paso quedan fuera del aria-live, que no
+   tiene por qué anunciar el cambio de estado de seis botones. */
+.seis__col{ min-width:0; }
+.seis__col .selector{ margin:0 0 1.2rem; }
+/* Los dos botones cierran la sección y no la columna: cruzan las dos y se
+   alinean con el borde derecho de la ficha, que es lo que accionan. */
+.seis__acciones{ grid-column:1/-1; justify-content:flex-end;
+  margin-top:clamp(1.2rem,2.4vw,2rem); }
+@media (max-width:560px){ .seis__acciones{ justify-content:stretch; }
+  .seis__acciones .btn{ flex:1 1 100%; justify-content:center; } }
 
 .implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }
 .implantacion img{ display:block; width:100%; height:auto; border-radius:var(--radio); }

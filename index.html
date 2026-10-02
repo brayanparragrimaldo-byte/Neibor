@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/site.css?v=812ecd45">
+<link rel="stylesheet" href="css/site.css?v=9f7b4ac1">
 <!-- La imagen del hero arranca junto con la hoja de estilos -->
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha-m.avif" media="(max-width: 760px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha.avif" media="(min-width: 761px)" fetchpriority="high">
@@ -447,21 +447,7 @@
         </figure>
       </div>
 
-      <div class="ficha rev rev-d1" id="ficha" aria-live="polite">
-        <div class="ficha__enc">
-          <h3 id="ficha-nombre">Casa N</h3>
-          <span class="ficha__estado" id="ficha-estado">Consultar</span>
-        </div>
-        <dl>
-          <dt>Orientación del fondo</dt><dd id="ficha-orient">Noreste</dd>
-          <dt>Terreno propio</dt><dd id="ficha-terreno">660 m²</dd>
-          <dt>Superficie cubierta</dt><dd id="ficha-cub">225 m²</dd>
-          <dt>Dormitorios</dt><dd>3, uno en suite con vestidor</dd>
-          <dt>Cochera</dt><dd>Doble, bajo losa</dd>
-          <dt>Planta</dt><dd><button type="button" class="btn btn--acento btn--chico" id="ficha-plano" aria-haspopup="dialog" data-evento="ver_plano">Ver la planta<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
-          <dt>Ficha técnica</dt><dd><button type="button" class="btn btn--acento btn--chico" id="abrir-ficha-tecnica" aria-haspopup="dialog" data-evento="ver_ficha_tecnica">Ver la ficha técnica<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
-        </dl>
-
+      <div class="seis__col rev rev-d1">
         <div class="selector" role="group" aria-label="Elegir casa">
           <button type="button" data-casa="0" aria-pressed="true">N</button>
           <button type="button" data-casa="1" aria-pressed="false">E</button>
@@ -471,10 +457,26 @@
           <button type="button" data-casa="5" aria-pressed="false">R</button>
         </div>
 
-        <div class="acciones">
-          <a class="btn" data-wa="Hola, quiero los valores y la forma de pago de Neibor." href="#contacto">Pedir valores y forma de pago<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
-          <a class="btn btn--fantasma" href="#contacto" data-intencion="visita">Agendar visita al terreno</a>
+        <div class="ficha" id="ficha" aria-live="polite">
+          <div class="ficha__enc">
+            <h3 id="ficha-nombre">Casa N</h3>
+            <span class="ficha__estado" id="ficha-estado">Consultar</span>
+          </div>
+        <dl>
+          <dt>Orientación del fondo</dt><dd id="ficha-orient">Noreste</dd>
+          <dt>Terreno propio</dt><dd id="ficha-terreno">660 m²</dd>
+          <dt>Superficie cubierta</dt><dd id="ficha-cub">225 m²</dd>
+          <dt>Dormitorios</dt><dd>3, uno en suite con vestidor</dd>
+          <dt>Cochera</dt><dd>Doble, bajo losa</dd>
+          <dt>Planta</dt><dd><button type="button" class="btn btn--acento btn--chico" id="ficha-plano" aria-haspopup="dialog" data-evento="ver_plano">Ver la planta<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
+          <dt>Ficha técnica</dt><dd><button type="button" class="btn btn--acento btn--chico" id="abrir-ficha-tecnica" aria-haspopup="dialog" data-evento="ver_ficha_tecnica">Ver la ficha técnica<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
+        </dl>
         </div>
+      </div>
+
+      <div class="acciones seis__acciones rev rev-d2">
+        <a class="btn" data-wa="Hola, quiero los valores y la forma de pago de Neibor." href="#contacto">Pedir valores y forma de pago<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
+        <a class="btn btn--fantasma" href="#contacto" data-intencion="visita">Agendar visita al terreno</a>
       </div>
     </div>
 
