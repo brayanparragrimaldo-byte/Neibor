@@ -647,6 +647,13 @@ button{ font:inherit; color:inherit; }
 .amen p{ margin:.75rem auto 0; font-size:.92rem; line-height:1.5; max-width:27ch;
   color:var(--texto-sobre-claro); }
 
+/* La misma grilla, pero sin bajada: estos atributos son etiquetas y no
+   conceptos que haya que explicar. Sin el párrafo debajo la fila pide menos
+   aire, y el título pide una medida donde cortar, que antes se la daba el
+   párrafo. */
+.amen--solo{ row-gap:clamp(2.2rem,3.4vw,3rem); }
+.amen--solo h3{ max-width:26ch; margin-inline:auto; }
+
 .seccion--oscura .amen__ico,.seccion--tinta .amen__ico{ color:var(--salvia); }
 .seccion--oscura .amen p,.seccion--tinta .amen p{ color:var(--texto-sobre-oscuro); }
 
@@ -665,39 +672,6 @@ button{ font:inherit; color:inherit; }
 @media (max-width:560px){
   .amen{ grid-template-columns:1fr; gap:2.2rem; }
   .amen p{ max-width:30ch; }
-}
-
-/* 18. Atributos de cada casa: lista con filete, a dos columnas
-   Acá los atributos son etiquetas cortas, sin bajada que explicar. Una
-   lista con filete lee más rápido que otra grilla de tarjetas, y de paso
-   no repite el dibujo de los atributos del barrio, que quedan a dos
-   secciones de distancia. El filete es el mismo de la lista de tiempos de
-   "Dónde", así que la página ya sabe hablar así. */
-.prog{
-  list-style:none; padding:0;
-  margin:clamp(2.6rem,5vw,3.8rem) auto 0; max-width:1120px;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  grid-template-rows:repeat(5,auto);
-  grid-auto-flow:column;
-  column-gap:clamp(2rem,5vw,4.5rem);
-  text-align:left;
-}
-.prog li{
-  display:flex; align-items:center; gap:clamp(.85rem,1.5vw,1.2rem);
-  padding:clamp(.95rem,1.7vw,1.2rem) 0;
-  border-top:1px solid var(--linea-clara);
-  font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.35;
-}
-.prog__ico{
-  width:clamp(1.5rem,2vw,1.75rem); height:clamp(1.5rem,2vw,1.75rem);
-  flex:none; stroke-width:1.2; color:var(--tinta); opacity:.78;
-}
-.seccion--oscura .prog__ico,.seccion--tinta .prog__ico{ color:var(--salvia); }
-
-@media (max-width:760px){
-  /* En una columna la lista se arma sola de arriba hacia abajo. */
-  .prog{ grid-template-columns:1fr; grid-template-rows:none; grid-auto-flow:row; }
 }
 
 /* Desplegable de ficha técnica */

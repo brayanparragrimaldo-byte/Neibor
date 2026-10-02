@@ -880,3 +880,25 @@ cambió la caja y se desarmaron las abreviaturas.
 
 "Las seis casas" lleva ahora `seccion--corte`, el filete que separa dos secciones
 claras seguidas, porque la nueva queda justo encima y las dos van sobre papel.
+
+## Los atributos de cada casa pasan a la grilla de los del barrio
+
+A pedido: la sección nueva usa ahora el mismo dibujo que "Atributos
+principales". Cuatro columnas, ícono grande centrado arriba, título debajo, y
+los dos últimos corridos a las columnas del medio para que la tercera fila
+cierre centrada. Los diez íconos son los mismos que ya tenía.
+
+La única diferencia es que acá no hay bajada: son etiquetas, no conceptos que
+haya que explicar, y no se inventó texto para llenar el hueco. Eso lo cubre el
+modificador `.amen--solo`, que hace dos cosas:
+
+- achica el aire entre filas, que estaba calculado para items con párrafo;
+- le da al título una medida donde cortar, que antes se la daba el párrafo.
+  Con `26ch` los dos títulos largos caen en dos renglones; con menos, en tres.
+
+Comprobado a 1440, 1024 y 375 píxeles: la sección nueva y la del barrio pasan
+por los mismos saltos de columna, con el mismo ícono de 43 píxeles y el mismo
+reacomodo de los dos últimos.
+
+Se quitó el bloque `.prog` de la hoja de estilos, que era el de la lista con
+filete y ya no lo usa nadie.
