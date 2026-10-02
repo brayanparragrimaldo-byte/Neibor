@@ -329,14 +329,14 @@ button{ font:inherit; color:inherit; }
    ficha se achica hasta donde entra su línea más larga ("Orientación del
    fondo" contra "3, uno en suite con vestidor"), así el dato queda al lado
    del rótulo y no al otro lado de la página. */
-.seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,33%,520px);
+.seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,34%,520px);
   gap:clamp(1.6rem,3.2vw,3rem); align-items:start; }
 @media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
 /* Esta sección no respira: va pegada a la de arriba y a la de abajo, para que
    se lean como una sola tirada. Se redefine el token en vez de pisar el
    padding, así el rótulo vertical "Seis", que se cuelga de él, acompaña sin
    tocar nada más. */
-#seis{ --bloque: 0px; }
+#seis{ --bloque: clamp(20px, 3vh, 40px); }
 
 /* Y la aérea se sale del canal izquierdo hasta el borde de la pantalla. No hace
    falta ningún cálculo con 100vw, que además se pelea con la barra de
@@ -363,7 +363,12 @@ button{ font:inherit; color:inherit; }
    renglón, cada uno toma la columna entera. */
 .seis__acciones{ grid-column:2; justify-content:stretch; gap:.5rem;
   margin-top:clamp(1rem,2vw,1.6rem); }
-.seis__acciones .btn{ flex:1 1 auto; justify-content:center; }
+/* Van los dos en un renglón, repartiendo el ancho de la tabla. A cuerpo entero
+   suman 500 px y la columna da 448 a 1440 de ventana: se pisaban y caían uno
+   abajo del otro. Bajarles el cuerpo es más barato que robarle ancho a la
+   aérea, que es lo que vende. */
+.seis__acciones .btn{ flex:1 1 auto; justify-content:center;
+  font-size:.78rem; padding-inline:1.25em; }
 @media (max-width:1000px){ .seis__acciones{ grid-column:1; } }
 
 .implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }

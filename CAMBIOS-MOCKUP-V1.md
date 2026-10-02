@@ -1222,11 +1222,18 @@ desplazamiento, que es lo que arruina el truco de `calc(-50vw + 50%)`. Abajo de
 1000 la grilla pasa a una columna y el texto quedaría contra el borde, así que
 ahí el canal vuelve y la aérea también.
 
-**Los botones quedan clavados al ancho de la tabla.** Los dos entran en un
-renglón desde los 1560 de ventana; abajo de eso cada uno toma la columna entera.
-Para que entren hizo falta bajar el aire entre ellos de 12 a 8 px y subir el tope
-de la columna de 440 a 520: a 1600 necesitan 500 px y había 499.
+**Los botones quedan clavados al ancho de la tabla**, los dos en un renglón.
 
-**Sin aire, las secciones quedan al hilo.** La aérea arranca a 1 px del filete de
-arriba y los botones cierran justo donde empieza "Dónde". El respiro de abajo lo
-pone la sección siguiente, que mantiene el suyo.
+Al principio entraban recién desde los 1560 de ventana y abajo de eso se apilaban:
+a cuerpo entero suman 445 px y la columna da 415 en una pantalla de 1333, que es
+donde los estaba mirando el desarrollo. La medida se sacó de la imagen que
+mandaron: ahí los botones miden 229 y 180, los nuestros medían 247 y 191. Con el
+cuerpo en .78rem quedan en 229 y 177, y entran en un renglón desde los 1300 de
+ventana. Abajo de eso cada uno toma la tabla entera.
+
+Bajarles el cuerpo es más barato que ensancharles la columna: cada punto de ancho
+que gana la ficha se lo saca a la aérea, que es lo que vende.
+
+**Las secciones se separan apenas.** Primero quedaron al hilo, sin nada de aire,
+y el desarrollo pidió despegarlas un poco: 27 px arriba y abajo contra los 99 del
+resto de la página.
