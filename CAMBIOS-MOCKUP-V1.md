@@ -1130,3 +1130,25 @@ cambios: la implantación cuadrada, la axonométrica del hero, la planta ambient
 vieja, los dos logotipos de Neibor que no se usan, y cinco familias que ya no
 referencia nadie. `img/` baja de 209 a 172 archivos. Los planos por unidad no se
 borraron: se reemplazaron por los nuevos, recortados y sin leyenda.
+
+---
+
+## "Dónde" invierte el reparto y la aérea pasa a apaisada
+
+| | Antes | Ahora |
+|---|---|---|
+| Proporción de la foto | 4:5, parada | 3:2, apaisada |
+| Ancho de la foto a 1440 | 530 px | 852 px |
+| Ancho de la lista a 1440 | 740 px | 412 px |
+| Alto de cada renglón | 73 px | 60 px |
+
+El recorte apaisado sale de la misma foto, tomando la franja que deja el cordón
+de sierras en el tercio de arriba y el pueblo con la cancha de golf abajo. La
+lista más angosta resuelve de paso lo otro: antes el dato quedaba a 400 px del
+rótulo y ahora están al lado.
+
+**Lo que hay que mirar: la foto queda corta de resolución.** El archivo más
+grande que existe de esa aérea mide 984 px de ancho, y a 852 de pantalla eso da
+1,15x. En un monitor de densidad doble se va a ver blanda. Antes no se notaba
+porque la foto iba a 530 px, donde rendía 1,86x. Con un original de 2000 px para
+arriba se arregla sin tocar nada más.

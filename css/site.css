@@ -380,11 +380,14 @@ button{ font:inherit; color:inherit; }
 
 /* ---------- 8. Ubicación ---------- */
 .ubic{ display:grid; grid-template-columns:repeat(12,1fr); gap:clamp(1rem,2vw,1.8rem); margin-top:clamp(2.4rem,5vw,4rem); }
-.ubic__a{ grid-column:1/8; }
-.ubic__b{ grid-column:8/13; display:grid; gap:clamp(1rem,2vw,1.8rem); align-content:start; }
+/* La aérea pasa a ser lo que manda: se queda con dos tercios del ancho y la
+   lista de referencias se achica hasta donde entra su renglón más largo
+   ("Centro de Villa Allende" contra "5 min"). */
+.ubic__a{ grid-column:1/5; }
+.ubic__b{ grid-column:5/13; display:grid; gap:clamp(1rem,2vw,1.8rem); align-content:start; }
 @media (max-width:900px){ .ubic__a,.ubic__b{ grid-column:1/-1; } }
 .refs{ list-style:none; margin:1.6rem 0 0; padding:0; }
-.refs li{ display:flex; justify-content:space-between; gap:1.2rem; padding:1.25rem 0; border-top:1px solid var(--linea-clara); align-items:baseline; }
+.refs li{ display:flex; justify-content:space-between; gap:1rem; padding:.72rem 0; border-top:1px solid var(--linea-clara); align-items:baseline; }
 .refs__t{ font-size:clamp(1.3rem,2.3vw,2.05rem); font-weight:300; letter-spacing:-.04em;
   line-height:1; text-align:right; white-space:nowrap; }
 .refs__u{ font-size:.5em; font-weight:500; letter-spacing:.04em; margin-left:.34em; opacity:.55; }
