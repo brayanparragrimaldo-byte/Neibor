@@ -728,3 +728,39 @@ guardada o una extension, y no el sitio.
 Los dos arreglos anteriores, la red de seguridad en el `<head>` y los respaldos
 de CSS, siguen valiendo: eran fragilidad real. Pero no eran la causa de lo que se
 estaba viendo.
+
+## Las que se ven y las que no: qué tienen de distinto
+
+Las dos imágenes que sí aparecen son el plano de implantación y la foto aérea de
+Villa Allende. Las que faltan son las de pantalla completa: el hero y las dos
+galerías. Puestas una al lado de la otra, la diferencia es de dónde sacan el alto.
+
+| | De dónde saca el alto | Puede quedarse en cero |
+|---|---|---|
+| Foto aérea (`.fig--4x5`) | `aspect-ratio` del contenedor | no |
+| Plano (`.implantacion`) | `aspect-ratio`, y la regla de base es `height:auto` | no |
+| Hero y galerías | `height:100%` del contenedor, que mide `100svh` | sí |
+
+Las dos primeras tienen el alto garantizado por su propia forma. Las de pantalla
+completa dependían enteras de que el contenedor tuviera un alto resuelto.
+
+Ahora la foto de pantalla completa lleva **un piso propio**: `min-height:560px`
+en el hero y `min-height:540px` en las diapositivas de galería, sobre la imagen
+misma y no sobre el contenedor. Pase lo que pase con la cadena de alturas, la
+imagen no puede medir cero. En el teléfono el piso se anula, porque ahí la foto
+entra entera y mide lo que mide.
+
+## Medir la página de verdad, no una copia
+
+`diagnostico.html` mide la página dentro de un marco, y un marco puede
+comportarse distinto del documento principal. Agregando `?revisar=1` a la
+dirección de la página normal, **la página se mide a sí misma** y muestra el
+resultado encima, en un panel: cada archivo, si abre y con qué tamaño se dibuja.
+
+```
+https://brayanparragrimaldo-byte.github.io/Neibor/?revisar=1
+```
+
+Alcanza con una captura de ese panel para saber qué está pasando en el navegador
+donde falla. El panel sólo aparece con ese parámetro: la página normal no lo
+lleva.

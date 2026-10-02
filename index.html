@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/site.css?v=a89e3735">
+<link rel="stylesheet" href="css/site.css?v=773a660d">
 <!-- La imagen del hero arranca junto con la hoja de estilos -->
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha-m.avif" media="(max-width: 760px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha.avif" media="(min-width: 761px)" fetchpriority="high">
@@ -57,6 +57,44 @@
   document.addEventListener('DOMContentLoaded', barrer);
   window.addEventListener('load', barrer);
   setTimeout(barrer, 4000);
+
+  /* Con ?revisar en la direccion, la pagina se mide a si misma y muestra el
+     resultado encima. Es para mirar la pagina de verdad y no una copia
+     dentro de un marco, que puede comportarse distinto. */
+  if (location.search.indexOf('revisar') > -1) {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var im = document.images, fil = [], malas = 0;
+        for (var i = 0; i < im.length; i++) {
+          var o = im[i];
+          if (!o.getAttribute('src')) continue;
+          var c = o.getBoundingClientRect();
+          var an = Math.round(c.width), al = Math.round(c.height);
+          var arch = (o.currentSrc || o.src).split('/').pop().split('?')[0];
+          var mal = (o.complete && !o.naturalWidth) ||
+                    (o.currentSrc && o.offsetParent !== null && (an < 2 || al < 2));
+          if (mal) malas++;
+          fil.push('<tr style="color:' + (mal ? '#ff8a8a' : '#cfe8cf') + '">' +
+            '<td style="padding:1px 8px 1px 0">' + arch + '</td>' +
+            '<td style="padding:1px 8px 1px 0">' + (o.naturalWidth ? o.naturalWidth + 'px' :
+              (o.complete ? 'NO ABRE' : (o.currentSrc ? 'cargando' : 'espera turno'))) + '</td>' +
+            '<td style="padding:1px 0">' + an + ' x ' + al + '</td></tr>');
+        }
+        var p = document.createElement('div');
+        p.style.cssText = 'position:fixed;left:0;top:0;z-index:99999;max-height:100vh;overflow:auto;' +
+          'background:rgba(8,14,7,.96);color:#cfe8cf;font:11px/1.4 ui-monospace,Menlo,monospace;' +
+          'padding:10px 12px;max-width:min(560px,96vw);border-right:2px solid #8f4c00';
+        p.innerHTML = '<div style="font-weight:700;margin-bottom:6px;color:#fff">' +
+          'REVISION EN VIVO &middot; ventana ' + innerWidth + ' x ' + innerHeight +
+          ' &middot; ' + im.length + ' imagenes &middot; ' +
+          (malas ? '<span style="color:#ff8a8a">' + malas + ' CON PROBLEMA</span>' : 'todas bien') +
+          '</div><table>' +
+          '<tr style="opacity:.6"><td>archivo</td><td>abre</td><td>dibujada</td></tr>' +
+          fil.join('') + '</table>';
+        document.body.appendChild(p);
+      }, 2500);
+    });
+  }
 })();
 </script>
 </head>

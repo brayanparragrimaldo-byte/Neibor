@@ -235,7 +235,7 @@ button{ font:inherit; color:inherit; }
 .hero__media{ position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden; }
 .hero__media picture{ position:absolute; inset:0; display:block; }
 .hero__media img{ position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; transform:scale(1.07); }
+  min-height:560px; object-fit:cover; transform:scale(1.07); }
 .hero__media::after{
   content:""; position:absolute; inset:0;
   background:
@@ -692,7 +692,7 @@ button{ font:inherit; color:inherit; }
 }
 .galeria__abrir picture{ position:absolute; inset:0; display:block; }
 .galeria__slide img{ position:absolute; inset:0; display:block;
-  width:100%; height:100%; object-fit:cover; }
+  width:100%; height:100%; min-height:540px; object-fit:cover; }
 
 /* La cruz de ampliar: con puntero aparece al pasar por encima, sin puntero
    no hay con qué revelarla y queda siempre a la vista. */
@@ -752,7 +752,8 @@ button{ font:inherit; color:inherit; }
     height:clamp(460px,74vh,660px); height:clamp(460px,74svh,660px); min-height:0; }
   .galeria__abrir{ position:relative; inset:auto; height:auto; flex:none; }
   .galeria__abrir picture{ position:relative; inset:auto; height:auto; }
-  .galeria__slide img{ position:relative; inset:auto; height:auto; object-fit:contain; }
+  .galeria__slide img{ position:relative; inset:auto; height:auto; min-height:0;
+    object-fit:contain; }
   .galeria__slide::after{ display:none; }
   .galeria__slide figcaption{ position:static; max-width:none; text-shadow:none;
     margin:1.4rem 0 0; padding-inline:var(--gutter); }
