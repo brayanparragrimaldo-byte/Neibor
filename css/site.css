@@ -416,34 +416,12 @@ button{ font:inherit; color:inherit; }
 .datos-directos small{ display:block; font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase; opacity:.5; margin-bottom:.5rem; font-weight:600; }
 
 /* ---------- 11. Pie ---------- */
-.pie{ background:var(--tinta); color:var(--papel); padding:clamp(3rem,6vw,5rem) 0 clamp(6.5rem,9vw,7.5rem); }
+.pie{ background:var(--tinta); color:var(--papel); padding:clamp(3rem,6vw,5rem) 0 clamp(3.2rem,6.4vw,5.4rem); }
 .pie__top{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:flex-end; padding-bottom:2.4rem; border-bottom:1px solid var(--linea-oscura); }
 .pie__logo img{ height:clamp(34px,4vw,54px); }
 .pie__bajo{ display:flex; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; padding-top:1.6rem; font-size:.76rem; opacity:.55; letter-spacing:.02em; }
 
-/* ---------- 12. Barra fija de conversión ---------- */
-.barra{
-  position:fixed; left:0; right:0; bottom:0; z-index:55;
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-  padding:.8rem var(--gutter);
-  background:rgba(19,30,16,.93); backdrop-filter:saturate(1.2) blur(12px);
-  color:var(--papel); border-top:1px solid var(--linea-oscura);
-  transform:translateY(105%); transition:transform .6s var(--easing);
-}
-.barra.visible{ transform:none; }
-.barra__txt{ font-size:.86rem; line-height:1.3; }
-.barra__txt b{ display:block; font-weight:600; }
-.barra__txt small{ opacity:.6; font-size:.76rem; }
-.barra .acciones{ margin:0; flex-wrap:nowrap; }
-.barra .btn{ padding:.78em 1.2em; font-size:.82rem; white-space:nowrap; }
-@media (max-width:680px){
-  .barra{ padding:.65rem 1rem; }
-  .barra__txt small{ display:none; }
-  .barra__txt b{ font-size:.82rem; }
-  .barra .btn--fantasma{ display:none; }
-}
-
-/* ---------- 13. Animaciones de entrada ---------- */
+/* ---------- 12. Animaciones de entrada ---------- */
 .rev{ opacity:0; transform:translateY(26px); transition:opacity .9s var(--easing), transform .9s var(--easing); }
 .rev.en{ opacity:1; transform:none; }
 .rev-d1{ transition-delay:.09s; } .rev-d2{ transition-delay:.18s; } .rev-d3{ transition-delay:.27s; } .rev-d4{ transition-delay:.36s; }
@@ -458,7 +436,7 @@ button{ font:inherit; color:inherit; }
   .btn:hover{ transform:none; }
 }
 
-/* ---------- 14. Ventana de la ficha técnica ----------
+/* ---------- 13. Ventana de la ficha técnica ----------
    Repite la arista del isotipo: la esquina superior izquierda baja a 30
    grados. */
 .modal{
@@ -591,7 +569,7 @@ button{ font:inherit; color:inherit; }
   .modal__cerrar{ width:40px; height:40px; }
 }
 
-/* ---------- 15. Ajustes finos por tamaño ---------- */
+/* ---------- 14. Ajustes finos por tamaño ---------- */
 @media (max-width:430px){
   :root{ --t-display:2.45rem; --t-titulo:1.75rem; }
   .ficha dl{ grid-template-columns:1fr; gap:0; }

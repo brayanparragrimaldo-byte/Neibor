@@ -79,13 +79,9 @@
 
   /* ---------- 1. Cabecera que se contrae ---------- */
   var cab = $('#cabecera');
-  var barra = $('#barra');
-  var ultimo = 0;
   function alScroll() {
     var y = window.scrollY || window.pageYOffset;
     if (cab) cab.classList.toggle('pegada', y > 80);
-    if (barra) barra.classList.toggle('visible', y > window.innerHeight * 0.9);
-    ultimo = y;
   }
   window.addEventListener('scroll', alScroll, { passive: true });
   alScroll();

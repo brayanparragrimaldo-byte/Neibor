@@ -1156,3 +1156,20 @@ grande que existe de esa aérea mide 984 px de ancho, y a 852 de pantalla eso da
 1,15x. En un monitor de densidad doble se va a ver blanda. Antes no se notaba
 porque la foto iba a 530 px, donde rendía 1,86x. Con un original de 2000 px para
 arriba se arregla sin tocar nada más.
+
+---
+
+## Se va la cinta fija del pie
+
+A pedido del desarrollo. Era la barra que aparecía pegada abajo pasado el primer
+scroll, con "Seis casas en Villa Allende Golf", la bajada y los botones "Ver las
+seis" y "Consultar". Se fueron el bloque de `_cuerpo.html`, la sección 12 del
+CSS y las dos líneas de `js/site.js` que la mostraban.
+
+El pie llevaba un colchón de 104 a 120 px abajo que existía sólo para que la
+cinta no le tapara la última línea. Baja a 51 a 86, igual que el de arriba.
+
+**Lo que se pierde:** era la única llamada a la acción que acompañaba todo el
+recorrido. La cabecera sigue pegada arriba con su botón "Consultar", así que la
+vía de contacto no desaparece, pero ahora hay un solo acceso permanente en vez
+de dos.
