@@ -46,6 +46,7 @@
   #copiar:disabled{ opacity:.5; cursor:default; }
   .cargando{ opacity:.6; font-style:italic; }
   #banco{ position:fixed; left:-20000px; top:0; width:100vw; height:100vh; border:0; }
+  #vivo{ width:100%; height:min(620px, 70vh); border:1px solid rgba(19,30,16,.2); background:#fff; }
 </style>
 </head>
 <body>
@@ -65,6 +66,10 @@
   <div id="tabla"><p class="cargando">Probando...</p></div>
 
   <button id="copiar" disabled>Copiar el informe</button>
+
+  <h2>La pagina en vivo, aca mismo</h2>
+  <p class="sub" style="margin-bottom:1rem">Esto es la pagina publicada, cargada de nuevo sin pasar por nada guardado, dentro de este mismo navegador. <b>Si aca ves las imagenes y en la pestana normal no, el problema es la copia guardada o alguna extension.</b></p>
+  <iframe id="vivo" title="la pagina publicada"></iframe>
 </div>
 <iframe id="banco" title="pagina real, fuera de vista"></iframe>
 
@@ -187,7 +192,22 @@
       html = await r.text();
       fecha = r.headers.get('last-modified') || '(sin fecha)';
     } catch (e) { html = ''; }
-    dato(ent, 'Publicado el', fecha);
+    dato(ent, 'Publicado en el servidor', fecha);
+
+    /* La copia que este navegador tiene guardada, sin ir a buscarla. Si no
+       coincide con la de arriba, lo que se ve en la pestana normal es vieja. */
+    var guardadaVieja = false;
+    try {
+      var g = await fetch('index.html', { cache: 'force-cache' });
+      var gt = await g.text();
+      var gf = g.headers.get('last-modified') || '(sin fecha)';
+      guardadaVieja = (gt.length !== html.length);
+      dato(ent, 'Copia guardada en este navegador',
+           gf + (guardadaVieja ? '  (DISTINTA de la publicada)' : '  (igual a la publicada)'),
+           guardadaVieja);
+    } catch (e) {
+      dato(ent, 'Copia guardada en este navegador', 'no se pudo leer');
+    }
 
     var urls = [], re = /(?:src|srcset|href)="(img\/[^"]+?\.(?:avif|jpg|png))"/g, m;
     while ((m = re.exec(html))) { if (urls.indexOf(m[1]) < 0) urls.push(m[1]); }
@@ -235,6 +255,12 @@
       decir('mal', fallan.length + ' archivos no abren en este navegador',
             fallan.join(' | '));
     }
+    if (guardadaVieja) {
+      decir('mal', 'Este navegador tiene guardada una copia vieja de la pagina',
+            'Lo que ves en la pestana normal no es lo que esta publicado. Abri la pagina ' +
+            'en una ventana de incognito, o con una direccion distinta como ' +
+            location.origin + location.pathname.replace('diagnostico.html', '') + '?nuevo=1');
+    }
     if (cssFaltan.length) {
       decir('aviso', 'Este navegador no entiende: ' + cssFaltan.join(', '),
             'La pagina tiene respaldo para todas, pero conviene saberlo.');
@@ -249,6 +275,8 @@
             'Si aun asi ves huecos en la pagina normal, es la copia guardada en cache: ' +
             'recarga con cmd+shift+R (o ctrl+shift+R en Windows).');
     }
+
+    $('#vivo').src = 'index.html?vivo=' + Math.random();
 
     var b = $('#copiar');
     b.disabled = false;

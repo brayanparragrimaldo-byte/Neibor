@@ -690,3 +690,41 @@ Además informa qué funciones de CSS entiende el navegador (`svh`,
 `aspect-ratio`, `object-fit`, `inset`, `clip-path`, `backdrop-filter`, `:has()`),
 el navegador y su versión, y la fecha de publicación de lo que está viendo, para
 saber si coincide con lo que está en el servidor.
+
+## Lo que dijo la revision hecha en el Chrome que falla
+
+Corrida en Chrome 152 sobre macOS, ventana de 1910 x 964:
+
+```
+Entiende AVIF: si
+CSS: svh, aspect-ratio, object-fit, inset, clip-path, backdrop-filter, :has()  todas si
+Imagen del hero:        dibujada 1895 x 964 px, archivo 1672 px de ancho
+1a del barrio:          dibujada 1895 x 964 px, archivo 1672 px de ancho
+1a de la casa:          dibujada 1895 x 964 px, archivo 1672 px de ancho
+Plano de implantacion:  dibujada  626 x 686 px, archivo  730 px de ancho
+Archivos probados: 107, fallan: 0
+```
+
+**La pagina publicada funciona en ese mismo navegador.** Los archivos llegan, el
+navegador los entiende y las imagenes se dibujan a tamano completo. Eso descarta
+el formato, el maquetado y la version del navegador.
+
+Queda entonces algo entre el navegador y lo que muestra en la pestana normal: la
+copia guardada, o una extension que modifica la pagina. La revision carga la
+pagina en un marco con una direccion distinta cada vez, asi que nunca pasa por lo
+guardado, y por eso ahi se ve bien.
+
+Dos cambios en `diagnostico.html` para cerrar eso:
+
+**Compara la copia guardada con la publicada.** Pide la pagina dos veces, una
+forzando la red y otra forzando lo guardado, y avisa si no coinciden. Si no
+coinciden, lo que se ve en la pestana normal es vieja.
+
+**Muestra la pagina en vivo, a la vista.** Al final hay un marco con la pagina
+publicada, cargada de nuevo sin pasar por nada guardado, en ese mismo navegador.
+Si ahi se ven las imagenes y en la pestana normal no, el problema es la copia
+guardada o una extension, y no el sitio.
+
+Los dos arreglos anteriores, la red de seguridad en el `<head>` y los respaldos
+de CSS, siguen valiendo: eran fragilidad real. Pero no eran la causa de lo que se
+estaba viendo.
