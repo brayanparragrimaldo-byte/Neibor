@@ -329,27 +329,42 @@ button{ font:inherit; color:inherit; }
    ficha se achica hasta donde entra su línea más larga ("Orientación del
    fondo" contra "3, uno en suite con vestidor"), así el dato queda al lado
    del rótulo y no al otro lado de la página. */
-.seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,31%,440px);
+.seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,33%,520px);
   gap:clamp(1.6rem,3.2vw,3rem); align-items:start; }
 @media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
-/* Esta sección respira menos que las demás, a pedido del desarrollo: con la
-   aérea y la ficha casi del mismo alto, el aire de 99 px arriba y abajo
-   quedaba como un hueco y no como un respiro. Se redefine el token en vez de
-   pisar el padding, así el rótulo vertical "Seis", que se cuelga de él,
-   acompaña sin tocar nada más. */
-#seis{ --bloque: clamp(38px, 6vh, 82px); }
+/* Esta sección no respira: va pegada a la de arriba y a la de abajo, para que
+   se lean como una sola tirada. Se redefine el token en vez de pisar el
+   padding, así el rótulo vertical "Seis", que se cuelga de él, acompaña sin
+   tocar nada más. */
+#seis{ --bloque: 0px; }
+
+/* Y la aérea se sale del canal izquierdo hasta el borde de la pantalla. No hace
+   falta ningún cálculo con 100vw, que además se pelea con la barra de
+   desplazamiento: alcanza con sacarle a esta envoltura el tope de ancho y el
+   relleno de ese lado, y el primer elemento de la grilla queda pegado al borde.
+   Abajo de 1000 la grilla pasa a una columna y el texto quedaría contra el
+   borde, así que ahí el canal vuelve. */
+#seis > .envoltura{ max-width:none; padding-left:0; }
+#seis .implantacion,
+#seis .implantacion img{ border-radius:0 var(--radio) var(--radio) 0; }
+@media (max-width:1000px){
+  #seis > .envoltura{ padding-left:var(--gutter); }
+  #seis .implantacion,
+  #seis .implantacion img{ border-radius:var(--radio); }
+}
 
 /* Las letras van arriba de todo, afuera de la ficha: el filete grueso de la
    ficha arranca abajo de ellas, y de paso quedan fuera del aria-live, que no
    tiene por qué anunciar el cambio de estado de seis botones. */
 .seis__col{ min-width:0; }
 .seis__col .selector{ margin:0 0 1.2rem; }
-/* Los dos botones cierran la sección y no la columna: cruzan las dos y se
-   alinean con el borde derecho de la ficha, que es lo que accionan. */
-.seis__acciones{ grid-column:1/-1; justify-content:flex-end;
-  margin-top:clamp(1.2rem,2.4vw,2rem); }
-@media (max-width:560px){ .seis__acciones{ justify-content:stretch; }
-  .seis__acciones .btn{ flex:1 1 100%; justify-content:center; } }
+/* Los dos botones van debajo de la tabla y dentro de su columna, que es lo que
+   accionan. Reparten el ancho a partes iguales; donde los dos no entran en un
+   renglón, cada uno toma la columna entera. */
+.seis__acciones{ grid-column:2; justify-content:stretch; gap:.5rem;
+  margin-top:clamp(1rem,2vw,1.6rem); }
+.seis__acciones .btn{ flex:1 1 auto; justify-content:center; }
+@media (max-width:1000px){ .seis__acciones{ grid-column:1; } }
 
 .implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }
 .implantacion img{ display:block; width:100%; height:auto; border-radius:var(--radio); }

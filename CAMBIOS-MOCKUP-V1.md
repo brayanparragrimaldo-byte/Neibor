@@ -1204,3 +1204,29 @@ ancho entero.
 **El aire se achica redefiniendo `--bloque` sobre `#seis`**, no pisando el
 `padding`. El rótulo vertical "Seis" se cuelga de ese mismo token, así que
 acompaña sin tocar nada más.
+
+---
+
+## "Las seis", segunda pasada sobre el mock up
+
+| | Antes | Ahora |
+|---|---|---|
+| Aérea a 1600 | 929 px, dentro del canal | 966 px, pegada al borde izquierdo |
+| Aire de la sección | 54 px arriba y abajo | 0 |
+| Los dos botones | fila propia cruzando las dos columnas | debajo de la tabla y del ancho de la tabla |
+
+**La aérea sale al borde sin cálculos con `100vw`.** A esta envoltura se le sacan
+el tope de ancho y el relleno izquierdo, y el primer elemento de la grilla queda
+pegado al borde de la pantalla. Es más simple y no se pelea con la barra de
+desplazamiento, que es lo que arruina el truco de `calc(-50vw + 50%)`. Abajo de
+1000 la grilla pasa a una columna y el texto quedaría contra el borde, así que
+ahí el canal vuelve y la aérea también.
+
+**Los botones quedan clavados al ancho de la tabla.** Los dos entran en un
+renglón desde los 1560 de ventana; abajo de eso cada uno toma la columna entera.
+Para que entren hizo falta bajar el aire entre ellos de 12 a 8 px y subir el tope
+de la columna de 440 a 520: a 1600 necesitan 500 px y había 499.
+
+**Sin aire, las secciones quedan al hilo.** La aérea arranca a 1 px del filete de
+arriba y los botones cierran justo donde empieza "Dónde". El respiro de abajo lo
+pone la sección siguiente, que mantiene el suyo.
