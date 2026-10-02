@@ -967,3 +967,26 @@ salvia, así que no hace falta.
 
 **Sigue pendiente la versión vectorial**, tanto de este como del de GRAB. Lo que
 hay alcanza para la pantalla y no alcanza para imprimir.
+
+---
+
+## Se podan tres cosas de "Las seis"
+
+A pedido del desarrollo, sin reemplazo:
+
+| Qué | Dónde estaba |
+|---|---|
+| Conmutador Plano / Axonométrica | arriba del plano de implantación |
+| Línea "Valor: Pendiente" | última fila de la ficha de cada casa |
+| Aviso al pie de la sección | "Superficies tomadas de los planos... Pendiente: valores y estado de disponibilidad por unidad" |
+
+Al irse el conmutador se fue también la capa de la axonométrica, el bloque 7 de
+`js/site.js` y las reglas `.vistas` y `.implantacion.axo` del CSS. El plano queda
+solo, que es lo que había antes de que existiera el conmutador. Las chinchetas y
+el selector de letra siguen funcionando igual.
+
+**Lo que esto saca de la vista.** El aviso era el único lugar donde la página
+decía de dónde salen las superficies y que la posición de cada letra sobre el
+plano es una deducción, no un dato confirmado. Y con la línea de valor se fue el
+último recordatorio de que los precios no están. El botón "Pedir valores y forma
+de pago" sigue ahí, así que la vía de consulta no se perdió.

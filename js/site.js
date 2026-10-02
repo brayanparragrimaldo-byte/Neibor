@@ -299,24 +299,6 @@
     });
   }
 
-  /* ---------- 7. Plano o axonométrica ---------- */
-  if (impl) {
-    var capas = $$('.capa', impl);
-    $$('[data-vista]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var v = b.getAttribute('data-vista');
-        $$('[data-vista]').forEach(function (o) {
-          o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-        });
-        capas.forEach(function (c) {
-          c.classList.toggle('viva', c.getAttribute('data-capa') === v);
-        });
-        /* Las chinchetas sólo tienen sentido sobre el plano */
-        impl.classList.toggle('axo', v !== 'plano');
-      });
-    });
-  }
-
   /* ---------- 8. Las galerías a pantalla completa ----------
      Son dos tiras con el mismo mecanismo: pasan solas cada cinco segundos
      y también a mano. El contador y las flechas están para que las dos

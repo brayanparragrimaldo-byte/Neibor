@@ -812,12 +812,6 @@ button{ font:inherit; color:inherit; }
 }
 
 /* 19. Conmutador axonométrica / plano */
-.vistas{ display:flex; gap:.4rem; margin-bottom:1rem; }
-.vistas button{ border:1px solid var(--linea-clara); background:transparent; border-radius:999px;
-  padding:.55em 1.1em; font-size:var(--t-rotulo); letter-spacing:.16em; text-transform:uppercase;
-  font-weight:600; cursor:pointer; transition:all .3s var(--easing); }
-.vistas button[aria-pressed="true"]{ background:var(--tinta); color:var(--papel); border-color:var(--tinta); }
-.vistas button:focus-visible{ outline:2px solid var(--tierra); outline-offset:3px; }
 .implantacion .capa{ position:absolute; inset:0; opacity:0; transition:opacity .7s var(--easing); }
 .implantacion .capa.viva{ opacity:1; }
 .implantacion .capa img{ width:100%; height:100%; object-fit:cover; }
@@ -829,7 +823,6 @@ button{ font:inherit; color:inherit; }
   .implantacion{ height:0; padding-top:109.59%; }
 }
 .implantacion .capa picture{ display:block; width:100%; height:100%; }
-.implantacion.axo .chincheta{ opacity:0; pointer-events:none; }
 .chincheta{ transition:transform .4s var(--easing), background .3s, color .3s, box-shadow .3s, opacity .4s; }
 
 /* 20. Respaldo: el banner de marcas y el contacto al pie

@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/site.css?v=bd25bc94">
+<link rel="stylesheet" href="css/site.css?v=f647681b">
 <!-- La imagen del hero arranca junto con la hoja de estilos -->
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha-m.avif" media="(max-width: 760px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha.avif" media="(min-width: 761px)" fetchpriority="high">
@@ -441,16 +441,9 @@
   <div class="envoltura">
     <div class="seis">
       <div class="rev">
-        <div class="vistas" role="group" aria-label="Cambiar vista del conjunto">
-          <button type="button" data-vista="plano" aria-pressed="true">Plano</button>
-          <button type="button" data-vista="axo" aria-pressed="false">Axonométrica</button>
-        </div>
         <figure class="implantacion" id="implantacion" style="margin:0">
           <div class="capa viva" data-capa="plano">
             <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/implantacion-ingresos-m.avif"><source type="image/avif" srcset="img/implantacion-ingresos.avif"><source media="(max-width: 760px)" srcset="img/implantacion-ingresos-m.jpg"><img src="img/implantacion-ingresos.jpg" alt="Planta de implantación de la manzana con las seis casas, la calle interna y los ingresos." width="730" height="800" loading="lazy" decoding="async"></picture>
-          </div>
-          <div class="capa" data-capa="axo">
-            <picture><source type="image/avif" media="(max-width: 760px)" srcset="img/hero-axonometrica-m.avif"><source type="image/avif" srcset="img/hero-axonometrica.avif"><source media="(max-width: 760px)" srcset="img/hero-axonometrica-m.jpg"><img src="img/hero-axonometrica.jpg" alt="Vista axonométrica de la manzana con las seis casas y su arbolado." width="1800" height="1013" loading="lazy" decoding="async"></picture>
           </div>
           <!-- Las chinchetas se generan en js/site.js sobre el plano -->
         </figure>
@@ -471,7 +464,6 @@
           <dt>Cochera</dt><dd>Doble, bajo losa</dd>
           <dt>Plano</dt><dd><button type="button" class="btn btn--acento btn--chico" id="ficha-plano" aria-haspopup="dialog" data-evento="ver_plano">Ver el plano<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
           <dt>Ficha técnica</dt><dd><button type="button" class="btn btn--acento btn--chico" id="abrir-ficha-tecnica" aria-haspopup="dialog" data-evento="ver_ficha_tecnica">Ver la ficha técnica<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></button></dd>
-          <dt>Valor</dt><dd><span class="pendiente">Pendiente</span></dd>
         </dl>
 
         <div class="selector" role="group" aria-label="Elegir casa">
@@ -490,7 +482,6 @@
       </div>
     </div>
 
-    <p class="nota rev" style="margin-top:2.4rem">Superficies tomadas de los planos de cada casa. La posición de cada letra sobre el plano se dedujo de la orientación de fondo declarada. <span class="pendiente">Pendiente: valores y estado de disponibilidad por unidad</span></p>
   </div>
 
   <dialog class="modal modal--planos" id="planos" aria-labelledby="planos-titulo">
@@ -780,6 +771,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=57b3b147"></script>
+<script src="js/site.js?v=81a4c3aa"></script>
 </body>
 </html>
