@@ -1142,9 +1142,13 @@ borraron: se reemplazaron por los nuevos, recortados y sin leyenda.
 | Ancho de la lista a 1440 | 740 px | 412 px |
 | Alto de cada renglón | 73 px | 60 px |
 
-El recorte apaisado sale de la misma foto, tomando la franja que deja el cordón
-de sierras en el tercio de arriba y el pueblo con la cancha de golf abajo. La
-lista más angosta resuelve de paso lo otro: antes el dato quedaba a 400 px del
+El recorte apaisado sale de la misma foto. El primer intento dejaba el cordón de
+sierras ocupando el tercio de arriba; el desarrollo pidió bajarlo, porque ahí la
+montaña no dice nada y lo que importa es ver dónde está el proyecto. La franja
+publicada arranca 244 px más abajo: las sierras quedan en una tira fina sobre el
+borde y la cancha de golf, que es la referencia del lugar, queda en el medio.
+
+La lista más angosta resuelve de paso lo otro: antes el dato quedaba a 400 px del
 rótulo y ahora están al lado.
 
 **Lo que hay que mirar: la foto queda corta de resolución.** El archivo más
