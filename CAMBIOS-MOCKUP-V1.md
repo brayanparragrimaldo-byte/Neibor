@@ -932,3 +932,38 @@ Y aparece una diferencia dentro de la propia página: la banda del hero dice
 790 m² de terreno por casa", que es lo que sale de la ficha. Dos frases de la
 misma página que no coinciden se ven mucho más que una diferencia con un
 documento interno. Hay que elegir cuál vale.
+
+---
+
+## Entra el logotipo de Autónomo
+
+En "Quién lo hace" la firma del medio dejó de ser un nombre escrito con la
+tipografía de la página y pasó a ser el logotipo real, que llegó en PNG con
+transparencia.
+
+| | Antes | Ahora |
+|---|---|---|
+| Firma del medio | texto "Autónomo" en Host Grotesk | `img/logo-autonomo-m.png`, 504 x 207 |
+| Pendiente al pie | "logotipos de GRAB y Autónomo en vectorial" | "logotipo de GRAB" |
+
+**Qué se le hizo al archivo.** Venía en 2000 x 1125 con el logotipo ocupando
+1096 x 450 en el centro y el resto transparente. Se recortó al ras de la tinta
+y se bajó a 207 px de alto, la misma altura que el de Calsina, para que los dos
+queden del mismo tamaño óptico dentro de la ranura de `.marca__firma`. A 88 px
+de alto, que es lo máximo que usa la ranura, el archivo todavía rinde 2,35x, así
+que se ve nítido en pantallas de densidad doble.
+
+**Por qué queda en PNG y no en AVIF.** Igual que el de Calsina: `sips` le tira el
+canal alfa al pasarlo a AVIF y lo devuelve con fondo blanco, que sobre la salvia
+de esa sección sería un recuadro.
+
+**Contraste.** La tinta del logotipo es `#353331` y el fondo de la sección es
+`#c3c5bb`. Da 7,1:1, bastante arriba del mínimo de 4,5:1.
+
+**Una advertencia para más adelante.** Ese gris oscuro sobre la tinta de la
+página (`#131e10`) queda casi invisible. Si alguna vez el logotipo tiene que ir
+sobre fondo oscuro, hay que pedir la versión en negativo. Hoy sólo aparece sobre
+salvia, así que no hace falta.
+
+**Sigue pendiente la versión vectorial**, tanto de este como del de GRAB. Lo que
+hay alcanza para la pantalla y no alcanza para imprimir.

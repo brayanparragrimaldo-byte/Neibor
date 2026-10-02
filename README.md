@@ -132,9 +132,13 @@ nombre-t.jpg / .avif     560 px   miniaturas de la ventana de planos
 ```
 
 Los logotipos van sólo a 800 px (`-m`), que alcanza para los tres lugares donde
-aparecen: la cabecera a 120 y el pie a 300. El de Calsina va a 640 y sólo en PNG:
-`sips` le tira el canal alfa al pasarlo a AVIF y lo deja con fondo blanco, que
-sobre la salvia de esa sección sería un recuadro.
+aparecen: la cabecera a 120 y el pie a 300. Los de Calsina y Autónomo van a 207
+de alto (640 y 504 de ancho) y sólo en PNG: `sips` les tira el canal alfa al
+pasarlos a AVIF y los deja con fondo blanco, que sobre la salvia de esa sección
+sería un recuadro. Los dos se recortan al ras de la tinta: la ranura de
+`.marca__firma` manda la altura y así los dos quedan del mismo tamaño óptico.
+El de Autónomo llegó ya con transparencia, así que no hizo falta pasarlo por
+`fondo-a-alfa.py`.
 
 **Si un logotipo llega dibujado sobre blanco**, como el de Calsina, hay que
 pasarlo a fondo transparente antes de usarlo:
@@ -250,7 +254,7 @@ llevan `loading="lazy"` y `decoding="async"`.
 - **Los números de la página se tratan igual en los dos lugares donde hay.** Los metros de la banda del hero y los minutos de la ubicación comparten el mismo dibujo: cifra en peso liviano con el interletrado cerrado, unidad chica al lado en peso medio. Es lo que hace que las dos listas se lean como parientes y no como dos tablas sueltas.
 - **Las galerías recortan en el escritorio y no recortan en el teléfono.** Los dieciocho renders son apaisados, de 16:9 (salvo la cocina y la galería desde el jardín, de 3:2). Llenando una pantalla de teléfono parada quedaría a la vista poco más de la cuarta parte del ancho, y una cocina deja de parecer una cocina. Abajo de 760 píxeles la imagen entra entera, de borde a borde, y el fondo oscuro de arriba y abajo recibe el pie y los controles. Con recortes verticales del mismo render esto se puede dar vuelta: ver "Lo que falta para que la galería llene el teléfono".
 - **"Quién lo hace" va sobre salvia y es la única sección en ese tono.** Es el escalón entre el papel de las dos secciones de arriba y la tinta del contacto, y de paso las separa sin necesidad de un filete. Ahí el naranja del pendiente baja a `#7a4100`, porque el de texto habitual da 3,76:1 sobre salvia y no llega al mínimo.
-- **Las tres firmas comparten alto de ranura, haya logotipo o no.** `.marca__firma` fija la altura y adentro va el logotipo o el nombre compuesto. Mientras falten dos de los tres, el banner no se desarma. Cuando lleguen los otros dos, se reemplaza el `<p class="marca__nombre">` por un `<img>` y no hay que tocar nada más.
+- **Las tres firmas comparten alto de ranura, haya logotipo o no.** `.marca__firma` fija la altura y adentro va el logotipo o el nombre compuesto. Mientras falte el de GRAB, la fila no se desarma. Cuando llegue, se reemplaza el `<p class="marca__nombre">` por un `<img>` y no hay que tocar nada más: es exactamente lo que se hizo al llegar el de Autónomo.
 - **Dos familias de ícono, a propósito.** Los de amenidades son objetos (auto, cámara, árbol). Los cinco de la banda del hero son marcas de planta: el perímetro de la manzana con el corte de 30 grados, las seis huellas, el lote acotado, la planta con ambientes y las copas de arbolado. Si se mezclan, la banda se lee como una repetición de la grilla de amenidades.
 - **Las cifras de la banda del hero vienen del material comercial y no cierran con la ficha técnica.** Están puestas tal cual las entregó el desarrollo, pero hay tres diferencias anotadas abajo, en "Datos que no cierran entre sí". Antes de publicar en otros canales conviene unificar.
 - **`prefers-reduced-motion`** desactiva barridos, contadores y desplazamientos. Todo el contenido queda accesible.
@@ -314,7 +318,7 @@ El detalle completo, con lo que entró desde el mock up y lo que sigue faltando,
 
 1. Valores, forma de pago y disponibilidad por casa. Es el único que bloquea la venta.
 2. Confirmar qué letra corresponde a cada lote sobre el plano de implantación.
-3. Logotipos de GRAB y Autónomo. El de Calsina ya está, en PNG; en vectorial sería mejor.
+3. Logotipo de GRAB. Los de Calsina y Autónomo ya están, los dos en PNG; en vectorial sería mejor.
 4. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
 5. Identificador de Google Tag Manager o GA4 para activar la medición.
 6. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
