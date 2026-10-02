@@ -643,3 +643,50 @@ si lo que el navegador tiene guardado es lo mismo que está publicado.
 
 Lleva `noindex`, no está enlazada desde el sitio y trae un botón que copia el
 informe entero.
+
+## El maquetado deja de depender de funciones de CSS recientes
+
+Chrome de escritorio seguía sin mostrar las imágenes, y Chrome de celular sí las
+muestra. Como es el mismo motor, el formato de los archivos queda descartado: lo
+que cambia entre los dos no es el navegador, es el ancho, y con el ancho cambian
+las reglas de CSS que se aplican.
+
+Debajo de 760 píxeles la galería usa un juego de reglas propio, con la imagen en
+`height:auto`. Arriba de 760 usaba otro, y ese otro tenía dos puntos frágiles:
+
+**La altura colgaba de una cadena de porcentajes.** La foto medía `height:100%`
+de un `<picture>` que medía `height:100%` de un `<button>` que medía `height:100%`
+de la diapositiva. Un porcentaje de alto sólo funciona si el padre tiene una
+altura ya resuelta, y un `<button>` no siempre se la pasa a lo que lleva adentro.
+Cuando la cadena se corta, la imagen carga perfecto y se dibuja con cero de alto:
+la peor falla posible, porque no deja rastro en ningún lado. Ahora la foto se
+estira con `position:absolute; inset:0`, que llena el marco sin pedirle la altura
+a nadie. Lo mismo en el hero.
+
+**La altura de la pantalla se pedía sólo en `svh`.** Esa unidad existe desde
+Chrome 108, de fines de 2022. Un navegador que no la entiende descarta la
+declaración entera y la sección se queda sin alto. Ahora cada una de las trece
+medidas en `svh` lleva delante la misma medida en `vh`, que existe desde siempre:
+el navegador moderno usa la segunda y el viejo se queda con la primera.
+
+**El plano de implantación vivía de `aspect-ratio`.** Sus capas son absolutas, así
+que sin esa propiedad el marco mide cero y el plano desaparece sin dejar rastro.
+Se le agregó un respaldo con `@supports` y relleno porcentual.
+
+Ninguno de estos cambios se nota en un navegador moderno. Comprobado a 1440 y a
+375 píxeles: las imágenes se dibujan con el mismo tamaño que antes y nada quedó
+en cero.
+
+## La página de revisión ahora mide, no sólo descarga
+
+`diagnostico.html` abre la página real en un marco escondido del mismo ancho que
+la ventana, le saca la carga diferida a todas las imágenes y **mide con qué
+tamaño se dibujan**. Eso separa las dos fallas que hasta ahora se confundían:
+
+- la imagen no llega (archivo defectuoso o página vieja en caché),
+- la imagen llega y se dibuja con cero de alto (maquetado).
+
+Además informa qué funciones de CSS entiende el navegador (`svh`,
+`aspect-ratio`, `object-fit`, `inset`, `clip-path`, `backdrop-filter`, `:has()`),
+el navegador y su versión, y la fecha de publicación de lo que está viendo, para
+saber si coincide con lo que está en el servidor.

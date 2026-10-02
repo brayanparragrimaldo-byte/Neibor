@@ -189,6 +189,19 @@ llevan `loading="lazy"` y `decoding="async"`.
 
 ## Decisiones que conviene conocer antes de tocar
 
+- **Ninguna imagen cuelga de una cadena de alturas en porcentaje.** El hero y las
+  diapositivas de galería estiran la foto con `position:absolute; inset:0`, no con
+  `height:100%`. Un porcentaje de alto necesita que el padre tenga una altura ya
+  resuelta, y si no la tiene la imagen carga bien y se dibuja con cero de alto, que
+  no deja rastro en ningún lado. En la galería la cadena además pasaba por un
+  `<button>`, que no siempre le pasa su altura a lo de adentro.
+- **Cada medida en `svh` lleva delante la misma medida en `vh`.** La unidad `svh`
+  existe desde Chrome 108, de fines de 2022; un navegador que no la entiende
+  descarta la declaración entera y la sección se queda sin alto. Son trece. Si se
+  agrega una nueva, hay que agregarle el respaldo.
+- **`aspect-ratio` también lleva respaldo donde las capas de adentro son
+  absolutas.** `.implantacion` es el caso: sin esa propiedad mide cero y el plano
+  desaparece. El `@supports` de al lado lo cubre.
 - **El ángulo de 30 grados** de los recortes de imagen sale de la arista del isotipo, que sale de la forma del lote. Si se cambia, se pierde la relación con la marca. Las clases `corte-ti` y `corte-td` traen el polígono ya calculado para cada relación de aspecto.
 - **Tres papeles de botón, uno por intención.** Sólido tinta para convertir (pedir valores, agendar visita), naranja `btn--acento` para abrir material (el plano, la ficha técnica), contorno para navegar. `btn--chico` es una medida, no un papel.
 - **El naranja de marca sólo va con texto blanco.** Sobre `#af5d00` el blanco puro da 4.79:1 y pasa AA; el papel de marca daría 4.28 y no llegaría. En texto suelto sobre papel el naranja sigue reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente.
