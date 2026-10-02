@@ -53,14 +53,40 @@ Pasó y ya está resuelto. Son dos cosas que se sumaron:
    Si el AVIF no abre, el navegador no baja el JPEG: deja el hueco vacío para
    siempre. Safari, que sí abría esos archivos, mostraba la página entera.
 
-Desde el 30/09 el JavaScript escucha el error en captura, tira las `<source>` y
-vuelve a pedir el JPEG del propio `<img>`, así que el hueco ya no queda. Y desde
-ahora las imágenes nuevas se comprueban una por una en un motor que no sea el de
-Apple antes de publicarlas: ver "Las imágenes".
+3. **La red que atrapaba ese error llegaba tarde para las tres imágenes que
+   más se ven.** Estaba en `js/site.js`, que va al final del `<body>`. La del
+   hero y la primera de cada galería no esperan: cargan mientras se lee el
+   documento y fallan antes de que ese script exista, así que nadie las
+   rescataba. Las de más abajo sí, porque fallan después. Por eso el síntoma
+   era "no se ven las imágenes" y no "falta una imagen": faltaban justo la
+   portada y la primera de cada tira.
 
-Si alguien vuelve a ver huecos, casi seguro es caché: Pages manda
-`cache-control: max-age=600`, así que conviene recargar forzando (`cmd+shift+R`)
-antes de dar por buena cualquier otra explicación.
+La red está ahora en un `<script>` dentro del `<head>` de `index.html`, antes de
+que empiece a cargar nada, y hace tres cosas: escucha el error en captura, barre
+todas las imágenes al terminar de leer el documento y vuelve a barrer al
+terminar de cargar. Comprobado rompiendo a propósito los tres AVIF que no
+esperan: con la red al pie quedaban dos huecos, con la red en el `<head>` no
+queda ninguno.
+
+Como `build.py` conserva el `<head>` tal cual, ese script sobrevive a cada
+reconstrucción. Si se toca, hay que tocarlo en `index.html`.
+
+Y desde ahora las imágenes nuevas se comprueban una por una en un motor que no
+sea el de Apple antes de publicarlas: ver "Las imágenes".
+
+## La página de revisión
+
+`diagnostico.html` prueba, una por una, todas las imágenes del sitio en el
+navegador donde se abra, y dice cuáles fallan y por qué: si no están en el
+servidor (página vieja en caché) o si llegan enteras y el decodificador las
+rechaza (archivo defectuoso). Trae un botón que copia el informe.
+
+```
+https://brayanparragrimaldo-byte.github.io/Neibor/diagnostico.html
+```
+
+Lleva `noindex` y no está enlazada desde ningún lado. Es una herramienta de
+trabajo, no parte del sitio.
 
 ## Dónde se cambia cada cosa
 

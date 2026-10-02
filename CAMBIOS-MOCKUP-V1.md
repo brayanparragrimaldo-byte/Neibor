@@ -601,3 +601,45 @@ publicar imágenes nuevas.
 Queda una cosa para el lado de quien reportó: si todavía se ven huecos, es caché.
 Pages manda `cache-control: max-age=600` y conviene recargar forzando antes de
 buscar otra explicación.
+
+## La red de seguridad llegaba tarde
+
+Siguieron faltando imágenes en Chrome después del arreglo anterior. La causa no
+era el archivo: era **cuándo corría la red que atrapa el error**.
+
+Estaba en `js/site.js`, al final del `<body>`. Tres imágenes de la página no
+esperan a nadie: la del hero, que además va con `fetchpriority="high"` y dos
+`preload` en el `<head>`, y la primera de cada galería. Esas empiezan a cargar
+mientras el navegador lee el documento, y si fallan, su error ocurre **antes de
+que exista el script del final**. Nadie las rescataba. Las de más abajo sí,
+porque fallan cuando el script ya está.
+
+De ahí que el síntoma fuera "no se ven las imágenes" y no "falta una imagen":
+faltaban exactamente la portada y la primera de cada tira, que es casi todo lo
+que se ve sin desplazarse.
+
+Se comprobó con una prueba controlada: una copia de la página con los tres AVIF
+que no esperan apuntando a archivos inexistentes.
+
+| | hero | primera del barrio | primera de la casa |
+|---|---|---|---|
+| Red al pie, como estaba | hueco | hueco | rescatada |
+| Red en el `<head>`, ahora | rescatada | rescatada | rescatada |
+
+La red pasó a un `<script>` dentro del `<head>`, antes de que empiece a cargar
+nada. Además de escuchar el error en captura, ahora barre todas las imágenes al
+terminar de leer el documento, al terminar de cargar y una vez más a los cuatro
+segundos, por si algún error no llegó a dispararse. `build.py` conserva el
+`<head>` tal cual, así que sobrevive a cada reconstrucción.
+
+## Una página para revisar esto sin adivinar
+
+`diagnostico.html` prueba todas las imágenes del sitio en el navegador donde se
+abra y dice cuáles fallan y por qué: si el servidor no las tiene, que significa
+página vieja guardada en caché, o si llegan enteras y el decodificador las
+rechaza, que significa archivo defectuoso. Muestra además el navegador, si
+entiende AVIF y la fecha de publicación de la página que está viendo, para saber
+si lo que el navegador tiene guardado es lo mismo que está publicado.
+
+Lleva `noindex`, no está enlazada desde el sitio y trae un botón que copia el
+informe entero.

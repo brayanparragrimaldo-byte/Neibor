@@ -24,6 +24,41 @@
 <!-- La imagen del hero arranca junto con la hoja de estilos -->
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha-m.avif" media="(max-width: 760px)" fetchpriority="high">
 <link rel="preload" as="image" type="image/avif" href="img/hero-aerea-ancha.avif" media="(min-width: 761px)" fetchpriority="high">
+<script>
+/* Red de seguridad de las imagenes.
+   Dentro de un <picture>, cuando la fuente elegida falla el navegador no
+   prueba con la siguiente: deja el hueco vacio para siempre. Aca se tiran
+   las <source> y se vuelve a pedir el JPEG del propio <img>.
+   Va en el <head> y no al pie: las imagenes que no esperan (la del hero y
+   la primera de cada galeria) fallan antes de que corra el script del
+   final, y ahi no habria nadie escuchando. Los errores de <img> no
+   burbujean, asi que se escucha en captura. */
+(function () {
+  function rescatar(img) {
+    if (!img || img.tagName !== 'IMG' || img.getAttribute('data-rescatada')) return;
+    var pic = img.parentElement;
+    if (!pic || pic.tagName !== 'PICTURE') return;
+    var src = img.getAttribute('src');
+    if (!src) return;
+    img.setAttribute('data-rescatada', '1');
+    var fuentes = pic.querySelectorAll('source');
+    for (var i = 0; i < fuentes.length; i++) pic.removeChild(fuentes[i]);
+    img.removeAttribute('srcset');
+    img.setAttribute('src', src + (src.indexOf('?') < 0 ? '?r' : '&r'));
+  }
+  document.addEventListener('error', function (e) { rescatar(e.target); }, true);
+  /* Segunda pasada, por si algo quedo roto sin que el evento llegara. */
+  function barrer() {
+    var im = document.images;
+    for (var i = 0; i < im.length; i++) {
+      if (im[i].complete && im[i].naturalWidth === 0) rescatar(im[i]);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', barrer);
+  window.addEventListener('load', barrer);
+  setTimeout(barrer, 4000);
+})();
+</script>
 </head>
 <body>
 <!-- ============================================================
@@ -631,6 +666,6 @@
   </div>
 </div>
 
-<script src="js/site.js?v=74ba809c"></script>
+<script src="js/site.js?v=57b3b147"></script>
 </body>
 </html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Neibor: revision de imagenes</title>
+<style>
+  :root{
+    --tinta:#131e10; --papel:#eef4ed; --salvia:#c3c5bb;
+    --bien:#1d6b2f; --mal:#a3171a; --aviso:#8f4c00;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; padding:clamp(20px,4vw,48px);
+    background:var(--papel); color:var(--tinta);
+    font:16px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .caja{ max-width:860px; margin:0 auto; }
+  h1{ font-size:clamp(1.4rem,3.4vw,2rem); letter-spacing:-.03em; margin:0 0 .3em; }
+  p.sub{ margin:0 0 2rem; opacity:.7; }
+  h2{ font-size:.75rem; letter-spacing:.18em; text-transform:uppercase;
+      margin:2.4rem 0 .9rem; opacity:.6; font-weight:600; }
+  .veredicto{
+    padding:1.1rem 1.3rem; border-left:4px solid var(--salvia);
+    background:#fff; font-size:1.05rem; margin-bottom:.8rem;
+  }
+  .veredicto.bien{ border-color:var(--bien); }
+  .veredicto.mal{ border-color:var(--mal); }
+  .veredicto.aviso{ border-color:var(--aviso); }
+  .veredicto b{ display:block; margin-bottom:.25rem; }
+  table{ border-collapse:collapse; width:100%; font-size:.86rem; background:#fff; }
+  th,td{ text-align:left; padding:.5rem .7rem; border-bottom:1px solid rgba(19,30,16,.1); }
+  th{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; opacity:.6; }
+  td.ok{ color:var(--bien); font-weight:600; }
+  td.no{ color:var(--mal); font-weight:600; }
+  code{ font:.84rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .dato{ display:flex; gap:.8rem; padding:.42rem 0; border-bottom:1px solid rgba(19,30,16,.1); }
+  .dato span:first-child{ flex:0 0 190px; opacity:.6; }
+  .dato span:last-child{ font-weight:500; word-break:break-word; }
+  #copiar{
+    margin-top:1.6rem; padding:.8em 1.3em; font:inherit; font-weight:600; cursor:pointer;
+    background:var(--tinta); color:var(--papel); border:0;
+  }
+  #copiar:disabled{ opacity:.5; cursor:default; }
+  .cargando{ opacity:.6; font-style:italic; }
+</style>
+</head>
+<body>
+<div class="caja">
+  <h1>Revision de imagenes de Neibor</h1>
+  <p class="sub">Esta pagina prueba, una por una, todas las imagenes del sitio en el navegador donde la abras. No cambia nada: solo mira y reporta.</p>
+
+  <div id="veredicto"><p class="cargando">Probando...</p></div>
+
+  <h2>Este navegador</h2>
+  <div id="entorno"></div>
+
+  <h2>Resultado por archivo</h2>
+  <div id="tabla"><p class="cargando">Probando...</p></div>
+
+  <button id="copiar" disabled>Copiar el informe</button>
+</div>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var informe = [];
+  function linea(t) { informe.push(t); }
+
+  function dato(donde, k, v) {
+    var d = document.createElement('div');
+    d.className = 'dato';
+    d.innerHTML = '<span></span><span></span>';
+    d.children[0].textContent = k;
+    d.children[1].textContent = v;
+    donde.appendChild(d);
+    linea(k + ': ' + v);
+  }
+
+  /* Un AVIF minimo de 1 px, para saber si el navegador entiende el formato
+     con independencia de los archivos del sitio. */
+  var AVIF_1PX = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIABoAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEDQgMgkQAAAAB8dSLfI=';
+
+  function probarImagen(url) {
+    return new Promise(function (ok) {
+      var i = new Image();
+      var listo = false;
+      var t = setTimeout(function () { if (!listo) { listo = true; ok({ url: url, ancho: 0, motivo: 'tardo demasiado' }); } }, 15000);
+      i.onload = function () { if (listo) return; listo = true; clearTimeout(t); ok({ url: url, ancho: i.naturalWidth }); };
+      i.onerror = function () { if (listo) return; listo = true; clearTimeout(t); ok({ url: url, ancho: 0, motivo: 'no abre' }); };
+      i.src = url + (url.indexOf('?') < 0 ? '?' : '&') + 'rev=' + Math.random();
+    });
+  }
+
+  function estado(url) {
+    return fetch(url + '?rev=' + Math.random(), { method: 'HEAD' })
+      .then(function (r) { return r.status; })
+      .catch(function () { return 0; });
+  }
+
+  (async function () {
+    var ent = $('#entorno');
+    ent.innerHTML = '';
+    linea('=== NEIBOR, REVISION DE IMAGENES ===');
+    linea('Fecha: ' + new Date().toString());
+
+    dato(ent, 'Navegador', navigator.userAgent);
+    dato(ent, 'Pantalla', window.innerWidth + ' x ' + window.innerHeight +
+         ' (densidad ' + (window.devicePixelRatio || 1) + ')');
+
+    var soportaAvif = (await probarImagen(AVIF_1PX.replace(/\?rev=.*$/, ''))).ancho > 0;
+    // el data: no admite parametros, se prueba aparte
+    soportaAvif = await new Promise(function (ok) {
+      var i = new Image();
+      i.onload = function () { ok(i.naturalWidth > 0); };
+      i.onerror = function () { ok(false); };
+      i.src = AVIF_1PX;
+    });
+    dato(ent, 'Entiende AVIF', soportaAvif ? 'si' : 'no');
+
+    /* La pagina real, sin pasar por la cache, para saber si lo que el
+       navegador tiene guardado es lo mismo que esta publicado. */
+    var html = '', fecha = '(no se pudo leer)';
+    try {
+      var r = await fetch('index.html?rev=' + Math.random(), { cache: 'reload' });
+      html = await r.text();
+      fecha = r.headers.get('last-modified') || '(sin fecha)';
+    } catch (e) {
+      html = '';
+    }
+    dato(ent, 'Publicado el', fecha);
+    dato(ent, 'Galerias en la pagina', (html.match(/data-galeria/g) || []).length);
+    dato(ent, 'Imagenes de galeria', (html.match(/galeria__slide/g) || []).length);
+
+    /* Todas las direcciones de imagen que el marcado puede llegar a pedir. */
+    var urls = [];
+    var re = /(?:src|srcset|href)="(img\/[^"]+?\.(?:avif|jpg|png))"/g, m;
+    while ((m = re.exec(html))) { if (urls.indexOf(m[1]) < 0) urls.push(m[1]); }
+    urls.sort();
+
+    var fallan = [], avifMalos = [], faltantes = [];
+    var cuerpo = '<table><thead><tr><th>Archivo</th><th>Resultado</th><th>Ancho</th></tr></thead><tbody>';
+
+    for (var k = 0; k < urls.length; k += 6) {
+      var tanda = await Promise.all(urls.slice(k, k + 6).map(probarImagen));
+      for (var j = 0; j < tanda.length; j++) {
+        var x = tanda[j];
+        if (!x.ancho) {
+          fallan.push(x.url);
+          var cod = await estado(x.url);
+          if (cod === 200) { avifMalos.push(x.url); x.motivo = 'llega pero no abre'; }
+          else { faltantes.push(x.url); x.motivo = 'no esta en el servidor (' + cod + ')'; }
+        }
+        cuerpo += '<tr><td><code>' + x.url + '</code></td>' +
+          (x.ancho ? '<td class="ok">abre</td><td>' + x.ancho + ' px</td>'
+                   : '<td class="no">' + x.motivo + '</td><td>-</td>') + '</tr>';
+      }
+    }
+    cuerpo += '</tbody></table>';
+    $('#tabla').innerHTML = cuerpo;
+
+    linea('');
+    linea('Archivos probados: ' + urls.length);
+    linea('Fallan: ' + fallan.length);
+    fallan.forEach(function (u) { linea('  FALLA ' + u); });
+
+    /* Veredicto */
+    var v = $('#veredicto');
+    v.innerHTML = '';
+    function decir(clase, titulo, texto) {
+      var d = document.createElement('div');
+      d.className = 'veredicto ' + clase;
+      d.innerHTML = '<b></b><span></span>';
+      d.children[0].textContent = titulo;
+      d.children[1].textContent = texto;
+      v.appendChild(d);
+      linea('');
+      linea('[' + titulo + '] ' + texto);
+    }
+
+    if (!fallan.length) {
+      decir('bien', 'Todas las imagenes abren en este navegador',
+            'Se probaron ' + urls.length + ' archivos y no fallo ninguno. Si aun asi ves huecos, ' +
+            'es la pagina guardada en cache: recarga con cmd+shift+R (o ctrl+shift+R en Windows).');
+    }
+    if (faltantes.length) {
+      decir('mal', faltantes.length + ' archivos no estan en el servidor',
+            'El navegador los pide y no existen. Suele significar que la pagina que tenes ' +
+            'guardada es vieja y apunta a imagenes que ya se reemplazaron. Recarga con cmd+shift+R.');
+    }
+    if (avifMalos.length) {
+      decir('mal', avifMalos.length + ' archivos llegan pero este navegador no los abre',
+            'El servidor los entrega enteros y el decodificador los rechaza. Son archivos ' +
+            'defectuosos y hay que volver a generarlos: ' + avifMalos.join(', '));
+    }
+    if (!soportaAvif) {
+      decir('aviso', 'Este navegador no entiende AVIF',
+            'En ese caso deberia bajar el JPEG solo. Si ademas hay fallas arriba, el problema ' +
+            'esta en el respaldo y no en el formato.');
+    }
+
+    var b = $('#copiar');
+    b.disabled = false;
+    b.addEventListener('click', function () {
+      var t = informe.join('\n');
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(t).then(function () { b.textContent = 'Copiado'; },
+                                              function () { mostrar(t); });
+      } else { mostrar(t); }
+    });
+    function mostrar(t) {
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.rows = 20;
+      ta.style.cssText = 'width:100%;margin-top:1rem;font:12px ui-monospace,monospace';
+      $('#copiar').after(ta);
+      ta.select();
+    }
+  })();
+})();
+</script>
+</body>
+</html>
