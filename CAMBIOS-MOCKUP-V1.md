@@ -902,3 +902,33 @@ reacomodo de los dos últimos.
 
 Se quitó el bloque `.prog` de la hoja de estilos, que era el de la lista con
 filete y ya no lo usa nadie.
+
+## Se corrigen las cifras de lote y de superficie por casa
+
+El desarrollo pasó valores nuevos para dos de las cinco cifras de la banda del
+hero:
+
+| | Antes | Ahora |
+|---|---|---|
+| Lotes, cifra grande | 500 m² | 550 m² |
+| Lotes, rango | entre 450 y 550 m² | entre 500 y 750 m² |
+| Por casa | 215 m² | 225 m² |
+
+Las otras tres quedan igual: 4.237 m² de predio verde, 6 casas y 1.000 m² de
+áreas comunes.
+
+**Acercan la banda a la ficha de obra.** La superficie por casa ya cierra: 225 es
+exactamente el piso del rango de la ficha, que va de 224 a 241 m² entre cubierta
+y semicubierta. Antes decía 215 y no cerraba con ninguna.
+
+**Quedan dos cosas sin cerrar, anotadas y no corregidas por cuenta propia:**
+
+El rango de lotes no alcanza a cubrirlos a todos. Los seis miden 502, 550, 557,
+595, 711 y 790 m². Entre 500 y 750 entran cinco; el más grande queda 40 m² arriba
+del techo declarado.
+
+Y aparece una diferencia dentro de la propia página: la banda del hero dice
+"entre 500 y 750 m²" y el atributo "Patios propios extensos" dice "entre 502 y
+790 m² de terreno por casa", que es lo que sale de la ficha. Dos frases de la
+misma página que no coinciden se ven mucho más que una diferencia con un
+documento interno. Hay que elegir cuál vale.

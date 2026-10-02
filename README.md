@@ -292,14 +292,21 @@ cuenta propia:
 
 | Dato | Banda del hero | Ficha por casa |
 |---|---|---|
-| Superficie del lote | entre 450 y 550 m² | 502, 550, 557, 595, 711 y 790 m² |
-| Superficie de la casa | 215 m² | entre 224 y 241 m² (cubierta más semicubierta) |
+| Superficie del lote | entre 500 y 750 m² | 502, 550, 557, 595, 711 y 790 m² |
+| Superficie de la casa | 225 m² | entre 224 y 241 m² (cubierta más semicubierta) |
 | Superficie del predio | 4.237 m² | los seis lotes suman 3.705 m², y con los 1.000 de áreas comunes dan 4.705 |
 
-Dos lecturas posibles: que la banda hable de superficie cubierta y de lote promedio
-de una etapa anterior del proyecto, o que la ficha sume semicubierto donde la banda
-no lo hace. Hace falta que el desarrollo diga cuál de las dos vale para que la web
-quede con una sola cifra por concepto.
+El desarrollo corrigió las dos primeras el 01/10 y quedaron mucho más cerca. La
+de la casa ya cierra: 225 es el piso del rango de la ficha. La del lote casi:
+cinco de los seis lotes entran entre 500 y 750, pero el más grande mide 790 y
+queda 40 m² arriba del techo declarado. La del predio sigue sin cerrar por 468 m².
+
+**Y ahora hay una diferencia dentro de la propia página.** La banda del hero dice
+"entre 500 y 750 m²" y el atributo "Patios propios extensos", en los atributos
+del barrio, dice "entre 502 y 790 m² de terreno por casa", que es lo que sale de
+la ficha. Dos frases de la misma página que no dicen lo mismo es peor que una
+diferencia con un documento interno: la ve cualquiera que lea las dos secciones.
+Hay que decidir cuál vale y dejar esa sola.
 
 ## Pendiente antes de considerarla terminada
 
