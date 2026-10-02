@@ -27,12 +27,12 @@
      x / y son porcentajes sobre img/implantacion-ingresos.jpg; la posición
      de cada letra se dedujo de la orientación de fondo declarada. */
   var CASAS = [
-    { letra:'N', n:'Casa N', x:59.6, y:27.1, orient:'Noreste',  terreno:'711 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'E', n:'Casa E', x:56.8, y:37.6, orient:'Este',     terreno:'557 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'I', n:'Casa I', x:57.5, y:48.2, orient:'Este',     terreno:'550 m²', cub:'172 m²', semi:'69 m²', total:'241 m²', estado:'Consultar' },
-    { letra:'B', n:'Casa B', x:57.5, y:63.5, orient:'Sudeste',  terreno:'502 m²', cub:'158 m²', semi:'66 m²', total:'224 m²', estado:'Consultar' },
-    { letra:'O', n:'Casa O', x:30.9, y:55.3, orient:'Noroeste', terreno:'595 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
-    { letra:'R', n:'Casa R', x:25.2, y:67.1, orient:'Noroeste', terreno:'790 m²', cub:'170 m²', semi:'66 m²', total:'236 m²', estado:'Consultar' }
+    { letra:'N', n:'Casa N', x:52.6, y:32.1, orient:'Noreste',  terreno:'711 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'E', n:'Casa E', x:43.2, y:41.9, orient:'Este',     terreno:'557 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'I', n:'Casa I', x:32.4, y:47.5, orient:'Este',     terreno:'550 m²', cub:'172 m²', semi:'69 m²', total:'241 m²', estado:'Consultar' },
+    { letra:'B', n:'Casa B', x:20.3, y:53.8, orient:'Sudeste',  terreno:'502 m²', cub:'158 m²', semi:'66 m²', total:'224 m²', estado:'Consultar' },
+    { letra:'O', n:'Casa O', x:72.9, y:55.3, orient:'Noroeste', terreno:'595 m²', cub:'161 m²', semi:'67 m²', total:'228 m²', estado:'Consultar' },
+    { letra:'R', n:'Casa R', x:58.0, y:67.2, orient:'Noroeste', terreno:'790 m²', cub:'170 m²', semi:'66 m²', total:'236 m²', estado:'Consultar' }
   ];
 
   function $(s, c) { return (c || document).querySelector(s); }

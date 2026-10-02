@@ -91,7 +91,7 @@ trabajo, no parte del sitio.
 
 ## Dónde se cambia cada cosa
 
-**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-ingresos.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones son una lectura del plano de proyecto: hay que ajustarlas contra la implantación comercial definitiva. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
+**Las seis casas.** Array `CASAS` al inicio de `js/site.js`. Cada entrada tiene `x` e `y` en porcentaje sobre `img/implantacion-aerea.jpg`, más la orientación del fondo, las cuatro superficies y el estado. Las posiciones las dio el desarrollo sobre esta aérea: de derecha a izquierda, N, E, I, B en las cuatro casas de arriba de la calle interna y O, R en las dos de abajo. Si se cambia la imagen, hay que recalcular los seis porcentajes. Para agregar un dato, sumar la clave al objeto y la fila correspondiente en `_cuerpo.html`. Los planos por unidad se sirven desde `img/plano-casa-<letra>.jpg`, con su miniatura en `-m`, y el visor los arma solo con la letra.
 
 **Las chinchetas del plano abren la ventana.** Además de cambiar la ficha, una chincheta abre el visor de planos con el material de esa casa, y al cerrarlo el foco vuelve a la chincheta. Las letras de abajo sólo cambian la ficha, para poder comparar superficies sin abrir y cerrar. El disparador de la ventana se pasa como argumento a `abrir()`, que es de donde sale la vuelta del foco.
 
@@ -237,9 +237,12 @@ llevan `loading="lazy"` y `decoding="async"`.
   existe desde Chrome 108, de fines de 2022; un navegador que no la entiende
   descarta la declaración entera y la sección se queda sin alto. Son trece. Si se
   agrega una nueva, hay que agregarle el respaldo.
-- **`aspect-ratio` también lleva respaldo donde las capas de adentro son
-  absolutas.** `.implantacion` es el caso: sin esa propiedad mide cero y el plano
-  desaparece. El `@supports` de al lado lo cubre.
+- **La aérea de "Las seis" va recortada al predio.** El render original trae el
+  predio ocupando el 69 % del ancho y el 61 % del alto, con el barrio alrededor.
+  Con ese encuadre, en un teléfono las seis chinchetas quedan a 27 px una de otra
+  y se pisan, porque miden 30. El recorte publicado es de 1240 x 670 tomado en
+  225, 185 sobre el render de 1672 x 941, y deja 36 px de separación mínima. Si
+  se vuelve al encuadre entero, hay que achicar las chinchetas o se superponen.
 - **El ángulo de 30 grados** de los recortes de imagen sale de la arista del isotipo, que sale de la forma del lote. Si se cambia, se pierde la relación con la marca. Las clases `corte-ti` y `corte-td` traen el polígono ya calculado para cada relación de aspecto.
 - **Tres papeles de botón, uno por intención.** Sólido tinta para convertir (pedir valores, agendar visita), naranja `btn--acento` para abrir material (el plano, la ficha técnica), contorno para navegar. `btn--chico` es una medida, no un papel.
 - **El naranja de marca sólo va con texto blanco.** Sobre `#af5d00` el blanco puro da 4.79:1 y pasa AA; el papel de marca daría 4.28 y no llegaría. En texto suelto sobre papel el naranja sigue reservado para titulares grandes, la chincheta activa y las etiquetas de pendiente.
@@ -317,12 +320,11 @@ Hay que decidir cuál vale y dejar esa sola.
 El detalle completo, con lo que entró desde el mock up y lo que sigue faltando, está en `CAMBIOS-MOCKUP-V1.md`. En corto:
 
 1. Valores, forma de pago y disponibilidad por casa. Es el único que bloquea la venta.
-2. Confirmar qué letra corresponde a cada lote sobre el plano de implantación.
-3. Logotipo de GRAB. Los de Calsina y Autónomo ya están, los dos en PNG; en vectorial sería mejor.
-4. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
-5. Identificador de Google Tag Manager o GA4 para activar la medición.
-6. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
-7. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
+2. Logotipo de GRAB. Los de Calsina y Autónomo ya están, los dos en PNG; en vectorial sería mejor.
+3. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
+4. Identificador de Google Tag Manager o GA4 para activar la medición.
+5. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
+6. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
 
 El predio está en **-31.285555, -64.288894** y el enlace a Google Maps apunta
 ahí en forma directa, sin pasar por un acortador.

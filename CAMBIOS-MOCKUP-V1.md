@@ -990,3 +990,46 @@ decía de dónde salen las superficies y que la posición de cada letra sobre el
 plano es una deducción, no un dato confirmado. Y con la línea de valor se fue el
 último recordatorio de que los precios no están. El botón "Pedir valores y forma
 de pago" sigue ahí, así que la vía de consulta no se perdió.
+
+---
+
+## "Las seis" cambia de plano y de reparto
+
+**Entra la aérea.** El plano de implantación cuadrado deja lugar al render aéreo
+del conjunto. Lo pidió el desarrollo para que la imagen pese más y la ficha
+quede más justa.
+
+| | Antes | Ahora |
+|---|---|---|
+| Imagen | `implantacion-ingresos`, 730 x 800 (casi cuadrada) | `implantacion-aerea`, 1240 x 670 (apaisada) |
+| Reparto de columnas | 0,92 contra 1,08, la ficha más ancha que el plano | la imagen se lleva lo que sobra, la ficha entre 320 y 440 |
+| Ancho de la imagen a 1440 | 600 px | 856 px |
+| Ancho de la ficha a 1440 | 700 px | 405 px |
+
+El plano viejo no se borra: sigue dentro de la ventana de planos, como "La
+manzana y los ingresos".
+
+**Dónde queda cada letra.** El desarrollo las ubicó sobre esta aérea, de derecha
+a izquierda: N, E, I, B en las cuatro casas de arriba de la calle interna y O, R
+en las dos de abajo. Antes la posición de cada letra era una deducción nuestra a
+partir de la orientación de fondo declarada, y quedaba anotada como pendiente.
+Ahora está confirmada y el pendiente se cierra.
+
+**Por qué la aérea va recortada.** El render original trae el predio ocupando el
+69 % del ancho y el 61 % del alto, con el barrio alrededor. Con ese encuadre, en
+un teléfono de 375 px las seis chinchetas quedan a 27 px una de otra y miden 30:
+se pisan. El recorte publicado toma 1240 x 670 en la posición 225, 185 del render
+de 1672 x 941, y la separación mínima pasa a 36 px. De paso el predio llena el
+cuadro, que era lo que se buscaba. Si alguna vez se vuelve al encuadre entero,
+hay que achicar las chinchetas.
+
+**La ficha apila el dato abajo del rótulo hasta los 1460 de ventana.** El rótulo
+en versales mide 170 px fijos; para compartir renglón con él, el dato necesita
+220, o sea una ficha de 409 para arriba. Abajo de eso el botón "Ver la ficha
+técnica" se partía en dos renglones adentro de la píldora. Apilado entra entero
+a cualquier ancho.
+
+**Se va el `aspect-ratio` del marco.** Existía porque las dos capas del
+conmutador eran absolutas y sin él la figura medía cero de alto. Ahora la imagen
+va en el flujo y su propio alto manda, así que se fueron también el `@supports`
+de respaldo y las reglas `.capa`.

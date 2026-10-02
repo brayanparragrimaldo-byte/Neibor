@@ -325,11 +325,16 @@ button{ font:inherit; color:inherit; }
 
 /* ---------- 7. Las seis casas ---------- */
 
-.seis{ display:grid; grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr); gap:clamp(1.6rem,3.5vw,3.5rem); align-items:start; }
+/* La aérea es apaisada y es lo que vende: se lleva el ancho que sobra. La
+   ficha se achica hasta donde entra su línea más larga ("Orientación del
+   fondo" contra "3, uno en suite con vestidor"), así el dato queda al lado
+   del rótulo y no al otro lado de la página. */
+.seis{ display:grid; grid-template-columns:minmax(0,1fr) clamp(320px,31%,440px);
+  gap:clamp(1.6rem,3.2vw,3rem); align-items:start; }
 @media (max-width:1000px){ .seis{ grid-template-columns:1fr; } }
 
 .implantacion{ position:relative; border-radius:var(--radio); overflow:hidden; background:var(--papel-2); }
-.implantacion img{ width:100%; height:auto; }
+.implantacion img{ display:block; width:100%; height:auto; border-radius:var(--radio); }
 .chincheta{
   position:absolute; transform:translate(-50%,-50%);
   width:38px; height:38px; border-radius:999px; display:grid; place-items:center;
@@ -811,19 +816,24 @@ button{ font:inherit; color:inherit; }
   .foto figcaption{ flex-direction:column; gap:.35rem; padding-bottom:3.4rem; }
 }
 
-/* 19. Conmutador axonométrica / plano */
-.implantacion .capa{ position:absolute; inset:0; opacity:0; transition:opacity .7s var(--easing); }
-.implantacion .capa.viva{ opacity:1; }
-.implantacion .capa img{ width:100%; height:100%; object-fit:cover; }
+/* 19. El marco de la aérea
+   La imagen va en el flujo, no absoluta, así que su propio alto manda y no
+   hace falta fijarle proporción al marco. Las chinchetas se cuelgan encima. */
 .implantacion{ position:relative; }
-.implantacion{ aspect-ratio:730/800; }
-/* Las capas de adentro son absolutas, así que sin aspect-ratio el marco
-   mide cero de alto y el plano desaparece sin dejar rastro. */
-@supports not (aspect-ratio: 1 / 1){
-  .implantacion{ height:0; padding-top:109.59%; }
-}
-.implantacion .capa picture{ display:block; width:100%; height:100%; }
+.implantacion picture{ display:block; }
 .chincheta{ transition:transform .4s var(--easing), background .3s, color .3s, box-shadow .3s, opacity .4s; }
+
+/* El rótulo en versales con interletrado abierto mide 170 px fijos. Para que
+   el dato comparta renglón con él sin partirse necesita 220, o sea una ficha
+   de 409 para arriba, que recién aparece cerca de los 1460 de ventana. Abajo
+   de eso el dato va abajo del rótulo, igual que en el teléfono, y usa el
+   ancho entero. Se nota sobre todo en el botón de la ficha técnica, que
+   partido en dos renglones dentro de la píldora queda roto. */
+@media (min-width:1001px) and (max-width:1459px){
+  .ficha dl{ grid-template-columns:1fr; gap:0; }
+  .ficha dt{ border-top:1px solid var(--linea-clara); padding-bottom:.15rem; }
+  .ficha dd{ border-top:0; text-align:left; padding-top:.1rem; padding-bottom:.9rem; }
+}
 
 /* 20. Respaldo: el banner de marcas y el contacto al pie
    La sección va sobre salvia, el neutro del manual, sin textura encima. Es
