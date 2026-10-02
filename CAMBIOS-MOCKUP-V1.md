@@ -1009,8 +1009,8 @@ quede más justa.
 El plano viejo no se borra: sigue dentro de la ventana de planos, como "La
 manzana y los ingresos".
 
-**Dónde queda cada letra.** El desarrollo las ubicó sobre esta aérea, de derecha
-a izquierda: N, E, I, B en las cuatro casas de arriba de la calle interna y O, R
+**Dónde queda cada letra.** El desarrollo las ubicó sobre esta aérea, de izquierda
+a derecha: N, E, I, B en las cuatro casas de arriba de la calle interna y O, R
 en las dos de abajo. Antes la posición de cada letra era una deducción nuestra a
 partir de la orientación de fondo declarada, y quedaba anotada como pendiente.
 Ahora está confirmada y el pendiente se cierra.
