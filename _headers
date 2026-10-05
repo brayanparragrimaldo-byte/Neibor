@@ -1,0 +1,23 @@
+# Cabeceras para Cloudflare (Pages o Workers con assets). GitHub Pages ignora
+# este archivo, asi que no molesta tenerlo mientras el sitio viva en los dos.
+#
+# Los nombres de archivo no llevan huella del contenido: cuando se corrige una
+# imagen se pisa la anterior con el mismo nombre. Por eso la cache es corta
+# mientras el sitio se sigue tocando. Cuando quede quieto, subir img a
+# max-age=2592000 (30 dias), que es el verdadero ahorro: la carpeta pesa 30 MB.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/img/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/css/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
