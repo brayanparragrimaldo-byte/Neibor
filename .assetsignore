@@ -1,0 +1,18 @@
+# Lo que vive en el repo pero no tiene que servirse como pagina.
+# Mismo formato que .gitignore.
+
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+
+# Fuentes del sitio: index.html se arma a partir de estas.
+_cuerpo.html
+build.py
+fondo-a-alfa.py
+
+# Notas internas: pendientes, cifras que no cierran, decisiones de obra.
+# Nada de esto va en la direccion publica.
+README.md
+CAMBIOS-MOCKUP-V1.md
+DIAGNOSTICO.md

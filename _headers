@@ -6,6 +6,10 @@
 # mientras el sitio se sigue tocando. Cuando quede quieto, subir img a
 # max-age=2592000 (30 dias), que es el verdadero ahorro: la carpeta pesa 30 MB.
 
+# La direccion workers.dev no tiene que competir con la buena en el buscador.
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
