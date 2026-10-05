@@ -4,6 +4,24 @@ Landing de conversión del proyecto Neibor, seis casas sobre una manzana de Vill
 
 Sitio estático, sin dependencias ni proceso de build. Se sirve tal cual desde GitHub Pages o desde cualquier hosting.
 
+**Está publicado en dos lados a la vez.** Los dos miran la rama `main` y se
+actualizan solos con cada push:
+
+| | Dirección | Cómo publica |
+|---|---|---|
+| GitHub Pages | `brayanparragrimaldo-byte.github.io/Neibor/` | sirve la raíz del repo |
+| Cloudflare Workers | `neibor.brayanparragrimaldo.workers.dev` | corre `npx wrangler deploy` con `wrangler.jsonc` |
+
+Es un Worker de assets sin código de servidor: `wrangler.jsonc` no lleva `main`,
+sólo la carpeta, que es la raíz del repo. `.assetsignore` deja afuera las fuentes
+y estas notas, y `_headers` pone la caché y un `noindex` para que la dirección
+`workers.dev` no compita en el buscador con la buena. GitHub Pages ignora los dos
+archivos, así que no molestan.
+
+El `canonical` del `<head>` dice cuál de las dos vale. **El día que haya dominio
+propio hay que cambiar tres líneas del `<head>`: `canonical`, `og:url` y
+`og:image`.** Son los únicos lugares donde está escrita la dirección.
+
 ```
 index.html        página completa
 _cuerpo.html      el cuerpo sin <head>, fuente desde la que se genera index.html
