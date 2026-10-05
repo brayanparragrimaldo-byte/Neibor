@@ -1237,3 +1237,30 @@ que gana la ficha se lo saca a la aérea, que es lo que vende.
 **Las secciones se separan apenas.** Primero quedaron al hilo, sin nada de aire,
 y el desarrollo pidió despegarlas un poco: 27 px arriba y abajo contra los 99 del
 resto de la página.
+
+---
+
+## La aérea de "Dónde": rectángulo entero y encuadre más cerca
+
+| | Antes | Ahora |
+|---|---|---|
+| Forma | rectángulo con el corte de 30° en la esquina | rectángulo entero |
+| Encuadre | el pueblo entero con las sierras al fondo | la cancha de golf y su barrio, 1,25 veces más cerca |
+| Archivo | 984 x 656 | 786 x 524 |
+| Epígrafe | "Villa Allende y las sierras" | "Villa Allende Golf y el barrio" |
+
+**El corte en diagonal sale de esta figura solamente.** Es el ángulo del isotipo
+y sigue vivo en el resto de la página; acá el desarrollo lo quiso entero.
+
+**El epígrafe cambia porque la foto cambió.** Con el encuadre nuevo las sierras
+quedan fuera del cuadro, así que decir "y las sierras" sería prometer algo que no
+está. Ahora nombra lo que se ve: la cancha y el barrio alrededor.
+
+**Hasta acá llega esta foto.** El acercamiento se eligió midiendo, no a ojo: a
+1,25 veces el archivo rinde entre 1,30x y 0,84x según el ancho de pantalla, y a
+1,45 ya se deshace, con el arbolado y los techos convertidos en manchas. Se probó
+buscar un original mejor adentro de los trece PDF del proyecto, extrayendo los
+JPEG embebidos: aparecieron nueve imágenes grandes, hasta de 4000 px, pero
+ninguna es esta aérea (son fotos de catálogo y maquetas del brandbook). **Con un
+original de 2000 px para arriba se puede acercar bastante más y además se va la
+blandura que ya tenía.**
