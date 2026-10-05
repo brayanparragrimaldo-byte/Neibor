@@ -4,23 +4,23 @@ Landing de conversión del proyecto Neibor, seis casas sobre una manzana de Vill
 
 Sitio estático, sin dependencias ni proceso de build. Se sirve tal cual desde GitHub Pages o desde cualquier hosting.
 
-**Está publicado en dos lados a la vez.** Los dos miran la rama `main` y se
-actualizan solos con cada push:
-
-| | Dirección | Cómo publica |
-|---|---|---|
-| GitHub Pages | `brayanparragrimaldo-byte.github.io/Neibor/` | sirve la raíz del repo |
-| Cloudflare Workers | `neibor.brayanparragrimaldo.workers.dev` | corre `npx wrangler deploy` con `wrangler.jsonc` |
+**El sitio vive en Cloudflare**, en `neibor.brayanparragrimaldo.workers.dev`, y
+se actualiza solo con cada push a `main`: el panel corre `npx wrangler deploy`.
 
 Es un Worker de assets sin código de servidor: `wrangler.jsonc` no lleva `main`,
 sólo la carpeta, que es la raíz del repo. `.assetsignore` deja afuera las fuentes
-y estas notas, y `_headers` pone la caché y un `noindex` para que la dirección
-`workers.dev` no compita en el buscador con la buena. GitHub Pages ignora los dos
-archivos, así que no molestan.
+y estas notas. `_headers` pone la caché y un `noindex` sobre `workers.dev`, para
+que esa dirección provisoria no se indexe: hoy el sitio **no aparece en Google a
+propósito**, y eso se levanta el día que haya dominio.
 
-El `canonical` del `<head>` dice cuál de las dos vale. **El día que haya dominio
-propio hay que cambiar tres líneas del `<head>`: `canonical`, `og:url` y
-`og:image`.** Son los únicos lugares donde está escrita la dirección.
+El repo pasó a privado, así que GitHub Pages dejó de servirlo. Cloudflare sigue
+igual, porque su acceso al repo va por la app de GitHub y no depende de que sea
+público.
+
+**El día que esté el dominio propio hay que tocar cuatro cosas:** las tres líneas
+del `<head>` donde está escrita la dirección (`canonical`, `og:url` y `og:image`,
+que son las que usan WhatsApp y Facebook para la vista previa del enlace) y la
+regla de `noindex` en `_headers`.
 
 ```
 index.html        página completa
@@ -343,7 +343,11 @@ Hay que decidir cuál vale y dejar esa sola.
 
 ## Pendiente antes de considerarla terminada
 
-El detalle completo, con lo que entró desde el mock up y lo que sigue faltando, está en `CAMBIOS-MOCKUP-V1.md`. En corto:
+El detalle completo, con lo que entró desde el mock up y lo que sigue faltando, está en `CAMBIOS-MOCKUP-V1.md`.
+
+**Ninguno de estos se avisa ya en la página.** Los tres carteles de "Pendiente"
+que quedaban salieron a pedido del desarrollo, así que esta lista es el único
+lugar donde se siguen. En corto:
 
 1. Valores, forma de pago y disponibilidad por casa. Es el único que bloquea la venta.
 2. Logotipo de GRAB. Los de Calsina y Autónomo ya están, los dos en PNG; en vectorial sería mejor.
