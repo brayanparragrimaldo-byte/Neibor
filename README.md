@@ -5,9 +5,16 @@ Landing de conversión del proyecto Neibor, seis casas sobre una manzana de Vill
 Sitio estático, sin dependencias ni proceso de build. Se sirve tal cual desde GitHub Pages o desde cualquier hosting.
 
 **El sitio vive en Cloudflare, en `neiborcasas.com`**, y se actualiza solo con
-cada push a `main`: el panel corre `npx wrangler deploy`. La direccion
-`neibor.brayanparragrimaldo.workers.dev` sigue respondiendo y sirve para probar,
-pero lleva `noindex` para no competir con el dominio.
+cada push a `main`: el panel corre `npx wrangler deploy`.
+
+Los dos nombres, el de raiz y el `www`, estan atados al Worker desde las `routes`
+de `wrangler.jsonc`, con `custom_domain`. Cloudflare crea el registro DNS y el
+certificado solo, asi que el dominio no se toca por el panel: se toca ese archivo.
+
+Al poner `routes`, wrangler apaga la direccion `workers.dev`, que ahora devuelve
+404. No hace falta para nada y es una direccion duplicada menos. La regla de
+`noindex` de `_headers` sigue apuntando ahi por si alguna vez se vuelve a
+encender.
 
 Es un Worker de assets sin código de servidor: `wrangler.jsonc` no lleva `main`,
 sólo la carpeta, que es la raíz del repo. `.assetsignore` deja afuera las fuentes
