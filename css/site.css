@@ -927,6 +927,16 @@ button{ font:inherit; color:inherit; }
 .marca__firma img{ display:block; width:auto; height:100%; max-width:100%; object-fit:contain; object-position:left center; }
 .marca__nombre{ font-size:clamp(1.5rem,2.8vw,2.2rem); font-weight:600; letter-spacing:-.03em;
   margin:0; line-height:1; }
+/* Debajo de la firma, el telefono comercial y su boton. Autonomo no lleva:
+   proyecta, no vende, y no hay un numero suyo para publicar. Por eso cada
+   marca se estira a lo alto por su cuenta en vez de alinearse con las otras. */
+.marca__tel{
+  display:block; margin-top:1.1rem; text-decoration:none; font-weight:500;
+  font-size:clamp(1.02rem,1.5vw,1.2rem); letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
+}
+.marca__wa{ margin-top:.85rem; }
+
 /* El rol no es decoración: dice qué hace cada firma. Sobre salvia, media
    tinta da 3,8:1 y no llega al mínimo, así que va a tres cuartos, que da
    5,3 y sí pasa. */
