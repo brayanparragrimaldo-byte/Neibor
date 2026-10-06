@@ -1,5 +1,5 @@
-# Cabeceras para Cloudflare (Pages o Workers con assets). GitHub Pages ignora
-# este archivo, asi que no molesta tenerlo mientras el sitio viva en los dos.
+# Cabeceras del sitio, que Cloudflare lee de aca. Este archivo no se sirve: lo
+# procesa Workers y aplica las reglas a las respuestas.
 #
 # Los nombres de archivo no llevan huella del contenido: cuando se corrige una
 # imagen se pisa la anterior con el mismo nombre. Por eso la cache es corta

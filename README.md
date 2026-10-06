@@ -4,8 +4,10 @@ Landing de conversión del proyecto Neibor, seis casas sobre una manzana de Vill
 
 Sitio estático, sin dependencias ni proceso de build. Se sirve tal cual desde GitHub Pages o desde cualquier hosting.
 
-**El sitio vive en Cloudflare**, en `neibor.brayanparragrimaldo.workers.dev`, y
-se actualiza solo con cada push a `main`: el panel corre `npx wrangler deploy`.
+**El sitio vive en Cloudflare, en `neiborcasas.com`**, y se actualiza solo con
+cada push a `main`: el panel corre `npx wrangler deploy`. La direccion
+`neibor.brayanparragrimaldo.workers.dev` sigue respondiendo y sirve para probar,
+pero lleva `noindex` para no competir con el dominio.
 
 Es un Worker de assets sin código de servidor: `wrangler.jsonc` no lleva `main`,
 sólo la carpeta, que es la raíz del repo. `.assetsignore` deja afuera las fuentes
@@ -17,10 +19,13 @@ El repo pasó a privado, así que GitHub Pages dejó de servirlo. Cloudflare sig
 igual, porque su acceso al repo va por la app de GitHub y no depende de que sea
 público.
 
-**El día que esté el dominio propio hay que tocar cuatro cosas:** las tres líneas
-del `<head>` donde está escrita la dirección (`canonical`, `og:url` y `og:image`,
-que son las que usan WhatsApp y Facebook para la vista previa del enlace) y la
-regla de `noindex` en `_headers`.
+La dirección está escrita en tres líneas del `<head>`, `canonical`, `og:url` y
+`og:image`, mas el pie de la pagina y `robots.txt`/`sitemap.xml`. El `noindex` de
+`_headers` apunta solo a `workers.dev`, asi que el dominio si se indexa.
+
+La cache de las imagenes esta en una hora a proposito, porque los archivos se
+siguen pisando con el mismo nombre. Cuando el sitio quede quieto conviene subirla
+a 30 dias en `_headers`: la carpeta `img` pesa 30 MB.
 
 ```
 index.html        página completa

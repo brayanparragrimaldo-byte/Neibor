@@ -1,0 +1,6 @@
+# El sitio es una sola pagina. La direccion provisoria de Cloudflare queda
+# fuera del buscador por la regla de _headers, no por aca.
+User-agent: *
+Allow: /
+
+Sitemap: https://neiborcasas.com/sitemap.xml
