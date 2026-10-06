@@ -519,9 +519,24 @@
 
     <div class="contacto">
       <div>
-        <p class="parrafo rev rev-d1">Dejá tus datos y te escribimos con valores, forma de pago y disponibilidad actualizada. Si preferís, escribís directo por WhatsApp.</p>
-        <ul class="datos-directos rev rev-d2">
-          <li><small>WhatsApp</small><a id="wa-directo" href="#" data-wa="Hola, quiero información de Neibor, en Villa Allende Golf.">Escribir al equipo comercial</a></li>
+        <p class="parrafo rev rev-d1">Dejá tus datos y te escribimos con valores, forma de pago y disponibilidad actualizada. Si preferís, escribís directo por WhatsApp a cualquiera de los dos teléfonos.</p>
+
+        <!-- Los dos teléfonos comerciales. Cada botón abre el WhatsApp de su
+             empresa: el número va en data-wa-num y el mensaje en data-wa. -->
+        <ul class="comercial rev rev-d2">
+          <li>
+            <small>GRAB</small>
+            <a class="comercial__tel" href="tel:+5493517570326">+54 9 351 757 0326</a>
+            <a class="btn btn--chico" href="#" data-wa="Hola, estoy interesado en el proyecto Neibor, 6 casas." data-wa-num="5493517570326">WhatsApp de GRAB<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
+          </li>
+          <li>
+            <small>Calsina</small>
+            <a class="comercial__tel" href="tel:+5493518644742">+54 9 351 864 4742</a>
+            <a class="btn btn--chico" href="#" data-wa="Hola, estoy interesado en el proyecto Neibor, 6 casas." data-wa-num="5493518644742">WhatsApp de Calsina<svg class="flecha" viewBox="0 0 12 12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10 L10 2 M4.4 2 H10 V7.6"/></svg></a>
+          </li>
+        </ul>
+
+        <ul class="datos-directos rev rev-d3">
           <li><small>Correo</small><a href="mailto:info@grab.com?subject=Consulta%20Neibor">info@grab.com</a></li>
           <li><small>Dónde</small><a href="#donde">Villa Allende Golf, Córdoba, Argentina</a></li>
         </ul>

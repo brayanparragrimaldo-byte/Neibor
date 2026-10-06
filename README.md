@@ -135,7 +135,7 @@ Dentro de un `<picture>` el `<source>` gana sobre el `src` del `<img>`, así que
 
 **La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
 
-**WhatsApp.** Constante `WA` en `js/site.js`. Cada CTA lleva su propio mensaje en el atributo `data-wa`, así el asesor sabe desde qué sección escribieron.
+**WhatsApp.** Constante `WA` en `js/site.js`, que es la línea comercial de GRAB y la que usan todos los CTA de la página. Cada uno lleva su propio mensaje en el atributo `data-wa`, así el asesor sabe desde qué sección escribieron. Un botón puede ir a otro número poniéndolo en `data-wa-num`: eso hacen los dos de contacto, uno a GRAB (+54 9 351 757 0326) y otro a Calsina (+54 9 351 864 4742).
 
 **Formulario.** Hoy arma el mensaje y abre WhatsApp o el correo. Para conectar un CRM, reemplazar el cuerpo del `submit` por el `fetch` al endpoint y dejar WhatsApp como alternativa.
 
@@ -366,7 +366,6 @@ lugar donde se siguen. En corto:
 3. Fiduciaria o escribanía interviniente, plazo de obra, fecha de entrega y permisos.
 4. Identificador de Google Tag Manager o GA4 para activar la medición.
 5. Endpoint de CRM y texto legal de tratamiento de datos en el formulario.
-6. Números de WhatsApp diferenciados de GRAB y de Calsina, si se quieren botones separados.
 
 El predio está en **-31.285555, -64.288894** y el enlace a Google Maps apunta
 ahí en forma directa, sin pasar por un acortador.

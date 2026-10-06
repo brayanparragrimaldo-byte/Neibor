@@ -5,7 +5,9 @@
 (function () {
   'use strict';
 
-  var WA = '5493517570326';                 // Lucas Bonzano, según Brandbook V.26
+  /* Número por omisión de los CTA de toda la página: la línea comercial de
+     GRAB. El de Calsina está en el marcado, en el data-wa-num de su botón. */
+  var WA = '5493517570326';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.dataLayer = window.dataLayer || [];
 
@@ -257,11 +259,13 @@
   }
 
   /* ---------- 5. WhatsApp con mensaje según el lugar del clic ---------- */
-  function enlaceWA(texto) {
-    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(texto);
+  function enlaceWA(texto, num) {
+    return 'https://wa.me/' + (num || WA) + '?text=' + encodeURIComponent(texto);
   }
+  /* Un botón puede pedir otro número con data-wa-num: así los dos de contacto
+     van cada uno a su empresa y el resto de la página sigue yendo a GRAB. */
   $$('[data-wa]').forEach(function (a) {
-    a.setAttribute('href', enlaceWA(a.getAttribute('data-wa')));
+    a.setAttribute('href', enlaceWA(a.getAttribute('data-wa'), a.getAttribute('data-wa-num')));
     a.setAttribute('target', '_blank');
     a.setAttribute('rel', 'noopener');
   });
