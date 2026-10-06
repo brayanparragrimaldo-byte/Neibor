@@ -18,6 +18,62 @@
      WhatsApp y Facebook para armar la vista previa del enlace, asi que tienen
      que apuntar al dominio y no a la direccion de Cloudflare. -->
 <link rel="canonical" href="https://neiborcasas.com/">
+
+<!-- Datos estructurados. Google los lee para entender de que se trata la
+     pagina y de donde es. Va solo lo confirmado: no estan ni el precio, que
+     todavia no llego, ni la superficie de 225 m2, porque el hero la llama
+     total y la ficha la llama cubierta y eso sigue sin resolverse. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://neiborcasas.com/#grab",
+      "name": "GRAB",
+      "description": "Desarrolla y construye Neibor."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://neiborcasas.com/#sitio",
+      "url": "https://neiborcasas.com/",
+      "name": "Neibor",
+      "inLanguage": "es-AR"
+    },
+    {
+      "@type": "RealEstateListing",
+      "@id": "https://neiborcasas.com/#neibor",
+      "url": "https://neiborcasas.com/",
+      "name": "Neibor, seis casas en Villa Allende Golf",
+      "description": "Seis casas sobre una manzana entera de Villa Allende Golf, Córdoba. Cuatro calles alrededor, calle interna propia y los árboles que ya estaban.",
+      "image": "https://neiborcasas.com/img/hero-aerea-ancha.jpg",
+      "inLanguage": "es-AR",
+      "isPartOf": {
+        "@id": "https://neiborcasas.com/#sitio"
+      },
+      "provider": {
+        "@id": "https://neiborcasas.com/#grab"
+      },
+      "about": {
+        "@type": "SingleFamilyResidence",
+        "name": "Las casas de Neibor",
+        "numberOfBedrooms": 3,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Villa Allende",
+          "addressRegion": "Córdoba",
+          "addressCountry": "AR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -31.285555,
+          "longitude": -64.288894
+        }
+      }
+    }
+  ]
+}
+</script>
 <meta property="og:site_name" content="Neibor">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:type" content="website">
