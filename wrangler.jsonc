@@ -5,8 +5,17 @@
   "name": "neibor",
   "compatibility_date": "2026-10-05",
   "assets": {
-    // La carpeta de assets es la raiz del repo, que es de donde sirve tambien
-    // GitHub Pages. Lo que no tiene que salir publicado va en .assetsignore.
+    // La carpeta de assets es la raiz del repo. Lo que no tiene que salir
+    // publicado va en .assetsignore.
     "directory": "./"
-  }
+  },
+  // El dominio se ata desde aca: al correr "wrangler deploy", Cloudflare crea
+  // el registro DNS y el certificado solo. Van los dos nombres porque un
+  // dominio propio exige coincidencia exacta: un Worker atado a neiborcasas.com
+  // no recibe lo que llega a www.neiborcasas.com. El canonical del head apunta
+  // al de raiz, asi que el buscador junta los dos en ese.
+  "routes": [
+    { "pattern": "neiborcasas.com", "custom_domain": true },
+    { "pattern": "www.neiborcasas.com", "custom_domain": true }
+  ]
 }
