@@ -16,3 +16,8 @@ fondo-a-alfa.py
 README.md
 CAMBIOS-MOCKUP-V1.md
 DIAGNOSTICO.md
+
+# Pagina de revision tecnica. Sirve para probar el sitio desde la maquina de
+# alguien, no para que la abra cualquiera: nombra los archivos internos y
+# cuenta las fallas conocidas.
+diagnostico.html

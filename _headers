@@ -13,6 +13,23 @@ https://:version.:subdomain.workers.dev/*
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  # Un ano de HTTPS obligatorio. Sin "preload", que es dificil de deshacer, y
+  # sin "includeSubDomains", para no atar un subdominio que todavia no existe.
+  Strict-Transport-Security: max-age=31536000
+  # Que nadie pueda meter la pagina adentro de un marco en otro sitio y
+  # mostrarla con sus propios telefonos encima. X-Frame-Options es lo mismo
+  # para los navegadores viejos, que no entienden frame-ancestors.
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  # La pagina no pide camara, ni microfono, ni ubicacion, ni pagos. Dejarlo
+  # escrito evita que algo inyectado pueda pedirlos.
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=()
+  # De donde puede salir cada cosa. 'unsafe-inline' esta en script y en style
+  # porque el rescate de imagenes va en linea en el head y hay 37 atributos
+  # style en el marcado. form-action 'none' es el que importa de verdad aca:
+  # si el javascript fallara, el formulario no puede mandar los datos a
+  # ningun lado por su cuenta.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests
 
 /img/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
