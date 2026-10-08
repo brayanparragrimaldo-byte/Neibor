@@ -479,7 +479,19 @@ button{ font:inherit; color:inherit; }
 /* ---------- 11. Pie ---------- */
 .pie{ background:var(--tinta); color:var(--papel); padding:clamp(3rem,6vw,5rem) 0 clamp(3.2rem,6.4vw,5.4rem); }
 .pie__top{ display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; align-items:flex-end; padding-bottom:2.4rem; border-bottom:1px solid var(--linea-oscura); }
-.pie__logo img{ height:clamp(34px,4vw,54px); }
+/* width:auto es lo que faltaba. Sin el, el ancho del atributo del <img>
+   queda firme y la altura del CSS lo aplasta: en el telefono salia de 300
+   por 34 cuando le correspondian 157 por 34. */
+.pie__logo img{ height:clamp(34px,4vw,54px); width:auto; }
+.pie__donde{ text-align:right; }
+.pie__dir{ margin:.9rem 0 0; font-size:.9rem; opacity:.7; line-height:1.5; }
+/* Cuando las dos columnas ya no entran al lado, se apilan y arrancan las dos
+   del mismo borde. Alineado a la derecha y apilado, el bloque flotaba en el
+   medio y cada renglon empezaba en un lugar distinto. */
+@media (max-width:520px){
+  .pie__top{ flex-direction:column; align-items:flex-start; gap:1.3rem; }
+  .pie__donde{ text-align:left; }
+}
 .pie__bajo{ display:flex; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; padding-top:1.6rem; font-size:.76rem; opacity:.55; letter-spacing:.02em; }
 
 /* ---------- 12. Animaciones de entrada ---------- */
