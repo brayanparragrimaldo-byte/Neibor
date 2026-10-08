@@ -24,12 +24,15 @@ https://:version.:subdomain.workers.dev/*
   # La pagina no pide camara, ni microfono, ni ubicacion, ni pagos. Dejarlo
   # escrito evita que algo inyectado pueda pedirlos.
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=()
+  # cloudflareinsights.com es la medicion de visitas que Cloudflare mete sola
+  # en la pagina. No usa cookies ni sigue a nadie entre sitios. Si no se
+  # quiere, se apaga en el panel (Web Analytics) y se saca de aca.
   # De donde puede salir cada cosa. 'unsafe-inline' esta en script y en style
   # porque el rescate de imagenes va en linea en el head y hay 37 atributos
   # style en el marcado. form-action 'none' es el que importa de verdad aca:
   # si el javascript fallara, el formulario no puede mandar los datos a
   # ningun lado por su cuenta.
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'self'; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'self' https://static.cloudflareinsights.com; frame-ancestors 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests
 
 /img/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
