@@ -135,9 +135,27 @@ Dentro de un `<picture>` el `<source>` gana sobre el `src` del `<img>`, así que
 
 **La ficha técnica.** Es una sola, común a las seis casas, en la ventana `#ficha-tecnica` de la sección de las casas. La abre el botón `#abrir-ficha-tecnica` de la tabla de la unidad. Está hecha con `dialog` y `showModal()`, de donde salen el velo, la retención del foco y el cierre con escape. Si alguna casa pasa a tener especificaciones propias, hay que partir el contenido por unidad y alimentarlo desde `CASAS`.
 
-**WhatsApp.** Constante `WA` en `js/site.js`, que es la línea comercial de GRAB y la que usan todos los CTA de la página. Cada uno lleva su propio mensaje en el atributo `data-wa`, así el asesor sabe desde qué sección escribieron. Un botón puede ir a otro número poniéndolo en `data-wa-num`: eso hacen los dos de contacto, uno a GRAB (+54 9 351 757 0326) y otro a Calsina (+54 9 351 864 4742).
+**WhatsApp.** Cada CTA lleva su propio mensaje en el atributo `data-wa`, así el asesor sabe desde qué sección escribieron. Un botón va a un número fijo poniéndolo en `data-wa-num`: eso hacen los cuatro con nombre propio, los dos de Respaldo y los dos de Contacto, porque ahí la persona ya eligió a quién le escribe. Los tres sin ese atributo (Consultar, Pedir valores y el del formulario) van al que toque por reparto.
 
-**Formulario.** Hoy arma el mensaje y abre WhatsApp o el correo. Para conectar un CRM, reemplazar el cuerpo del `submit` por el `fetch` al endpoint y dejar WhatsApp como alternativa.
+**Reparto de consultas.** Mitad y mitad entre GRAB (+54 9 351 757 0326) y Calsina (+54 9 351 864 4742). El turno lo lleva `worker/index.js`, un Durable Object con almacenamiento SQLite, que entra en el plan gratuito de Workers. Atiende de a una consulta por vez, así que la alternancia es exacta: probado con treinta pedidos en paralelo, quince y quince.
+
+Un contador en el navegador no servía. La mayoría de las visitas hace un solo clic, así que el primer turno de cada visitante nuevo habría sido siempre el mismo y una de las dos empresas se llevaba casi todo.
+
+Tres decisiones que conviene no deshacer sin pensarlas:
+
+- **Se reparte por visitante, no por clic.** Si rotara en cada botón, una misma persona caería en las dos empresas y las dos la llamarían por la misma consulta. La asignación se guarda en `localStorage` bajo `neibor.reparto` y dura 30 días, de modo que quien vuelve cae con el vendedor que ya lo venía atendiendo.
+- **El turno se pide en el primer gesto, no al cargar la página.** El que entra y se va sin tocar nada no gasta un turno, y la cuenta sigue a las consultas de verdad. Los gestos escuchados corren antes del clic, así que para cuando alguien aprieta un botón el enlace ya es el que corresponde. Para el caso raro del que toca un botón como primera acción, la página sortea localmente mientras espera.
+- **El endpoint es POST.** Por GET responde 404, para que ningún buscador ni precarga del navegador gaste turnos con solo mirar.
+
+Para cambiar el reparto se edita la lista `RUEDA` en `worker/index.js` y nada más. Con dos entradas da mitad y mitad; siete de GRAB y tres de Calsina sería una lista de diez.
+
+**El conteo.** `GET /api/reparto?clave=...` devuelve cuántas le tocaron a cada una. Está cerrado hasta que en el panel de Cloudflare se cargue la variable `CLAVE_REPARTO`: mientras no exista, esa dirección responde 404.
+
+**Si el contador falla,** la página sortea localmente y el botón funciona igual. El sitio son archivos y Cloudflare los sirve antes de llegar al código, así que una falla del Worker no se lleva puesta la página.
+
+**Formulario.** Hoy arma el mensaje y abre WhatsApp, con el número que le tocó a ese visitante. Para conectar un CRM, reemplazar el cuerpo del `submit` por el `fetch` al endpoint y dejar WhatsApp como alternativa.
+
+**El correo está dado de baja.** Había un botón "Enviar por correo" y la dirección `info@grab.com` en la lista de contacto. Ese dominio no es del desarrollo: pertenece a una empresa internacional sin relación y tiene correo activo en Google, así que cada consulta le dejaba el nombre y el teléfono de la persona a una casilla ajena. Vuelve cuando haya una dirección propia confirmada, idealmente en `neiborcasas.com`, que de paso resolvería el SPF y el DMARC que hoy faltan.
 
 **Datos pendientes.** Buscar `class="pendiente"` en `_cuerpo.html`. Cada uno marca un dato que no estaba en el material entregado. Al completarlo, se borra la etiqueta.
 
