@@ -5,9 +5,10 @@
 (function () {
   'use strict';
 
-  /* Número por omisión de los CTA de toda la página: la línea comercial de
-     GRAB. El de Calsina está en el marcado, en el data-wa-num de su botón. */
-  var WA = '5493517570326';
+  /* Los dos números comerciales. Los botones con nombre propio piden el
+     suyo con data-wa-num; los genéricos usan el que toque por reparto. */
+  var NUMEROS = { grab: '5493517570326', calsina: '5493518644742' };
+  var WA = NUMEROS.grab;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.dataLayer = window.dataLayer || [];
 
@@ -258,17 +259,81 @@
     });
   }
 
-  /* ---------- 5. WhatsApp con mensaje según el lugar del clic ---------- */
+  /* ---------- 5. WhatsApp, con el mensaje del lugar del clic ----------
+     Las consultas se reparten entre GRAB y Calsina. El turno lo lleva un
+     contador en el servidor, así que la alternancia es exacta y se puede
+     auditar; acá sólo se pide uno y se guarda.
+
+     Se pide por visitante y no por clic: si rotara en cada botón, una
+     misma persona caería en las dos empresas y las dos la llamarían por
+     la misma consulta. La asignación dura 30 días, de modo que quien
+     vuelve cae con el vendedor que ya lo venía atendiendo.
+
+     Los botones con data-wa-num quedan afuera del reparto: ahí la
+     persona eligió a quién le escribe.
+  ------------------------------------------------------------------- */
+  var CAJON = 'neibor.reparto';
+  var DURACION = 30 * 24 * 60 * 60 * 1000;
+
+  function guardado() {
+    try {
+      var d = JSON.parse(localStorage.getItem(CAJON) || 'null');
+      if (d && d.num && d.hasta > Date.now()) return d;
+    } catch (e) {}
+    return null;
+  }
+  function guardar(d) {
+    try { localStorage.setItem(CAJON, JSON.stringify(d)); } catch (e) {}
+  }
+
+  /* Hasta que conteste el servidor vale un sorteo local. Es la red de
+     seguridad para el que entra y toca un botón antes de nada: sin esto
+     ese caso iría siempre a la misma empresa. */
+  var asignado = guardado() ||
+    { quien: Math.random() < 0.5 ? 'grab' : 'calsina', firme: false };
+  if (!asignado.num) asignado.num = NUMEROS[asignado.quien];
+  WA = asignado.num;
+
   function enlaceWA(texto, num) {
     return 'https://wa.me/' + (num || WA) + '?text=' + encodeURIComponent(texto);
   }
-  /* Un botón puede pedir otro número con data-wa-num: así los dos de contacto
-     van cada uno a su empresa y el resto de la página sigue yendo a GRAB. */
-  $$('[data-wa]').forEach(function (a) {
-    a.setAttribute('href', enlaceWA(a.getAttribute('data-wa'), a.getAttribute('data-wa-num')));
-    a.setAttribute('target', '_blank');
-    a.setAttribute('rel', 'noopener');
-  });
+  function aplicar() {
+    $$('[data-wa]').forEach(function (a) {
+      a.setAttribute('href', enlaceWA(a.getAttribute('data-wa'), a.getAttribute('data-wa-num')));
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
+  }
+  aplicar();
+
+  /* El turno se pide en el primer movimiento y no al abrir la página: el
+     que entra y se va sin tocar nada no gasta un turno, y la cuenta sigue
+     a las consultas de verdad. Cualquier gesto sirve y el de abajo corre
+     antes del clic, así que para cuando alguien aprieta un botón el
+     enlace ya es el que corresponde. */
+  if (!asignado.firme) {
+    var pedido = false;
+    var gestos = ['pointerdown', 'pointermove', 'touchstart', 'keydown', 'scroll', 'wheel'];
+    var pedir = function () {
+      if (pedido) return;
+      pedido = true;
+      gestos.forEach(function (g) { window.removeEventListener(g, pedir, true); });
+      fetch('/api/turno', { method: 'POST', cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.num) return;
+          asignado = { quien: d.quien, num: d.num, firme: true,
+                       hasta: Date.now() + DURACION };
+          guardar(asignado);
+          WA = d.num;
+          aplicar();
+        })
+        .catch(function () { /* queda el sorteo local */ });
+    };
+    gestos.forEach(function (g) {
+      window.addEventListener(g, pedir, { capture: true, passive: true, once: false });
+    });
+  }
 
   /* Un CTA puede preseleccionar la intención del formulario */
   $$('[data-intencion]').forEach(function (a) {
@@ -313,13 +378,6 @@
       e.preventDefault();
       if (!valido()) return;
       window.open(enlaceWA(armar()), '_blank', 'noopener');
-    });
-    var porMail = $('#por-mail');
-    if (porMail) porMail.addEventListener('click', function () {
-      if (!valido()) return;
-      window.location.href = 'mailto:info@grab.com?subject=' +
-        encodeURIComponent('Consulta Neibor, seis casas') +
-        '&body=' + encodeURIComponent(armar());
     });
   }
 

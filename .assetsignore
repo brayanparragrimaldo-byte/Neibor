@@ -11,6 +11,10 @@ _cuerpo.html
 build.py
 fondo-a-alfa.py
 
+# El codigo del Worker. Cloudflare lo despliega como codigo, no como
+# archivo: sin esta linea se podria bajar desde /worker/index.js.
+worker
+
 # Notas internas: pendientes, cifras que no cierran, decisiones de obra.
 # Nada de esto va en la direccion publica.
 README.md

@@ -1,14 +1,26 @@
 {
-  // Sitio estatico sin codigo de servidor: no hay "main", solo los archivos.
   // El nombre tiene que ser el mismo que el del proyecto en el panel, o
   // wrangler despliega a un Worker distinto del que esta conectado al repo.
   "name": "neibor",
   "compatibility_date": "2026-10-05",
+  // El codigo solo atiende /api/*. Cloudflare sirve los archivos antes de
+  // llegar a el, asi que el resto del sitio anda igual que sin Worker.
+  "main": "./worker/index.js",
   "assets": {
     // La carpeta de assets es la raiz del repo. Lo que no tiene que salir
     // publicado va en .assetsignore.
     "directory": "./"
   },
+  // El contador que reparte las consultas entre GRAB y Calsina. Con
+  // almacenamiento SQLite entra en el plan gratuito de Workers.
+  "durable_objects": {
+    "bindings": [
+      { "name": "TURNO", "class_name": "Turno" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["Turno"] }
+  ],
   // El dominio se ata desde aca: al correr "wrangler deploy", Cloudflare crea
   // el registro DNS y el certificado solo. Van los dos nombres porque un
   // dominio propio exige coincidencia exacta: un Worker atado a neiborcasas.com
