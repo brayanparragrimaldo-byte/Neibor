@@ -44,6 +44,11 @@
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; overflow-x:clip; }
+/* La cabecera es fija y mide 75 px, 63 cuando se achica. Sin este margen,
+   al llegar por el menu la seccion se para en el borde de arriba y esos
+   primeros pixeles quedan abajo de la cabecera: el titulo arrancaba tapado.
+   El valor despeja la cabecera entera y deja aire. */
+section[id]{ scroll-margin-top:92px; }
 @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
 body{
