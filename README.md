@@ -371,6 +371,25 @@ la ficha. Dos frases de la misma página que no dicen lo mismo es peor que una
 diferencia con un documento interno: la ve cualquiera que lea las dos secciones.
 Hay que decidir cuál vale y dejar esa sola.
 
+## Los dos códigos QR
+
+Dos carteles con un código cada uno, para saber cuál trae más gente. Todo el
+detalle está en `QR.md`: qué se imprime, qué se guarda y cómo se miran los
+resultados.
+
+En corto: `neiborcasas.com/q/1` y `/q/2` redirigen a la portada con etiquetas
+UTM distintas y anotan el escaneo en una base D1 de Cloudflare. Se miden tres
+cosas separadas, que es lo que permite comparar de verdad: el escaneo (alguien
+abrió el enlace), la llegada (la página cargó) y la consulta (tocó un botón de
+WhatsApp).
+
+Los archivos para la imprenta están en `qr/`, en SVG y en PNG. El tablero es
+`/api/qr?clave=...` y los mismos datos salen en CSV para una planilla de Google.
+
+**Falta un paso manual:** cargar la variable `CLAVE_PANEL` en el panel de
+Cloudflare. Hasta que esté, el tablero y el CSV devuelven 404. Está explicado en
+`QR.md`, punto 4. Los datos se siguen guardando igual desde ahora.
+
 ## Pendiente antes de considerarla terminada
 
 El detalle completo, con lo que entró desde el mock up y lo que sigue faltando, está en `CAMBIOS-MOCKUP-V1.md`.
