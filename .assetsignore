@@ -25,3 +25,10 @@ DIAGNOSTICO.md
 # alguien, no para que la abra cualquiera: nombra los archivos internos y
 # cuenta las fallas conocidas.
 diagnostico.html
+
+# Los codigos QR impresos y el programa que los genera. Son archivos para
+# la imprenta, no para el sitio.
+qr
+
+# Como funciona el seguimiento de los QR.
+QR.md

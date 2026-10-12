@@ -18,6 +18,17 @@
       { "name": "TURNO", "class_name": "Turno" }
     ]
   },
+  // La base de los escaneos de los dos QR impresos. D1 es SQLite servido
+  // por Cloudflare y entra en el plan gratuito. El limite libre es de cien
+  // mil filas escritas por dia, muy por encima de lo que puede generar un
+  // cartel.
+  "d1_databases": [
+    {
+      "binding": "QR",
+      "database_name": "neibor-qr",
+      "database_id": "ee99848f-9662-485c-8e9f-34c214f07be9"
+    }
+  ],
   "migrations": [
     { "tag": "v1", "new_sqlite_classes": ["Turno"] }
   ],

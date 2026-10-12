@@ -381,6 +381,38 @@
     });
   }
 
+  /* ---------- 7. Los dos QR impresos ----------------------------------
+     Quien entra por un cartel llega con un identificador de escaneo en la
+     dirección. Se devuelve dos veces: al cargar la página, que es la visita
+     de verdad y no sólo el escaneo, y al tocar un botón de WhatsApp, que es
+     la consulta. El servidor marca la fila que ya existe, así que recargar
+     o compartir la dirección no infla ninguna cuenta.
+  ------------------------------------------------------------------- */
+  var qrEv = (function () {
+    var m = /[?&]ev=([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:&|$)/i
+      .exec(location.search);
+    return m ? m[1].toLowerCase() : '';
+  })();
+
+  function avisarQR(tipo) {
+    if (!qrEv) return;
+    var sello = 'neibor.qr.' + tipo + '.' + qrEv;
+    try {
+      if (sessionStorage.getItem(sello)) return;
+      sessionStorage.setItem(sello, '1');
+    } catch (e) {}
+    /* keepalive porque la consulta se avisa justo cuando el teléfono se
+       está yendo a WhatsApp: sin eso el navegador cancela el pedido. */
+    fetch('/api/qr/evento', {
+      method: 'POST',
+      cache: 'no-store',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ev: qrEv, tipo: tipo })
+    }).catch(function () { /* la fila queda como escaneo y nada más */ });
+  }
+  avisarQR('llegada');
+
   /* ---------- 8. Las galerías a pantalla completa ----------
      Son dos tiras con el mismo mecanismo: pasan solas cada cinco segundos
      y también a mano. El contador y las flechas están para que las dos
@@ -597,6 +629,7 @@
     var wa = e.target.closest ? e.target.closest('[data-wa]') : null;
     if (wa) {
       evento('click_whatsapp', { marca: wa.getAttribute('data-marca') || 'grab', seccion: seccionDe(wa) });
+      avisarQR('consulta');
       return;
     }
     var ev = e.target.closest ? e.target.closest('[data-evento]') : null;

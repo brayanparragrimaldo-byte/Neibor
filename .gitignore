@@ -1,2 +1,6 @@
 .DS_Store
 *.pdf
+
+# La clave del tablero. Vive en esta maquina y en el panel de Cloudflare,
+# en ningun otro lado. El repositorio es publico.
+.clave-panel.txt
